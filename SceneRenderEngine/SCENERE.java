@@ -1,5 +1,7 @@
 package SceneRenderEngine;
 
+import java.awt.Graphics;
+
 public class SCENERE {
 
 	private static SCENERE uniqueInstance;
@@ -13,5 +15,9 @@ public class SCENERE {
 			uniqueInstance = new SCENERE();
 		}
 		return uniqueInstance;
+	}
+	
+	public void render(Graphics g) {
+		
 	}
 }
