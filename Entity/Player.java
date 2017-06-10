@@ -1,8 +1,8 @@
 package Entity;
 public class Player 
 {
-	private int health,direction,attack,attack_speed;
-	private int move_speed,defense;
+	private int health,attack,direction,defense;
+	private float attack_speed,move_speed;
 	private float x,y;
 	//private collider;
 	static final int west=0,north=1,east=2,south=3;
@@ -32,7 +32,7 @@ public class Player
 		assert newDirection>=west && newDirection<=south:"The new direction is invalid";
 		direction=newDirection;
 	}
-	public void changemove_speed(int dif)
+	public void changemove_speed(float dif)
 	{
 		if(move_speed+dif<0)
 			move_speed=0;
@@ -53,14 +53,14 @@ public class Player
 		else
 			attack+=dif;
 	}
-	public void changeAttackSpeed(int dif)
+	public void changeAttackSpeed(float dif)
 	{
 		if(attack_speed+dif<0)
 			attack_speed=0;
 		else
 			attack_speed+=dif;
 	}
-	public void changePos(int newx,int newy)
+	public void changePos(float newx,float newy)
 	{
 		assert newx>=0&&newy>=0:"The position is invalid";
 		x=newx;
@@ -87,4 +87,8 @@ public class Player
 		str+="\n";
 		return str;
 	}
+	/*public static void main(String[] args)
+	{
+		
+	}*/
 }
