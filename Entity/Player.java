@@ -3,7 +3,7 @@ public class Player
 {
 	private int health,direction,attack,attack_speed;
 	private int move_speed,defense;
-	private int x,y;
+	private float x,y;
 	//private collider;
 	static final int west=0,north=1,east=2,south=3;
 	public String dirvaluetoString(int dir)
