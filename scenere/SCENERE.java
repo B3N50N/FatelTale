@@ -18,6 +18,20 @@ public class SCENERE {
 	}
 	
 	public void render(Graphics g) {
-		
+		//assert something..
+		int x, y;
+		/*
+		x = (int)DOM..;
+		y = (int)DOM..;
+		x -= UIM.getWidth;
+		y -= UIM.getHeight;
+		x /= MAP.SIZE;
+		y /= MAP.SIZE;
+		for (int dx=0;dx<=(UIM.getWidth/MAP.SIZE);dx++) {
+			for (int dy=0;dy<=(UIM.getHeight/MAP.SIZE);dy++) {
+				render..
+			}
+		}
+		*/
 	}
 }
