@@ -1,6 +1,6 @@
-package Entity;
+package entity;
 
-import SceneDataModule.SDM;
+import sdm.SDM;
 
 public class Monster {
 	
