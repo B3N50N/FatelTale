@@ -97,8 +97,18 @@ public class SDM {
 		return true;
 	}
 	
-	public boolean isWalkable(int x, int y) {
-		assert ( x >= 0 && x < _width && y >= 0 && y < _height ) : "Invalid Index.";
-		return _map[y][x].isWalkable();
+	public boolean isWalkable(float x, float y) {
+		int X = (int) Math.floor(x), Y = (int) Math.floor(y);
+		X /= 100;
+		Y /= 100;
+		return ( X >= 0 && X < _width && Y >= 0 && Y < _height ) ? _map[Y][X].isWalkable() : false;
+	}
+	
+	public int getWidth() {
+		return _width;
+	}
+	
+	public int getHeight() {
+		return _height;
 	}
 }
