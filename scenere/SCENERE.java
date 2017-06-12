@@ -19,7 +19,7 @@ public class SCENERE {
 	
 	public void render(Graphics g) {
 		//assert something..
-		int x, y;
+		int x = 200, y = 200;
 		/*
 		x = (int)DOM..;
 		y = (int)DOM..;
