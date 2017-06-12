@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.HashMap;
 import java.lang.Thread;
+import java.util.concurrent.CyclicBarrier;
 
 import logger.Logger;
 
@@ -11,7 +12,7 @@ public class TCPClient {
     private InputStream is = null;
     private OutputStream os = null;
     private Socket sock = null;
-    private boolean allConnected = false;
+    private CyclicBarrier ready_barrier = new CyclicBarrier(2);
     private static TCPClient client = null;
     public static final int DEFAULT_PORT = 8888;
     private TCPClient() {}
@@ -66,7 +67,12 @@ public class TCPClient {
             Logger.log("Receive an invalid synchronize message : " + sock);
             return false;
         }
-        allConnected = true;
+        try {
+            ready_barrier.await();
+        } catch(Exception e) {
+            Logger.log("Ready_barrier await failed : " + e);
+            return false;
+        }
         Logger.log("All clients connected.");
         return true;
     }
@@ -75,11 +81,14 @@ public class TCPClient {
             if(os == null) return;
             os.write(MoveCode);
         } catch(IOException e) {
-            System.err.println("An error occur while sending to server : " + e);
+            Logger.log("An error occur while sending to server : " + e);
         }
     }
-    public boolean isReady() {
-        return allConnected;
+    public void waitForReady() {
+        try {
+            ready_barrier.await();
+        } catch(Exception e) {
+        }
     }
 }
 

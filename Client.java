@@ -22,8 +22,8 @@ public class Client {
 		UI.getinstance().startMenu(args[0]);
 
         // Wait until connection success or handle failed
-        while(!TCPClient.getClient().isReady());
-        
+        TCPClient.getClient().waitForReady();
+        Logger.log("Game start");
 //		UI.getinstance().startGame();
 /*		while ( UI.getinstance().getGraphics() == null );
 		BufferStrategy bs = UI.getinstance().getBufferStrategy();
