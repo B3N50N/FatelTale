@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
+import adm.ADM;
+
 public class SDM {
 	
 	private int _width, _height;
@@ -99,9 +101,18 @@ public class SDM {
 	
 	public boolean isWalkable(float x, float y) {
 		int X = (int) Math.floor(x), Y = (int) Math.floor(y);
-		X /= 100;
-		Y /= 100;
+		X /= ADM.getInstance().getMapWidth();
+		Y /= ADM.getInstance().getMapHeight();
 		return ( X >= 0 && X < _width && Y >= 0 && Y < _height ) ? _map[Y][X].isWalkable() : false;
+	}
+	
+	public boolean isLegal(int x, int y) {
+		return ( x >= 0 && x < _width && y >= 0 && y < _height );
+	}
+	
+	public int getAssetIndex(int x, int y) {
+		assert isLegal(x, y) : "Invalid Index.";
+		return _map[y][x].getAssetIndex();
 	}
 	
 	public int getWidth() {
