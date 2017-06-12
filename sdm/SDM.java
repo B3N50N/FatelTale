@@ -111,4 +111,13 @@ public class SDM {
 	public int getHeight() {
 		return _height;
 	}
+	
+	public void printMap() {
+		for (int i=0;i<_height;i++) {
+			for (int j=0;j<_width;j++) {
+				System.out.print(_map[i][j].getAssetIndex() + " ");
+			}
+			System.out.println();
+		}
+	}
 }

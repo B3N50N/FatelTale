@@ -18,7 +18,7 @@ public class ADM {
 	private int _map_width, _map_height;
 	
 	private ADM() {
-		_map_assets = readFile("./resource/Map/");
+		_map_assets = readFile("./resource/Assets/Map/");
 	}
 	
 	public static synchronized ADM getInstance() {
