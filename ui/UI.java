@@ -108,6 +108,7 @@ public class UI
 		frame.getContentPane().removeAll();
 		frame.add(new JPanel());
 		canvas=new Canvas();
+		canvas.setBounds(0,0,framewidth,frameheight);;
 		frame.add(canvas);
 		frame.addKeyListener(new KeyBoardListener());
 	}
