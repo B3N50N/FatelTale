@@ -24,7 +24,7 @@ public class SCENERE {
 	public void render(Graphics g) {
 		g.clearRect(0, 0, UI.getinstance().getCanvasWidth(), UI.getinstance().getCanvasHeight());
 		//assert something..
-		int x = 200, y = 200;	
+		int x = 250, y = 250;	
 		int ix = x - ( UI.getinstance().getCanvasWidth() / 2 ), iy = y - ( UI.getinstance().getCanvasHeight() / 2 );
 		ix /= ADM.getInstance().getMapWidth();
 		iy /= ADM.getInstance().getMapHeight();
@@ -45,6 +45,11 @@ public class SCENERE {
 	}
 	
 	public void testRender(Graphics g) {
-		g.drawImage(ADM.getInstance().getMapAsset(0), 0, 0, null);
+		for (int i=0;i<5;i++) {
+			for (int j=0;j<5;j++) {
+				g.drawImage(ADM.getInstance().getMapAsset(0), j*100, i*100, null);
+			}
+		}
+		
 	}
 }

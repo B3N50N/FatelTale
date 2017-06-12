@@ -41,6 +41,7 @@ public class UI
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(framewidth,frameheight);
 		frame.setVisible(true);
+		frame.setResizable(false);
 	}
 	public static synchronized UI getinstance()
 	{
@@ -58,7 +59,7 @@ public class UI
 			canvas.createBufferStrategy(2);
 			return null;
 		}
-		Graphics g=canvas.getGraphics();
+		Graphics g=bs.getDrawGraphics();
 		return g;
 	}
 	public BufferStrategy getBufferStrategy()
@@ -108,8 +109,10 @@ public class UI
 		frame.getContentPane().removeAll();
 		frame.add(new JPanel());
 		canvas=new Canvas();
+		canvas.setBounds(0,0,framewidth,frameheight);		
 		frame.add(canvas);
 		frame.addKeyListener(new KeyBoardListener());
+		System.out.println(frame.getWidth());
 	}
 	public int getCanvasWidth()
 	{
