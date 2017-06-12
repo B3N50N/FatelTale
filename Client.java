@@ -6,12 +6,11 @@ import scenere.SCENERE;
 import sdm.SDM;
 import ui.UI;
 
-public class TestingMain {
-	
+public class Client {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//assert 1 == 2 : "HI";
-		SDM.getInstance().readMap("./resource/Map/Map001.txt"); // ÅªÀÉ
+		SDM.getInstance().readMap("./resource/Map/Map001.txt"); // è®€æª”
 		SDM.getInstance().printMap();
 		UI.getinstance().startMenu();
 		UI.getinstance().startGame();
@@ -22,23 +21,20 @@ public class TestingMain {
 		g.clearRect(0, 0, UI.getinstance().getCanvasWidth(), UI.getinstance().getCanvasHeight());
 		SCENERE.getInstance().render(g);
 		bs.show();
-		g.dispose(); 
+		g.dispose();
 		/*RenderThread rt = new RenderThread();
 		rt.start();*/
-		
 		/*
-		 Thread ¤¤ªº¼gªk
-		 
+		 Thread ä¸­çš„å¯«æ³•
+
 		 BufferStrategy bs = UI.getinstance().getBufferStrategy();
 		 Graphics g = UI.getinstance().getGraphics();
-		 if ( bs != null && g !- null ) { <- ¦]¬°·|¤@ª½ LOOP ©Ò¥H¤Öµe¤@¦¸¨SÃö«Y
+		 if ( bs != null && g !- null ) { <- å› ç‚ºæœƒä¸€ç›´ LOOP æ‰€ä»¥å°‘ç•«ä¸€æ¬¡æ²’é—œä¿‚
 		 	g.clearRect(0, 0, UI.getinstance().getCanvasWidth(), UI.getinstance().getCanvasHeight());
 			SCENERE.getInstance().render(g);
 			bs.show();
 			g.dispose();
 		 }
-		  
-		 
 		 */
 	}
 }
