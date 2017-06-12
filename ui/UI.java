@@ -13,6 +13,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import tcp.TCPClient;
+
 class KeyBoardListener implements KeyListener
 {
 	public void keyTyped(KeyEvent e)
@@ -73,7 +76,7 @@ public class UI
 		else
 			return bs;
 	}
-	public void startMenu()
+	public void startMenu(String srvaddr)
 	{
 		frame.remove(frame.getContentPane());
 		frame.add(new JPanel());
@@ -84,6 +87,11 @@ public class UI
 			public void actionPerformed(ActionEvent e)
 			{
 				waitingScreen();
+                new Thread() {
+                    public void run() {
+                        TCPClient.getClient().connectServer(srvaddr);
+                    }
+                }.start();
 			}
 		}
 		);

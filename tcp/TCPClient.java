@@ -5,17 +5,30 @@ import java.net.*;
 import java.util.HashMap;
 import java.lang.Thread;
 
+import logger.Logger;
+
 public class TCPClient {
-    private static InputStream is = null;
-    private static OutputStream os = null;
+    private InputStream is = null;
+    private OutputStream os = null;
+    private Socket sock = null;
+    private boolean allConnected = false;
     private static TCPClient client = null;
-    private static Socket sock = null;
     public static final int DEFAULT_PORT = 8888;
     private TCPClient() {}
     public static TCPClient getClient() {
         if(client == null)
             client = new TCPClient();
         return client;
+    }
+    public boolean connectServer(String addr) {
+        InetAddress srv = null;
+        try {
+            srv = InetAddress.getByName(addr);
+        } catch (UnknownHostException e) {
+            Logger.log("Cannot connect to server");
+            return false;
+        }
+        return connectServer(srv);
     }
     public boolean connectServer(InetAddress srv) {
         if(client == null)
@@ -24,32 +37,37 @@ public class TCPClient {
             sock = new Socket(srv, DEFAULT_PORT);
             sock.setKeepAlive(true);
         } catch(IllegalArgumentException e) {
-            System.err.println("Invalid server address");
+            Logger.log("Invalid server address");
             return false;
         } catch(IOException e) {
-            System.err.println("Connection failed.");
+            Logger.log("Connection failed.");
             return false;
         }
         try {
             is = sock.getInputStream();
             os = sock.getOutputStream();
         } catch(IOException e) {
-            System.err.println("An error occur while getting IO stream : " + e);
+            Logger.log("An error occur while getting IO stream : " + e);
             return false;
         }
 
+
+        Logger.log("Connected to server : " + sock);
+        Logger.log("Waiting for other clients...");
         byte[] buf = new byte[16];
         try {
             is.read(buf);
         } catch(IOException e) {
-            System.err.println("An error occure while reading from socket : " + sock);
+            Logger.log("An error occure while reading from socket : " + sock);
             return false;
         }
         String syn = new String(buf).trim();
         if(!syn.equals("S")) {
-            System.err.println("Receive an invalid synchronize message : " + sock);
+            Logger.log("Receive an invalid synchronize message : " + sock);
             return false;
         }
+        allConnected = true;
+        Logger.log("All clients connected.");
         return true;
     }
     public void inputMoves(int MoveCode) {
@@ -59,6 +77,9 @@ public class TCPClient {
         } catch(IOException e) {
             System.err.println("An error occur while sending to server : " + e);
         }
+    }
+    public boolean isReady() {
+        return allConnected;
     }
 }
 

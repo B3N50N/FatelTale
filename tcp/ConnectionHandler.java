@@ -3,7 +3,6 @@ package tcp;
 import java.io.*;
 import java.net.*;
 import java.lang.Thread;
-import cdc.FakeCDC;
 
 public class ConnectionHandler extends Thread {
     private Socket sock;
@@ -44,10 +43,10 @@ public class ConnectionHandler extends Thread {
                 case codes.TURNSOUTH:
                 case codes.TURNNORTH:
                 case codes.TURNWEST:
-                    FakeCDC.updateDirection(id, code);
+//                    FakeCDC.updateDirection(id, code);
                     break;
                 case codes.GET:
-                    FakeCDC.getItem(id);
+//                    FakeCDC.getItem(id);
                     break;
                 case -1:
                     throw new IOException();
@@ -57,7 +56,7 @@ public class ConnectionHandler extends Thread {
             } catch(IOException e) {
                 System.err.println("Connection closed : " + sock);
                 try {
-                    TCPServer.removeConnection(sock.getRemoteSocketAddress());
+                    TCPServer.getServer().removeConnection(sock.getRemoteSocketAddress());
                 } catch(NullPointerException ee){};
                 break;
             }

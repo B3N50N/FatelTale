@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Vector;
 import java.lang.Thread;
 
+import logger.Logger;
+
 public class TCPServer {
     // default number of threads(clients)
-    public static final int THREAD_NUM = 4;
+    public static final int THREAD_NUM = 2;
     // default port that server listening on
     public static final int DEFAULT_PORT = 8888;
     private static HashMap<SocketAddress, ConnectionHandler> clients = null;
@@ -35,12 +37,12 @@ public class TCPServer {
         try {
             srv = new ServerSocket(port);
         } catch(IOException e) {
-            System.err.println("An error occur while creating a socket listen on port "
-                                 + port);
+            Logger.log("An error occur while creating a socket listen on port "
+                        + port);
             return;
         }
 
-        System.err.println("Waiting for connections...");
+        Logger.log("Waiting for connections...");
 
         // Accept connections
         Socket[] conn = new Socket[THREAD_NUM];
@@ -48,10 +50,10 @@ public class TCPServer {
             try {
                 conn[i] = srv.accept();
             } catch(IOException e) {
-                System.err.println("An error occur while accepting an connection.\n" + e);
+                Logger.log("An error occur while accepting an connection.\n" + e);
                 System.exit(1);
             }
-            System.err.println("Receive a connection : " + conn[i]);
+            Logger.log("Receive a connection : " + conn[i]);
         }
 
         clients = new HashMap<SocketAddress, ConnectionHandler>();
@@ -73,7 +75,7 @@ public class TCPServer {
                 break;
             }
         }
-        System.err.println("Shutting down server...");
+        Logger.log("Shutting down server...");
         for(ConnectionHandler hndl : thrds) {
             try {
                 hndl.join();
