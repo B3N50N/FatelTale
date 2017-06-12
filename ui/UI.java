@@ -128,7 +128,7 @@ public class UI
 		frame.getContentPane().add(new JPanel());
 		frame.getContentPane().repaint();
 		JLabel lbl=new JLabel();
-		lbl.setIcon(new ImageIcon(this.getClass().getResource("/waitingscreen.jpg")));
+		lbl.setIcon(new ImageIcon(this.getClass().getResource("../resource/Images/waitingscreen.jpg")));
 		lbl.setBounds(0, 0,500,500);
 		frame.getContentPane().add(lbl);
 		frame.getContentPane().setLayout(null);
