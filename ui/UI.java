@@ -1,10 +1,13 @@
 package ui;
 import java.awt.Canvas;
 import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferStrategy;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,6 +34,7 @@ public class UI
 	private JFrame frame;
 	private Canvas canvas;
 	private final int framewidth=500,frameheight=500;
+	private BufferStrategy bs;
 	private UI()
 	{
 		frame=new JFrame();
@@ -45,6 +49,17 @@ public class UI
 			uniqueinstance=new UI();
 		}
 		return uniqueinstance;
+	}
+	public Graphics getGraphics()
+	{
+		bs=canvas.getBufferStrategy();
+		if(bs==null)
+		{
+			canvas.createBufferStrategy(2);
+			return null;
+		}
+		Graphics g=canvas.getGraphics();
+		return g;
 	}
 	public void startMenu()
 	{
