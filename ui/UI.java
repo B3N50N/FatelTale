@@ -61,6 +61,17 @@ public class UI
 		Graphics g=canvas.getGraphics();
 		return g;
 	}
+	public BufferStrategy getBufferStrategy()
+	{
+		bs=canvas.getBufferStrategy();
+		if(bs==null)
+		{
+			canvas.createBufferStrategy(2);
+			return null;
+		}
+		else
+			return bs;
+	}
 	public void startMenu()
 	{
 		frame.remove(frame.getContentPane());
@@ -93,7 +104,7 @@ public class UI
 	}
 	public void startGame()
 	{
-		Canvas canvas=new Canvas();
+		canvas=new Canvas();
 		frame.getContentPane().removeAll();
 		frame.add(new JPanel());
 		canvas=new Canvas();
@@ -119,8 +130,8 @@ public class UI
 		frame.getContentPane().add(lbl);
 		frame.getContentPane().setLayout(null);
 	}
-	/*public static void main(String[] args)
-	{		
-	}*/
+	public static void main(String[] args)
+	{
+	}
 }
 
