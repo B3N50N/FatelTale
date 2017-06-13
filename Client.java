@@ -24,15 +24,15 @@ public class Client {
         // Wait until connection success or handle failed
         TCPClient.getClient().waitForReady();
         Logger.log("Game start");
-//		UI.getinstance().startGame();
-/*		while ( UI.getinstance().getGraphics() == null );
+		UI.getinstance().startGame();
+		while ( UI.getinstance().getGraphics() == null );
 		BufferStrategy bs = UI.getinstance().getBufferStrategy();
 		Graphics g = UI.getinstance().getGraphics();
 		assert bs != null && g != null;
 		g.clearRect(0, 0, UI.getinstance().getCanvasWidth(), UI.getinstance().getCanvasHeight());
 		SCENERE.getInstance().render(g);
 		bs.show();
-		g.dispose();*/
+		g.dispose();
 		/*RenderThread rt = new RenderThread();
 		rt.start();*/
 		/*
