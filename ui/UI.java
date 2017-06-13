@@ -81,7 +81,7 @@ public class UI
 		frame.remove(frame.getContentPane());
 		frame.add(new JPanel());
 		frame.getContentPane().setLayout(null);
-		JButton button=new JButton("開始遊戲");
+		JButton button=new JButton("Start Game");
 		button.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -98,7 +98,7 @@ public class UI
 		button.setBounds(150,100, 150,50);
 		frame.getContentPane().add(button);
 		frame.setVisible(true);
-		button=new JButton("結束遊戲");
+		button=new JButton("Exit");
 		button.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)

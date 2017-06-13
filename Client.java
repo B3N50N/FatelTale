@@ -17,7 +17,7 @@ public class Client {
             System.err.println("Usage : java Client SERVER_ADDR");
             System.exit(1);
         }
-		SDM.getInstance().readMap("resource/Map/Map001.txt"); // 讀檔
+		SDM.getInstance().readMap("resource/Map/Map001.txt"); 
 		SDM.getInstance().printMap();
 		UI.getinstance().startMenu(args[0]);
 
@@ -33,19 +33,5 @@ public class Client {
 		SCENERE.getInstance().render(g);
 		bs.show();
 		g.dispose();
-		/*RenderThread rt = new RenderThread();
-		rt.start();*/
-		/*
-		 Thread 中的寫法
-
-		 BufferStrategy bs = UI.getinstance().getBufferStrategy();
-		 Graphics g = UI.getinstance().getGraphics();
-		 if ( bs != null && g !- null ) { <- 因為會一直 LOOP 所以少畫一次沒關係
-		 	g.clearRect(0, 0, UI.getinstance().getCanvasWidth(), UI.getinstance().getCanvasHeight());
-			SCENERE.getInstance().render(g);
-			bs.show();
-			g.dispose();
-		 }
-		 */
 	}
 }
