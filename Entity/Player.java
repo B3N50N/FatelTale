@@ -70,25 +70,25 @@ public class Player
 	{
 		String str="";
 		str+=String.valueOf(health);
-		str+="\n";
+		str+=" ";
 		str+=dirvaluetoString(direction);
-		str+="\n";
+		str+=" ";
 		str+=String.valueOf(attack);
-		str+="\n";
+		str+=" ";
 		str+=String.valueOf(attack_speed);
-		str+="\n";
+		str+=" ";
 		str+=String.valueOf(move_speed);
-		str+="\n";
+		str+=" ";
 		str+=String.valueOf(defense);
-		str+="\n";
-		str+="x: "+String.valueOf(x);
-		str+="\n";
-		str+="y: "+String.valueOf(y);
-		str+="\n";
+		str+=" ";
+		str+=String.valueOf(x);
+		str+=" ";
+		str+=String.valueOf(y);
+		str+=" ";
 		return str;
 	}
-	/*public static void main(String[] args)
+	public static void main(String[] args)
 	{
 		
-	}*/
+	}
 }
