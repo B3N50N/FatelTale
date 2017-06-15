@@ -41,7 +41,7 @@ public class SDM {
 		}
 	}
 	
-	public void analyisFile(BufferedReader br) {
+	private void analyisFile(BufferedReader br) {
 		
 		String Input;
 		StringTokenizer st;
@@ -99,11 +99,10 @@ public class SDM {
 		return true;
 	}
 	
-	public boolean isWalkable(float x, float y) {
-		int X = (int) Math.floor(x), Y = (int) Math.floor(y);
-		X /= ADM.getInstance().getMapWidth();
-		Y /= ADM.getInstance().getMapHeight();
-		return ( X >= 0 && X < _width && Y >= 0 && Y < _height ) ? _map[Y][X].isWalkable() : false;
+	public boolean isWalkable(int x, int y) {
+		x /= ADM.getInstance().getMapWidth();
+		y /= ADM.getInstance().getMapHeight();
+		return ( x >= 0 && x < _width && y >= 0 && y < _height ) ? _map[y][x].isWalkable() : false;
 	}
 	
 	public boolean isLegal(int x, int y) {
