@@ -1,17 +1,37 @@
 package entity;
 
+import java.awt.Point;
+
 public abstract class Emitter {
 	
 	protected Long _attack_speed;
-	protected int _dir_x, _dir_y;
-	protected Projector _ori_project;
+	protected Point _dir, _pos;
+	protected Projector _ori_projector;
+	protected Long _last_attack_time;
 	
-	public Emitter(Long as, int dx, int dy, Projector op) {
+	public Emitter(Long as, Point dir, Point pos, Projector op) {
 		_attack_speed = as;
-		_dir_x = dx;
-		_dir_y = dy;
-		_ori_project = op;
+		_dir = dir;
+		_pos = pos;
+		_ori_projector = op;
+		_last_attack_time = System.currentTimeMillis();
 	}
 	
+	public void setPosition(Point p) {
+		_pos = p;
+	}
 	
+	public void setDirection(Point d) {
+		_dir = d;
+	}
+	
+	protected boolean canAttack() {
+		if ( System.currentTimeMillis() - _last_attack_time >= _attack_speed ) {
+			_last_attack_time = System.currentTimeMillis();
+			return true;
+		}
+		return false;
+	}
+	
+	protected abstract void attack();
 }
