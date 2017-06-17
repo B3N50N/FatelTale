@@ -42,7 +42,7 @@ public class UI
 		frame.setSize(framewidth,frameheight);
 		frame.setVisible(true);
 	}
-	public static synchronized UI getinstance()
+	public static synchronized UI getInstance()
 	{
 		if(uniqueinstance==null)
 		{
