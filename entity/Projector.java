@@ -11,6 +11,14 @@ public abstract class Projector {
 	private Collider _collider;
 	
 	public Projector(Point pos, Point dir, Collider collider, Long speed) {
+		Init(pos, dir, collider, speed);
+	}
+	
+	public Projector(Point dir, Collider collider, Long speed) {
+		Init(collider.getPosition(), dir, collider, speed);
+	}
+	
+	private void Init(Point pos, Point dir, Collider collider, Long speed) {
 		_pos = pos;
 		_dir = dir;
 		_last_move_time = System.currentTimeMillis();

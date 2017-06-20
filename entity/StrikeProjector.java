@@ -6,8 +6,14 @@ import sdm.SDM;
 
 public class StrikeProjector extends Projector {
 
+
 	public StrikeProjector(Point pos, Point dir, Collider collider, Long speed) {
 		super(pos, dir, collider, speed);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public StrikeProjector(Point dir, Collider collider, Long speed) {
+		super(dir, collider, speed);
 		// TODO Auto-generated constructor stub
 	}
 

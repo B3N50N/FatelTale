@@ -13,7 +13,7 @@ public class TestMain {
 		Collider c = new SphereCollider(pos, 10);
 		Projector p = new StrikeProjector(pos, dir, c, 1000L);
 		Emitter e = new DirectlyEmitter(1000L, dir, pos, p);
-		Monster m = new Monster(10, pos, dir, 0, e, 2000L, c);
+		Monster m = new Monster(10, 50, 100, pos, dir, 0, e, 2000L, c);
 		m.Print();
 		while ( true ) {
 			m.nextPosition();
