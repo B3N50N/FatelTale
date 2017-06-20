@@ -2,6 +2,8 @@ package entity;
 
 import java.awt.Point;
 
+import pem.PEM;
+
 public class DirectlyEmitter extends Emitter {
 	
 	public DirectlyEmitter(Long as, Point dir, Point pos, Projector op) {
@@ -14,7 +16,7 @@ public class DirectlyEmitter extends Emitter {
 		if ( canAttack() ) {
 			Projector newInstance = _ori_projector.clone();
 			// TODO PEM's function to add new projector
-			
+			PEM.getInstance().addTempProjector(newInstance);
 		}
 	}
 }

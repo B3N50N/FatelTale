@@ -8,6 +8,8 @@ public class Monster {
 	
 	private int _max_health;
 	private int _health;
+	private int _attack;
+	private int _defense;
 	private Point _pos, _dir;
 	private Collider _collider;
 	
@@ -16,16 +18,18 @@ public class Monster {
 	private Emitter _emitter;
 	private Long _last_move_time, _speed;
 	
-	public Monster(int h, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
-		Init(h, pos, dir, index, emitter, speed, collider);
+	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
+		Init(health, attack, defense, pos, dir, index, emitter, speed, collider);
 	}
 	
-	public Monster(int h, int index, Emitter emitter, Long speed, Collider collider) {
-		Init(h, emitter.getPosition(), emitter.getDirection(), index, emitter, speed, collider);
+	public Monster(int health, int attack, int defense, int index, Emitter emitter, Long speed, Collider collider) {
+		Init(health, attack, defense, emitter.getPosition(), emitter.getDirection(), index, emitter, speed, collider);
 	}
 	
-	private void Init(int h, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
-		_health = _max_health = h;
+	private void Init(int health, int attack, int defense, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
+		_health = _max_health = health;
+		_attack = attack;
+		_defense = defense;
 		_pos = pos;
 		_dir = dir;
 		_asset_index = index;
@@ -51,6 +55,10 @@ public class Monster {
 	
 	public void attack() {
 		_emitter.attack();
+	}
+	
+	public void beAttacked(int attack) {
+		int damage = attack - _defense;
 	}
 	
 	public void changeHealth(int delta) {
