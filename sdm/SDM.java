@@ -78,7 +78,6 @@ public class SDM {
 					assert isLegal(Input) : "Wrong Format of File.";
 					bool = Integer.parseInt(Input);
 					assert bool == 1 || bool == 0 : "Wrong Format of File.";
-					
 					_map[y][x] = new Block((bool == 1 ? true : false), value);
 				}
 			}

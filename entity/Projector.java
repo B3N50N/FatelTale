@@ -10,11 +10,12 @@ public abstract class Projector {
 	
 	private Collider _collider;
 	
-	public Projector(Point pos, Point dir, Collider collider) {
+	public Projector(Point pos, Point dir, Collider collider, Long speed) {
 		_pos = pos;
 		_dir = dir;
 		_last_move_time = System.currentTimeMillis();
 		_collider = collider;
+		_speed = speed;
 	}
 	
 	protected abstract boolean canMove();
@@ -23,6 +24,10 @@ public abstract class Projector {
 	
 	public Collider getCollider() {
 		return _collider;
+	}
+	
+	public Long getSpeed() {
+		return _speed;
 	}
 	
 	public void Print() {

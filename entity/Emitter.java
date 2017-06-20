@@ -25,6 +25,14 @@ public abstract class Emitter {
 		_dir = d;
 	}
 	
+	public Point getPosition() {
+		return _pos;
+	}
+	
+	public Point getDirection() {
+		return _dir;
+	}
+	
 	protected boolean canAttack() {
 		if ( System.currentTimeMillis() - _last_attack_time >= _attack_speed ) {
 			_last_attack_time = System.currentTimeMillis();

@@ -14,4 +14,8 @@ public abstract class Collider {
 	public abstract boolean isCollide(Collider c);
 	
 	public abstract Collider clone();
+	
+	public Point getPosition() {
+		return _pos;
+	}
 }

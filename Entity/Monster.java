@@ -16,7 +16,15 @@ public class Monster {
 	private Emitter _emitter;
 	private Long _last_move_time, _speed;
 	
-	public Monster(int h, Point pos, Point dir, int index, Emitter emitter, Long speed, SphereCollider collider) {
+	public Monster(int h, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
+		Init(h, pos, dir, index, emitter, speed, collider);
+	}
+	
+	public Monster(int h, int index, Emitter emitter, Long speed, Collider collider) {
+		Init(h, emitter.getPosition(), emitter.getDirection(), index, emitter, speed, collider);
+	}
+	
+	private void Init(int h, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
 		_health = _max_health = h;
 		_pos = pos;
 		_dir = dir;
@@ -53,6 +61,7 @@ public class Monster {
 	
 	private void changePosition(Point pos) {
 		if ( SDM.getInstance().isWalkable(pos.x, pos.y) ) {
+			System.out.println("HI");
 			_pos = pos; 
 		}
 	}
