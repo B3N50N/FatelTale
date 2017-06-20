@@ -7,13 +7,13 @@ import sdm.SDM;
 public class StrikeProjector extends Projector {
 
 
-	public StrikeProjector(Point pos, Point dir, Collider collider, Long speed) {
-		super(pos, dir, collider, speed);
+	public StrikeProjector(Point pos, Point dir, Collider collider, Long speed, int aID) {
+		super(pos, dir, collider, speed, aID);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public StrikeProjector(Point dir, Collider collider, Long speed) {
-		super(dir, collider, speed);
+	public StrikeProjector(Point dir, Collider collider, Long speed, int aID) {
+		super(dir, collider, speed, aID);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -40,7 +40,8 @@ public class StrikeProjector extends Projector {
 	@Override
 	public Projector clone() {
 		// TODO Auto-generated method stub
-		Projector newInstance = new StrikeProjector(new Point(_pos), new Point(_dir), super.getCollider().clone(), super.getSpeed() );
+		Collider c = _collider.clone();
+		Projector newInstance = new StrikeProjector(c.getPosition(), (Point)_dir.clone(), c, _speed, _attacker_ID);
 		return newInstance;
 	}
 }

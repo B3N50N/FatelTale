@@ -39,7 +39,7 @@ public class SphereCollider extends Collider{
 	@Override
 	public Collider clone() {
 		// TODO Auto-generated method stub
-		Collider newInstance = new SphereCollider(_pos, _radius);
+		Collider newInstance = new SphereCollider(new Point(_pos), _radius);
 		return newInstance;
 	}
 }

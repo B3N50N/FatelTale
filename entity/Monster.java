@@ -59,7 +59,6 @@ public class Monster {
 	
 	public void beAttacked(int attack) {
 		int damage = attack - _defense;
-		
 	}
 	
 	public void changeHealth(int delta) {
