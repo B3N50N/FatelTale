@@ -1,20 +1,26 @@
 package dom;
 
 public class PlayerInfo {
-	int clientno;
-	int health, maxHealth;
-	int score;
+	private int clientno;
+	private int health, maxHealth;
+	private int score;
 	
-	private PlayerInfo() {}
-	private PlayerInfo(int clientno) {
+	public PlayerInfo() {}
+	public PlayerInfo(int clientno) {
 		this.clientno = clientno;
 		score = 0;
 	}
-	private PlayerInfo(int clientno, int maxHealth) {
+	public PlayerInfo(int clientno, int maxHealth) {
 		this.clientno = clientno;
 		health = maxHealth;
 		this.maxHealth = maxHealth;
 		score = 0;
+	}
+	public PlayerInfo(int clientno, int health, int maxHealth, int score) {
+		this.clientno = clientno;
+		this.health = health;
+		this.maxHealth = maxHealth;
+		this.score = score;
 	}
 	
 	public int getClientNo() {

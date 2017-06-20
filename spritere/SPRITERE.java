@@ -9,7 +9,7 @@ import dom.DynamicObject;
 public class SPRITERE {
 	private static SPRITERE uniqueInstance;
 	
-	private SPRITERE() {
+	public SPRITERE() {
 		
 	}
 	

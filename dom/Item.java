@@ -16,7 +16,7 @@ public class Item extends DynamicObject{
 	}
 
 	public void draw(Graphics g){
-		BufferedImage img = ADM.getInstance().get(assetIndex, direction*DynamicObject.max_frame + frame);
+		BufferedImage img = ADM.getInstance().getItemAsset(assetIndex, direction*DynamicObject.max_frame + frame);
 		g.drawImage(img, x-img.getWidth(), y-img.getHeight(), null);
 	}
 }
