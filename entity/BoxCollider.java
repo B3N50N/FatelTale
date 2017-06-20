@@ -1,27 +1,36 @@
 package entity;
 
+import java.awt.Point;
+
 public class BoxCollider {
 	
-	private Integer _x, _y;
-	private Float _dir_x, _dir_y;
+	private Point _pos, _dir;
 	private int _width, _height;
 	
-	public BoxCollider(Integer x, Integer y, Float dx, Float dy) {
-		_x = x;
-		_y = y;
-		_dir_x = dx;
-		_dir_y = dy;
+	public BoxCollider(Point pos, Point dir, int width, int height) {
+		_pos = pos;
+		_dir = dir;
+		_width = width;
+		_height = height;
 	}
 	
-	public int getX() {
-		return _x;
+	public Point getPosition() {
+		return _pos;
 	}
 	
-	public int getY() {
-		return _y;
+	public Point getDirection() {
+		return _dir;
 	}
 	
-	public float getAngle() {
-		return (float) Math.toDegrees(Math.atan(_dir_y / _dir_x));
+	public int getWidth() {
+		return _width;
+	}
+	
+	public int getHeight() {
+		return _height;
+	}
+	
+	public double getAngle() {
+		return Math.toDegrees(Math.atan(_dir.y / _dir.x));
 	}
 }

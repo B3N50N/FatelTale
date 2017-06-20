@@ -13,7 +13,7 @@ public class DirectlyEmitter extends Emitter {
 		// TODO Auto-generated method stub
 		if ( canAttack() ) {
 			Projector newInstance = _ori_projector.clone();
-			// TODO CDC's function to add new projector
+			// TODO PEM's function to add new projector
 			
 		}
 	}

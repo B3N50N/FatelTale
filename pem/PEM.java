@@ -2,6 +2,7 @@ package pem;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import entity.*;
 
@@ -37,7 +38,8 @@ public class PEM {
 	public void checkCollision() {
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
-				if ( true ) {
+				if ( monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
+					System.out.println("Collision!");
 					// TODO Notice PEM to Delete Projector and change Monster's Health
 				}
 			}

@@ -1,12 +1,14 @@
 package entity;
 
+import java.awt.Point;
+
 import sdm.SDM;
 
 public class StrikeProjector extends Projector {
 
-	
-	public StrikeProjector(int ID, int x, int y, int dx, int dy) {
-		super(ID, x, y, dx, dy);
+
+	public StrikeProjector(Point pos, Point dir, Collider collider) {
+		super(pos, dir, collider);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,11 +23,11 @@ public class StrikeProjector extends Projector {
 	
 	public void nextPosition() {
 		if ( canMove() ) {
-			_x += _dir_x;
-			_y += _dir_y;
+			_pos.x += _dir.x;
+			_pos.y += _dir.y;
 		}
 		
-		if ( SDM.getInstance().isOutofBound(_x, _y) ) {
+		if ( SDM.getInstance().isOutofBound(_pos.x, _pos.y) ) {
 			// TODO Delete this Projector, will call CDC's Delete Function
 		}
 	}
@@ -33,7 +35,7 @@ public class StrikeProjector extends Projector {
 	@Override
 	public Projector clone() {
 		// TODO Auto-generated method stub
-		Projector newInstance = new StrikeProjector(_id /*Will use CDC's Function*/, _x, _y, _dir_x, _dir_y);
+		Projector newInstance = new StrikeProjector(new Point(_pos), new Point(_dir), super.getCollider().clone());
 		return newInstance;
 	}
 }

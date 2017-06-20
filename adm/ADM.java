@@ -17,8 +17,11 @@ public class ADM {
 	private BufferedImage[][] _map_assets;
 	private int _map_width, _map_height;
 	
+	private BufferedImage[][] _player_assets;
+	
 	private ADM() {
 		_map_assets = readFile("./resource/Assets/Map/");
+		_player_assets = readFile("./resource/Assets/Player/");
 	}
 	
 	public static synchronized ADM getInstance() {
@@ -122,5 +125,11 @@ public class ADM {
 	public int getMapHeight() {
 		assert _map_assets[0][0] != null : "Map Assets is Null";
 		return _map_assets[0][0].getHeight();
+	}
+	
+	public BufferedImage getPlayerAsset(int index, int i) {
+		assert index >= 0 && index < _player_assets.length : "Invalid Index.";
+		assert i >= 0 && i < _player_assets[i].length : "Invalid Index.";
+		return _player_assets[index][i];
 	}
 }
