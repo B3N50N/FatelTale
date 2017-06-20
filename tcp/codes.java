@@ -1,11 +1,16 @@
 package tcp;
 
+
+// Encode format : action + keystatus
 public class codes {
-    public static final int TURNEAST = 0x0;
-    public static final int TURNSOUTH = 0x1;
-    public static final int TURNNORTH = 0x2;
-    public static final int TURNWEST = 0x3;
-    public static final int GET = 0x4;
+    // actions
+    public static final int MOVELEFT = 0x0;
+    public static final int MOVERIGHT = 0x1;
+    public static final int MOVEUP = 0x2;
+    public static final int MOVEDOWN = 0x3;
+    public static final int ATTACK = 0x4;
+    // keystatus
+    public static final int DOWN = 0x0;
+    public static final int RELEASE = 0x1;
     private codes() {};
 }
-
