@@ -39,15 +39,26 @@ public class ConnectionHandler extends Thread {
                 // prase the request message
                 int code = is.read();
                 switch(code) {
-                case codes.TURNEAST:
-                case codes.TURNSOUTH:
-                case codes.TURNNORTH:
-                case codes.TURNWEST:
-//                    FakeCDC.updateDirection(id, code);
+                    int key = is.read();
+                    switch(key) {
+                    case codes.MOVELEFT:
+                    case codes.MOVERIGHT:
+                    case codes.MOVEUP:
+                    case codes.MOVEDOWN:
+                    case codes.ATTACK:
                     break;
-                case codes.GET:
-//                    FakeCDC.getItem(id);
+                    }
+                case codes.KEYDOWN:
+                case codes.KEYRELEASE:
+                    int key = is.read();
+                    switch(key) {
+                    case codes.MOVELEFT:
+                    case codes.MOVERIGHT:
+                    case codes.MOVEUP:
+                    case codes.MOVEDOWN:
+                    case codes.ATTACK:
                     break;
+                    }
                 case -1:
                     throw new IOException();
                 default:
