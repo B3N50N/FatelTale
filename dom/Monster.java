@@ -7,8 +7,10 @@ import adm.ADM;
 
 public class Monster extends DynamicObject{
 	
-	public Monster(){}
+	public Monster(){ drawable = false; }
 	public Monster(int x, int y, int direction, int assetIndex, int frame){
+		drawable = true;
+		
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
@@ -16,8 +18,7 @@ public class Monster extends DynamicObject{
 		this.frame = frame;
 	}
 
-	public void draw(Graphics g){
-		BufferedImage img = ADM.getInstance().getMonsterAsset(assetIndex, direction*DynamicObject.max_frame + frame);
-		g.drawImage(img, x-img.getWidth(), y-img.getHeight(), null);
+	public BufferedImage getImage(){
+		return ADM.getInstance().getMonsterAsset(assetIndex, direction*DynamicObject.MAX_FRAME + frame);
 	}
 }

@@ -6,17 +6,19 @@ import java.awt.image.BufferedImage;
 import adm.ADM;
 
 public class Item extends DynamicObject{
-	public Item(){}
+	
+	public Item(){ drawable = false; }
 	public Item(int x, int y, int direction, int assetIndex, int frame){
+		drawable = true;
+		
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
 		this.assetIndex = assetIndex;
 		this.frame = frame;
 	}
-
-	public void draw(Graphics g){
-		BufferedImage img = ADM.getInstance().getItemAsset(assetIndex, direction*DynamicObject.max_frame + frame);
-		g.drawImage(img, x-img.getWidth(), y-img.getHeight(), null);
+	
+	public BufferedImage getImage(){
+		return ADM.getInstance().getItemAsset(assetIndex, direction*DynamicObject.MAX_FRAME + frame);
 	}
 }

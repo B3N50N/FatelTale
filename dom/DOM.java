@@ -45,9 +45,14 @@ public class DOM {
 	 *              Player                *
 	 *                                    *
 	 **************************************/
-	
+
 	void addPlayer(int clientno, Player player){
 		assert Players.get(clientno)!=null : "Add player failed, already have player with clientno "+clientno;
+		Players.put(clientno, player);
+	}
+	void addPlayer(int clientno){
+		assert Players.get(clientno)!=null : "Add player failed, already have player with clientno "+clientno;
+		Player player = new Player();
 		Players.put(clientno, player);
 	}
 	void addPlayer(int clientno, int x, int y, int direction, int assertIndex, int frame){
@@ -79,9 +84,14 @@ public class DOM {
 	 *              Monster               *
 	 *                                    *
 	 **************************************/
-	
+
 	void addMonster(int id, Monster monster){
 		assert Monsters.get(id)!=null : "Add monster failed, already have monster with id "+id;
+		Monsters.put(id, monster);
+	}
+	void addMonster(int id){
+		assert Monsters.get(id)!=null : "Add monster failed, already have monster with id "+id;
+		Monster monster = new Monster();
 		Monsters.put(id, monster);
 	}
 	void addMonster(int id, int x, int y, int direction, int assertIndex, int frame){
@@ -118,6 +128,12 @@ public class DOM {
 		assert Projectors.get(id)!=null : "Add Projector failed, already have projector with id "+id;
 		Projectors.put(id, projector);
 	}
+	void addProjector(int id){
+		assert Projectors.get(id)!=null : "Add Projector failed, already have projector with id "+id;
+		Projector projector = new Projector();
+		Projectors.put(id, projector);
+	}
+
 	void addProjector(int id, int x, int y, int direction, int assertIndex, int frame){
 		assert Projectors.get(id)!=null : "Add Projector failed, already have projector with id "+id;
 		Projector projector = new Projector(x, y, direction, assertIndex, frame);
@@ -150,6 +166,11 @@ public class DOM {
 	
 	void addItem(int id, Item item){
 		assert Items.get(id)!=null : "Add Item failed, already have projector with id "+id;
+		Items.put(id, item);
+	}
+	void addItem(int id){
+		assert Items.get(id)!=null : "Add Item failed, already have projector with id "+id;
+		Item item = new Item();
 		Items.put(id, item);
 	}
 	void addItem(int id, int x, int y, int direction, int assertIndex, int frame){

@@ -6,8 +6,11 @@ import java.awt.image.BufferedImage;
 import adm.ADM;
 
 public class Projector extends DynamicObject {
-	public Projector(){}
+	
+	public Projector(){ drawable = false; }
 	public Projector(int x, int y, int direction, int assetIndex, int frame){
+		drawable = true;
+		
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
@@ -15,8 +18,7 @@ public class Projector extends DynamicObject {
 		this.frame = frame;
 	}
 	
-	public void draw(Graphics g){
-		BufferedImage img = ADM.getInstance().getProjectorAsset(assetIndex, direction*DynamicObject.max_frame + frame);
-		g.drawImage(img, x-img.getWidth(), y-img.getHeight(), null);
+	public BufferedImage getImage(){
+		return ADM.getInstance().getProjectorAsset(assetIndex, direction*DynamicObject.MAX_FRAME + frame);
 	}
 }

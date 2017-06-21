@@ -7,8 +7,10 @@ import adm.ADM;
 
 public class Player extends DynamicObject{
 
-	public Player(){}
+	public Player() { drawable = false; }
 	public Player(int x, int y, int direction, int assetIndex, int frame){
+		drawable = true;
+		
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
@@ -16,8 +18,7 @@ public class Player extends DynamicObject{
 		this.frame = frame;
 	}
 	
-	public void draw(Graphics g){
-		BufferedImage img = ADM.getInstance().getPlayerAsset(assetIndex, direction*DynamicObject.max_frame + frame);
-		g.drawImage(img, x-img.getWidth(), y-img.getHeight(), null);
+	public BufferedImage getImage(){
+		return ADM.getInstance().getPlayerAsset(assetIndex, direction*DynamicObject.MAX_FRAME + frame);
 	}
 }
