@@ -45,7 +45,7 @@ public class CDC
 	public Map getProjector(){return projector;}
 	public void keyDown(int clientno,int action)
 	{
-		assert clientno<0||clientno>=MaxPlayerno:"The clientno is invalid";
+		assert player.get(clientno)!=null:"The clientno is invalid";
 		if(action==codes.ATTACK)
 			player.get(clientno).playerAttack();
 		else
@@ -53,7 +53,7 @@ public class CDC
 	}
 	public void keyRelease(int clientno,int action)
 	{
-		assert clientno<0||clientno>=MaxPlayerno:"The clientno is invalid";
+		assert player.get(clientno)!=null:"The clientno is invalid";
 		if(action==codes.ATTACK)
 			player.get(clientno).attackingEnd();
 		else
@@ -92,10 +92,10 @@ public class CDC
 	{
 		Vector<String> v=new Vector<String>();
 		int cnt=0;
-		for(int i=0;i<MaxPlayerno;i+=1)
+		for(Map.Entry<Integer,Player> entry:player.entrySet())
 		{
 			String str="";
-			str=player.get(i).toString();
+			str=entry.toString();
 			v.add(cnt,str);
 			cnt+=1;
 		}
