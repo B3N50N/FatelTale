@@ -30,6 +30,11 @@ public class CDC
 		item=new ConcurrentHashMap<>();
 		monster=new ConcurrentHashMap<>();
 		projector=new ConcurrentHashMap<>();
+		playerinitlocation=new Point[MaxPlayerno];
+		playerinitlocation[0]=new Point(100,100);
+		playerinitlocation[1]=new Point(1000,1000);
+		playerinitlocation[2]=new Point(0,1000);
+		playerinitlocation[3]=new Point(1000,0);
 	}
 	public static synchronized CDC getInstance()
 	{
@@ -115,8 +120,11 @@ public class CDC
 		}
 		return v;
 	}
-	/*public static void main(String[] args)
+	public static void main(String[] args)
 	{
-		
-	}*/
+		CDC cdc;
+		cdc=CDC.getInstance();
+		CDC.getInstance().addPlayer(1,0);
+		System.out.println(CDC.getInstance().getPlayer().get(1).toString());
+	}
 }
