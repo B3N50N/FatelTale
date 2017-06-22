@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Vector;
 
 public class DOM {
+	private int clientno;
+	
 	private static DOM uniqueInstance;
 	private Map<Integer, Player> Players;
 	private Map<Integer, Monster> Monsters;
@@ -13,6 +15,7 @@ public class DOM {
 	private Map<Integer, PlayerInfo> PlayerInfos;
 	
 	public DOM() {
+		clientno = 0;
 		Players = new HashMap<Integer, Player>();
 		Monsters = new HashMap<Integer, Monster>();
 		Projectors = new HashMap<Integer, Projector>();
@@ -27,7 +30,11 @@ public class DOM {
 		return uniqueInstance;
 	}
 	
-	public Vector<DynamicObject> getAllDynamicObjects(){
+	public void setClientno(int clientno) {
+		this.clientno = clientno;
+	}
+	
+	public Vector<DynamicObject> getAllDynamicObjects() {
 		Vector<DynamicObject> allObjects = new Vector<DynamicObject>();
 
 		allObjects.addAll(Players.values());
@@ -213,18 +220,46 @@ public class DOM {
 	 *            PlayerInfo              *
 	 *                                    *
 	 **************************************/
-	
+
+	public PlayerInfo getPlayerInfo() {
+		assert PlayerInfos.get(clientno)==null : "Get playerInfo failed, no playerInfo with clientno "+clientno;
+		return PlayerInfos.get(clientno);
+	}
 	public PlayerInfo getPlayerInfo(int clientno) {
 		assert PlayerInfos.get(clientno)==null : "Get playerInfo failed, no playerInfo with clientno "+clientno;
 		return PlayerInfos.get(clientno);
+	}
+
+	public String getPlayerName() {
+		assert PlayerInfos.get(clientno)==null : "Get player's health failed, no playerInfo with clientno "+clientno;
+		return PlayerInfos.get(clientno).getName();
+	}
+	public String getPlayerName(int clientno) {
+		assert PlayerInfos.get(clientno)==null : "Get player's health failed, no playerInfo with clientno "+clientno;
+		return PlayerInfos.get(clientno).getName();
+	}
+	
+	public int getPlayerHealth() {
+		assert PlayerInfos.get(clientno)==null : "Get player's health failed, no playerInfo with clientno "+clientno;
+		return PlayerInfos.get(clientno).getHealth();
 	}
 	public int getPlayerHealth(int clientno) {
 		assert PlayerInfos.get(clientno)==null : "Get player's health failed, no playerInfo with clientno "+clientno;
 		return PlayerInfos.get(clientno).getHealth();
 	}
+	
+	public int getPlayerMaxHealth() {
+		assert PlayerInfos.get(clientno)==null : "Get player's maxHealth failed, no playerInfo with clientno "+clientno;
+		return PlayerInfos.get(clientno).getMaxHealth();
+	}
 	public int getPlayerMaxHealth(int clientno) {
 		assert PlayerInfos.get(clientno)==null : "Get player's maxHealth failed, no playerInfo with clientno "+clientno;
 		return PlayerInfos.get(clientno).getMaxHealth();
+	}
+	
+	public int getPlayerScore() {
+		assert PlayerInfos.get(clientno)==null : "Get player's score failed, no playerInfo with clientno "+clientno;
+		return PlayerInfos.get(clientno).getScore();
 	}
 	public int getPlayerScore(int clientno) {
 		assert PlayerInfos.get(clientno)==null : "Get player's score failed, no playerInfo with clientno "+clientno;
