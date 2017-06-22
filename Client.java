@@ -3,6 +3,7 @@ import java.awt.image.BufferStrategy;
 
 import scenere.SCENERE;
 import sdm.SDM;
+import spritere.SPRITERE;
 import ui.UI;
 import tcp.TCPClient;
 import logger.Logger;
@@ -48,6 +49,7 @@ class RenderThread implements Runnable {
 		g.clearRect(0, 0, UI.getInstance().getCanvasWidth(), UI.getInstance().getCanvasHeight());
 		if ( bs != null && g != null ) {
 			SCENERE.getInstance().render(g);
+			SPRITERE.getInstance().render(g);
 		}
 		bs.show();
 		g.dispose();

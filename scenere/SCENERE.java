@@ -3,6 +3,7 @@ package scenere;
 import java.awt.Graphics;
 
 import adm.ADM;
+import dom.DOM;
 import sdm.SDM;
 import ui.UI;
 
@@ -24,7 +25,7 @@ public class SCENERE {
 	public void render(Graphics g) {
 		g.clearRect(0, 0, UI.getInstance().getCanvasWidth(), UI.getInstance().getCanvasHeight());
 		//assert something..
-		int x = 250, y = 250;	
+		int x = DOM.getInstance().getPlayerX(0), y = DOM.getInstance().getPlayerY(0);	
 		int ix = x - ( UI.getInstance().getCanvasWidth() / 2 ), iy = y - ( UI.getInstance().getCanvasHeight() / 2 );
 		ix /= ADM.getInstance().getMapWidth();
 		iy /= ADM.getInstance().getMapHeight();
