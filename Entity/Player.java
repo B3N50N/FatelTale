@@ -6,14 +6,14 @@ public class Player
 	private int health,attack,direction,defense;
 	private int attackspeed,movespeed;
 	private Point location;
-	private boolean active;
+	//private boolean active;
 	private boolean moving=false,attacking=false;
 	private int asset_index;
 	//private collider;
 	static final int west=0,north=1,east=2,south=3;
 	public Player(int type,Point point,Vector attribute)
 	{
-		active=true;
+		//active=true;
 		asset_index=type;
 		location=point;
 		health=(int)attribute.get(0);
@@ -21,7 +21,7 @@ public class Player
 		attackspeed=(int)attribute.get(2);
 		defense=(int)attribute.get(3);
 		movespeed=(int)attribute.get(4);
-		active=true;
+		//active=true;
 	}
 	public String dirvaluetoString(int dir)
 	{
@@ -112,8 +112,8 @@ public class Player
 		str+=" ";
 		return str;
 	}
-	public boolean isActive()
+	/*public boolean isActive()
 	{
 		return active;
-	}
+	}*/
 }
