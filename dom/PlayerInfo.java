@@ -1,9 +1,9 @@
 package dom;
 
 public class PlayerInfo {
+	private String name;
 	private int health, maxHealth;
 	private int score;
-	private String name;
 	
 	public PlayerInfo() {}
 	public PlayerInfo(int clientno) {
@@ -28,6 +28,7 @@ public class PlayerInfo {
 		this.maxHealth = maxHealth;
 		this.score = score;
 	}
+	
 	public String getName() {
 		return name;
 	}
