@@ -7,25 +7,32 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import tcp.codes;
+import tcp.TCPClient;
+//import tcp.TCPClient;
+
 class KeyBoardListener implements KeyListener
 {
+	final static int upcode=38,downcode=40,rightcode=39,leftcode=37;
+	final static int attackcode=87;
 	public void keyTyped(KeyEvent e)
 	{
+		
 	}
 	public void keyReleased(KeyEvent e)
-	{	
+	{
+		int code=e.getKeyCode();
+		TCPClient.getClient().keyRelease(code);
 	}
 	public void keyPressed(KeyEvent e)
 	{
-		//int movecode=e.getKeyCode();
-		//call keyGetPressed()
-		//call inputMoves(movecode)
+		int code=e.getKeyCode();
+		TCPClient.getClient().keyDown(code);
 	}
 }
 public class UI
@@ -35,11 +42,51 @@ public class UI
 	private Canvas canvas;
 	private final int framewidth=500,frameheight=500;
 	private BufferStrategy bs;
+	private JPanel startmenupanel,waitingpanel;
+	private JPanel endgamepanel,gamepanel;
 	private UI()
 	{
 		frame=new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(framewidth,frameheight);
+		frame.setVisible(true);
+		frame.setResizable(false);
+		buildStartMenuPanel();
+		
+	}
+	private void buildStartMenuPanel()
+	{
+		startmenupanel=new JPanel();
+		assert startmenupanel!=null:"startmenupanel is null";
+		startmenupanel.setLayout(null);
+		JButton button=new JButton("Start Game");
+		button.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				waitingScreen();
+                /*new Thread() {
+                    public void run() {
+                        TCPClient.getClient().connectServer(srvaddr);
+                    }
+                }.start();*/
+			}
+		}
+		);
+		button.setBounds(150,100, 150,50);
+		startmenupanel.add(button);
+		frame.setVisible(true);
+		button=new JButton("Exit");
+		button.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				frame.dispose();
+			}
+		}
+		);
+		button.setBounds(150, 250,150,50);
+		startmenupanel.add(button);
 		frame.setVisible(true);
 	}
 	public static synchronized UI getInstance()
@@ -72,45 +119,22 @@ public class UI
 		else
 			return bs;
 	}
-	public void startMenu()
+	public void startMenu(String srvaddr)
 	{
 		frame.remove(frame.getContentPane());
-		frame.add(new JPanel());
-		frame.getContentPane().setLayout(null);
-		JButton button=new JButton("登入遊戲");
-		button.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				waitingScreen();
-			}
-		}
-		);
-		button.setBounds(150,100, 150,50);
-		frame.getContentPane().add(button);
-		frame.setVisible(true);
-		button=new JButton("退出遊戲");
-		button.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				frame.dispose();
-			}
-		}
-		);
-		button.setBounds(150, 250,150,50);
-		frame.getContentPane().add(button);
-		frame.setVisible(true);
+		assert startmenupanel!=null:"startmenupanel is null";
+		frame.add(startmenupanel);
 	}
 	public void startGame()
 	{
 		canvas=new Canvas();
-		frame.getContentPane().removeAll();
+		frame.remove(frame.getContentPane());
 		frame.add(new JPanel());
 		canvas=new Canvas();
-		canvas.setBounds(0,0,framewidth,frameheight);;
+		canvas.setBounds(0,0,framewidth,frameheight);		
 		frame.add(canvas);
 		frame.addKeyListener(new KeyBoardListener());
+		frame.setVisible(true);
 	}
 	public int getCanvasWidth()
 	{
@@ -123,7 +147,7 @@ public class UI
 	public void waitingScreen()
 	{
 		frame.getContentPane().removeAll();
-		frame.getContentPane().add(new JPanel());
+		frame.add(new JPanel());
 		frame.getContentPane().repaint();
 		JLabel lbl=new JLabel();
 		lbl.setIcon(new ImageIcon(this.getClass().getResource("/waitingscreen.jpg")));
@@ -133,6 +157,7 @@ public class UI
 	}
 	/*public static void main(String[] args)
 	{
+		UI demo=new UI();
+		demo.startGame();
 	}*/
 }
-
