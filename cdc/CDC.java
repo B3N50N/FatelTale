@@ -34,25 +34,21 @@ public class CDC
 	public Map getItem(){return item;}
 	public Map getMonster(){return monster;}
 	public Map getProjector(){return projector;}
-	public void playerMove(int clientno,int direction)
+	public void keyDown(int clientno,int action)
 	{
-		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
-		player[clientno].move(direction);
+		assert clientno<0||clientno>=MaxPlayerno:"The clientno is invalid";
+		if(action==codes.ATTACK)
+			player[clientno].playerAttack();
+		else
+			player[clientno].playerMove(action);
 	}
-	public void playerStopMove(int clientno)
+	public void keyRelease(int clientno,int action)
 	{
-		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
-		player[clientno].movingEnd();
-	}
-	public void playerAttack(int clientno)
-	{
-		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
-		player[clientno].Attack();
-	}
-	public void playerStopAttack(int clientno)
-	{
-		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
-		player[clientno].attackingEnd();
+		assert clientno<0||clientno>=MaxPlayerno:"The clientno is invalid";
+		if(action==codes.ATTACK)
+			player[clientno].attackingEnd();
+		else
+			player[clientno].movingEnd();
 	}
 	public int getMonsterNewId()
 	{
