@@ -11,6 +11,7 @@ import entity.Player;
 import entity.PlayerInfo;
 import entity.Monster;
 import entity.Projector;
+import tcp.codes;
 public class CDC
 {
 	final static int MaxPlayerno=4;
@@ -33,6 +34,26 @@ public class CDC
 	public Map getItem(){return item;}
 	public Map getMonster(){return monster;}
 	public Map getProjector(){return projector;}
+	public void playerMove(int clientno,int direction)
+	{
+		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
+		player[clientno].move(direction);
+	}
+	public void playerStopMove(int clientno)
+	{
+		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
+		player[clientno].movingEnd();
+	}
+	public void playerAttack(int clientno)
+	{
+		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
+		player[clientno].Attack();
+	}
+	public void playerStopAttack(int clientno)
+	{
+		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
+		player[clientno].attackingEnd();
+	}
 	public int getMonsterNewId()
 	{
 		int tmp=monsterid;
@@ -88,9 +109,5 @@ public class CDC
 			cnt+=1;
 		}
 		return v;
-	}
-	public static void main(String[] args)
-	{
-		
 	}
 }
