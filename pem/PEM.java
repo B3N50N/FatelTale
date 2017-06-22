@@ -19,8 +19,10 @@ public class PEM {
 	private Set<Integer> _delete_monster;
 	private Set<Integer> _delete_projector;
 	
+	public Player [] _player;
 	public Map<Integer, Monster> _monster; // Only For Test
 	public Map<Integer, Projector> _projector; // Only For Test
+	public Map<Integer, Item> _item;
 	
 	private PEM() {
 		_tmp_monster = new HashMap<>();
@@ -65,6 +67,12 @@ public class PEM {
 	}
 	
 	public void checkCollision() {
+		for (int i=0;i<_player.length;i++) {
+			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
+				
+			}
+		}
+		
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( _delete_projector.contains( projector.getKey() ) || _delete_monster.contains( monster.getKey() ) ) {
@@ -73,7 +81,7 @@ public class PEM {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
 					System.out.println("Collision!");
 					// TODO Notice PEM to Delete Projector and change Monster's Health
-					addDeleteProjector( projector.getKey() );
+					deleteProjector( projector.getKey() );
 				}
 			}
 		}
@@ -106,13 +114,16 @@ public class PEM {
 		// TODO get CDC get new Projector ID
 		int ID = 0;
 		_tmp_projector.put(_projector.size(), p);
+		// TODO call TCP add() function
 	}
 	
-	private void addDeleteMonster(Integer ID) {
+	private void deleteMonster(Integer ID) {
+		// TODO call TCP delete() function
 		_delete_monster.add(ID);
 	}
 	
-	private void addDeleteProjector(Integer ID) {
+	private void deleteProjector(Integer ID) {
+		// TODO call TCP delete() function
 		_delete_projector.add(ID);
 	}
 	
