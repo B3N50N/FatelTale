@@ -1,6 +1,8 @@
 package entity;
 import java.awt.Point;
 import java.util.Vector;
+
+import tcp.codes;
 public class Player 
 {
 	private int health,attack,direction,defense;
@@ -10,7 +12,7 @@ public class Player
 	private boolean moving=false,attacking=false;
 	private int asset_index;
 	//private collider;
-	static final int west=0,north=1,east=2,south=3;
+	//static final int west=0,north=1,east=2,south=3;
 	public Player(int type,Point point,Vector attribute)
 	{
 		//active=true;
@@ -25,9 +27,9 @@ public class Player
 	}
 	public String dirvaluetoString(int dir)
 	{
-		if(dir==west) return "west";
-		else if(dir==north) return "north";
-		else if(dir==south) return "east";
+		if(dir==codes.MOVELEFT) return "west";
+		else if(dir==codes.MOVEUP) return "north";
+		else if(dir==codes.MOVERIGHT) return "east";
 		else return "south";
 	}
 	public boolean isDead()
@@ -44,11 +46,11 @@ public class Player
 		else
 			health+=dif;
 	}
-	public void playerMove(int newdirection)
+	public void playerMove(int newdir)
 	{
-		assert newdirection>=west && newdirection<=south:"The new direction is invalid";
+		assert newdir!=codes.MOVEDOWN&&newdir!=codes.MOVELEFT&&newdir!=codes.MOVERIGHT&&newdir!=codes.MOVEUP:"The new direction is invalid";
 		moving=true;
-		direction=newdirection;
+		direction=newdir;
 	}
 	public void playerAttack()
 	{
