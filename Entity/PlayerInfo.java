@@ -3,6 +3,7 @@ package entity;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.Vector;
 public class PlayerInfo 
@@ -11,29 +12,39 @@ public class PlayerInfo
 	private int totaltype;
 	private int health[],attack[],attackspeed[];
 	private int defense[],movespeed[];
-	private String PlayerInfofilePath="/PlayerInfo.txt";
+	private String PlayerInfofilePath=System.getProperty("user.dir")+"\\resource\\PlayerInfo.txt";
 	private String[] PlayerFilePath;
 	private PlayerInfo()
 	{
 		try
 		{
-			FileReader fin=new FileReader(PlayerInfofilePath);
+			FileReader fin=new FileReader("./resource/PlayerInfo.txt");
 			BufferedReader buff=new BufferedReader(fin);
-			totaltype=buff.read();
+			String str;
+			str=buff.readLine();
+			totaltype=Integer.parseInt(str);
 			PlayerFilePath=new String[totaltype];
+			health=new int[totaltype];
+			attack=new int[totaltype];
+			attackspeed=new int[totaltype];
+			defense=new int[totaltype];
+			movespeed=new int[totaltype];
 			for(int i=0;i<totaltype;i+=1)
 				PlayerFilePath[i]=buff.readLine();
 			buff.close();
 			fin.close();
 			for(int i=0;i<totaltype;i+=1)
 			{
-				fin=new FileReader(PlayerFilePath[i]);
+				fin=new FileReader("./resource/"+PlayerFilePath[i]);
 				buff=new BufferedReader(fin);
-				health[i]=buff.read();
-				attack[i]=buff.read();
-				attackspeed[i]=buff.read();
-				defense[i]=buff.read();
-				movespeed[i]=buff.read();
+				str=buff.readLine();
+				health[i]=Integer.parseInt(str);
+				str=buff.readLine();
+				attackspeed[i]=Integer.parseInt(str);
+				str=buff.readLine();
+				defense[i]=Integer.parseInt(str);
+				str=buff.readLine();
+				movespeed[i]=Integer.parseInt(str);
 				fin.close();
 				buff.close();
 			}
@@ -59,4 +70,9 @@ public class PlayerInfo
 			uniqueinstance=new PlayerInfo();
 		return uniqueinstance;
 	}
+	/*public static void main(String[] args)
+	{
+		PlayerInfo playerinfo;
+		playerinfo=PlayerInfo.getInstance();
+	}*/
 }

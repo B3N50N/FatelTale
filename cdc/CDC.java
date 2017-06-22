@@ -16,43 +16,48 @@ public class CDC
 {
 	final static int MaxPlayerno=4;
 	private static Point playerinitlocation[];
-	private Player player[];
+	private Map<Integer,Player> player;
 	private Map<Integer,Item> item;
 	private Map<Integer,Monster> monster;
 	private Map<Integer,Projector> projector;
 	private int itemid=0;
 	private int monsterid=0;
 	private int projectorid=0;
-	public CDC()
+	public static CDC uniqueinstance;
+	private CDC()
 	{
-		player=new Player[MaxPlayerno];
+		player=new ConcurrentHashMap<>();
 		item=new ConcurrentHashMap<>();
 		monster=new ConcurrentHashMap<>();
 		projector=new ConcurrentHashMap<>();
 	}
-	public Player[] getPlayer(){return player;}
+	public static synchronized CDC getInstance()
+	{
+		if(uniqueinstance==null)
+		{
+			uniqueinstance=new CDC();
+		}
+		return uniqueinstance;
+	}
+	public Map getPlayer(){return player;}
 	public Map getItem(){return item;}
 	public Map getMonster(){return monster;}
 	public Map getProjector(){return projector;}
-	public void playerMove(int clientno,int direction)
+	public void keyDown(int clientno,int action)
 	{
-		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
-		player[clientno].move(direction);
+		assert player.get(clientno)!=null:"The clientno is invalid";
+		if(action==codes.ATTACK)
+			player.get(clientno).playerAttack();
+		else
+			player.get(clientno).playerMove(action);
 	}
-	public void playerStopMove(int clientno)
+	public void keyRelease(int clientno,int action)
 	{
-		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
-		player[clientno].movingEnd();
-	}
-	public void playerAttack(int clientno)
-	{
-		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
-		player[clientno].Attack();
-	}
-	public void playerStopAttack(int clientno)
-	{
-		assert clientno<0 ||clientno>=MaxPlayerno:"The clientno is invalid";
-		player[clientno].attackingEnd();
+		assert player.get(clientno)!=null:"The clientno is invalid";
+		if(action==codes.ATTACK)
+			player.get(clientno).attackingEnd();
+		else
+			player.get(clientno).movingEnd();
 	}
 	public int getMonsterNewId()
 	{
@@ -75,7 +80,7 @@ public class CDC
 	public void addPlayer(int clientno,int type)
 	{
 		assert clientno>=0&&clientno<4:"The clientno is invalid";
-		player[clientno]=new Player(type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type));
+		player.put(clientno,new Player(type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type)));
 	}
 	public void addItem(Point point,int type)
 	{
@@ -87,10 +92,10 @@ public class CDC
 	{
 		Vector<String> v=new Vector<String>();
 		int cnt=0;
-		for(int i=0;i<MaxPlayerno;i+=1)
+		for(Map.Entry<Integer,Player> entry:player.entrySet())
 		{
 			String str="";
-			str=player[i].toString();
+			str=entry.toString();
 			v.add(cnt,str);
 			cnt+=1;
 		}
@@ -110,4 +115,8 @@ public class CDC
 		}
 		return v;
 	}
+	/*public static void main(String[] args)
+	{
+		
+	}*/
 }
