@@ -46,7 +46,7 @@ public class UI
 		frame.setVisible(true);
 		frame.setResizable(false);
 	}
-	public static synchronized UI getinstance()
+	public static synchronized UI getInstance()
 	{
 		if(uniqueinstance==null)
 		{
