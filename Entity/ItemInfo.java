@@ -1,17 +1,59 @@
 package entity;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Vector;
 public class ItemInfo 
 {
 	private static ItemInfo uniqueinstance;
-	private int totaltype=4;
+	private int totaltype;
 	private int diff_attack[]=new int[totaltype];
 	private int diff_attackspeed[]=new int[totaltype];
 	private int diff_defense[]=new int[totaltype];
 	private int diff_movespeed[]=new int[totaltype];
 	private int diff_health[]=new int[totaltype];
+	private String[] ItemFilePath;
 	private ItemInfo()
 	{
-		//ÅªÀÉ
+		try
+		{
+			FileReader fin=new FileReader("./resource/ItemInfo.txt");
+			BufferedReader buff=new BufferedReader(fin);
+			String str;
+			str=buff.readLine();
+			totaltype=Integer.parseInt(str);
+			ItemFilePath=new String[totaltype];
+			diff_health=new int[totaltype];
+			diff_attack=new int[totaltype];
+			diff_attackspeed=new int[totaltype];
+			diff_defense=new int[totaltype];
+			diff_movespeed=new int[totaltype];
+			for(int i=0;i<totaltype;i+=1)
+				ItemFilePath[i]=buff.readLine();
+			buff.close();
+			fin.close();
+			for(int i=0;i<totaltype;i+=1)
+			{
+				fin=new FileReader("./resource/"+ItemFilePath[i]);
+				buff=new BufferedReader(fin);
+				str=buff.readLine();
+				diff_health[i]=Integer.parseInt(str);
+				str=buff.readLine();
+				diff_attack[i]=Integer.parseInt(str);
+				str=buff.readLine();
+				diff_attackspeed[i]=Integer.parseInt(str);
+				str=buff.readLine();
+				diff_defense[i]=Integer.parseInt(str);
+				str=buff.readLine();
+				diff_movespeed[i]=Integer.parseInt(str);
+				fin.close();
+				buff.close();
+			}
+		}
+		catch(IOException e)
+		{
+			System.out.println("Cannot find the file");
+		}
 	}
 	public static synchronized ItemInfo getInstance()
 	{
