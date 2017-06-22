@@ -39,6 +39,7 @@ public class ConnectionHandler extends Thread {
                 // prase the request message
                 int code = is.read();
                 switch(code) {
+                case codes.KEYDOWN: {
                     int key = is.read();
                     switch(key) {
                     case codes.MOVELEFT:
@@ -48,8 +49,8 @@ public class ConnectionHandler extends Thread {
                     case codes.ATTACK:
                     break;
                     }
-                case codes.KEYDOWN:
-                case codes.KEYRELEASE:
+                }
+                case codes.KEYRELEASE: {
                     int key = is.read();
                     switch(key) {
                     case codes.MOVELEFT:
@@ -59,6 +60,7 @@ public class ConnectionHandler extends Thread {
                     case codes.ATTACK:
                     break;
                     }
+                }
                 case -1:
                     throw new IOException();
                 default:

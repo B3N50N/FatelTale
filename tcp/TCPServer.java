@@ -14,7 +14,7 @@ public class TCPServer {
     // default port that server listening on
     public static final int DEFAULT_PORT = 8888;
     private static HashMap<SocketAddress, ConnectionHandler> clients = null;
-    private static HashMap<int, ConnectionHandler> threads = null;
+    private static HashMap<Integer, ConnectionHandler> threads = null;
     private static TCPServer server = null;
     private static ServerSocket srv = null;
     private TCPServer() {}
