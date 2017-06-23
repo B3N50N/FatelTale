@@ -76,10 +76,20 @@ public class TCPClient {
         Logger.log("All clients connected.");
         return true;
     }
-    public void inputMoves(int MoveCode) {
+    public void keyDown(int Code) {
         try {
             if(os == null) return;
-            os.write(MoveCode);
+            os.write(codes.KEYDOWN);
+            os.write(Code);
+        } catch(IOException e) {
+            Logger.log("An error occur while sending to server : " + e);
+        }
+    }
+    public void keyRelease(int Code) {
+        try {
+            if(os == null) return;
+            os.write(codes.KEYRELEASE);
+            os.write(Code);
         } catch(IOException e) {
             Logger.log("An error occur while sending to server : " + e);
         }

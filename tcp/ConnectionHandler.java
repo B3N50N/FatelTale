@@ -3,6 +3,7 @@ package tcp;
 import java.io.*;
 import java.net.*;
 import java.lang.Thread;
+import cdc.*
 
 public class ConnectionHandler extends Thread {
     private Socket sock;
@@ -38,16 +39,15 @@ public class ConnectionHandler extends Thread {
             try {
                 // prase the request message
                 int code = is.read();
+                int key = 0;
                 switch(code) {
-                case codes.TURNEAST:
-                case codes.TURNSOUTH:
-                case codes.TURNNORTH:
-                case codes.TURNWEST:
-//                    FakeCDC.updateDirection(id, code);
-                    break;
-                case codes.GET:
-//                    FakeCDC.getItem(id);
-                    break;
+                case codes.KEYDOWN:
+                    key = is.read();
+                    CDC.getInstance().keyDown(id, key);
+                case codes.KEYRELEASE:
+                    key = is.read();
+                    CDC.getInstance().KeyRelease(id, key);
+                }
                 case -1:
                     throw new IOException();
                 default:
