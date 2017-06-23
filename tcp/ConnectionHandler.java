@@ -51,7 +51,6 @@ public class ConnectionHandler extends Thread {
                     break;
                 case -1:
                     throw new IOException();
-                    break;
                 default:
                     System.err.println("Unrecognized code <" + code + "> ignored");
                 }
