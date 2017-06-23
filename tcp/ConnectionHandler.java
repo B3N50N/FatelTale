@@ -3,7 +3,7 @@ package tcp;
 import java.io.*;
 import java.net.*;
 import java.lang.Thread;
-import cdc.*
+import cdc.*;
 
 public class ConnectionHandler extends Thread {
     private Socket sock;
@@ -47,7 +47,6 @@ public class ConnectionHandler extends Thread {
                 case codes.KEYRELEASE:
                     key = is.read();
                     CDC.getInstance().KeyRelease(id, key);
-                }
                 case -1:
                     throw new IOException();
                 default:
