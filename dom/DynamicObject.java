@@ -12,7 +12,7 @@ public class DynamicObject {
 	}
 	
 	static public final int MAX_FRAME = 4;
-	
+	static public final int FRAME_UPDATE_TIME = 300;
 	static public final int DRAWING_EXTRA_RANGE = 50;
 
 	protected boolean drawable;
@@ -21,6 +21,7 @@ public class DynamicObject {
 	protected int direction; //face direction
 	protected int assetIndex;
 	protected int frame;
+	protected long lastUpdateTime;
 	
 	public DynamicObject(){
 		
@@ -31,6 +32,7 @@ public class DynamicObject {
 		this.direction = direction;
 		this.assetIndex = assetIndex;
 		this.frame = frame;
+		lastUpdateTime = System.currentTimeMillis();
 	}
 	
 	public BufferedImage getImage() {
@@ -41,6 +43,58 @@ public class DynamicObject {
 	public boolean getDrawable(){
 		return drawable;
 	}
+
+	public void update(int nextX, int nextY, int nextDirection, int assetIndex){
+		long currTime = System.currentTimeMillis();
+		if(direction != nextDirection)  // turn
+		{
+			direction = nextDirection;
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		else if(nextX!=x || nextY!=y) // move
+		{
+			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			{
+				frame += 1;
+				frame %= MAX_FRAME;
+				lastUpdateTime = currTime;
+			}
+		}
+		else // stay
+		{
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		x = nextX;
+		y = nextY;
+		this.assetIndex = assetIndex;
+	}
+	public void update(int nextX, int nextY, int nextDirection){
+		long currTime = System.currentTimeMillis();
+		if(direction != nextDirection)  // turn
+		{
+			direction = nextDirection;
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		else if(nextX!=x || nextY!=y) // move
+		{
+			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			{
+				frame += 1;
+				frame %= MAX_FRAME;
+				lastUpdateTime = currTime;
+			}
+		}
+		else // stay
+		{
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		x = nextX;
+		y = nextY;
+	}
 	
 	public int getX(){return x;}
 	public int getY(){return y;}
@@ -48,12 +102,13 @@ public class DynamicObject {
 		this.x = x;
 		this.y = y;
 	}
-	public void updateDirection(int dir){
-		direction = dir;
+	public void updateDirection(int direction){
+		this.direction = direction;
 	}
 	public void updateAssetIndex(int assetIndex){
 		this.assetIndex = assetIndex;
 	}
+	
 	public void updateFrame(int frame){
 		this.frame = frame;
 	}

@@ -1,30 +1,36 @@
 package dom;
 
 public class PlayerInfo {
-	private int clientno;
+	private String name;
 	private int health, maxHealth;
 	private int score;
 	
 	public PlayerInfo() {}
 	public PlayerInfo(int clientno) {
-		this.clientno = clientno;
+		name = "Player" + clientno;
 		score = 0;
 	}
 	public PlayerInfo(int clientno, int maxHealth) {
-		this.clientno = clientno;
+		name = "Player" + clientno;
 		health = maxHealth;
 		this.maxHealth = maxHealth;
 		score = 0;
 	}
 	public PlayerInfo(int clientno, int health, int maxHealth, int score) {
-		this.clientno = clientno;
+		name = "Player" + clientno;
+		this.health = health;
+		this.maxHealth = maxHealth;
+		this.score = score;
+	}
+	public PlayerInfo(String name, int health, int maxHealth, int score) {
+		this.name = name;
 		this.health = health;
 		this.maxHealth = maxHealth;
 		this.score = score;
 	}
 	
-	public int getClientNo() {
-		return clientno;
+	public String getName() {
+		return name;
 	}
 	public int getHealth() {
 		return health;
@@ -36,8 +42,8 @@ public class PlayerInfo {
 		return score;
 	}
 	
-	public void updateClientNo(int clientno) {
-		this.clientno = clientno;
+	public void updateName(String name) {
+		this.name = name;
 	}
 	public void updateHealth(int health) {
 		this.health = health;
