@@ -11,6 +11,7 @@ import entity.Player;
 import entity.PlayerInfo;
 import entity.Monster;
 import entity.Projector;
+import sdm.SDM;
 import tcp.codes;
 public class CDC
 {
@@ -32,9 +33,9 @@ public class CDC
 		projector=new ConcurrentHashMap<>();
 		playerinitlocation=new Point[MaxPlayerno];
 		playerinitlocation[0]=new Point(100,100);
-		playerinitlocation[1]=new Point(1000,1000);
-		playerinitlocation[2]=new Point(0,1000);
-		playerinitlocation[3]=new Point(1000,0);
+		playerinitlocation[1]=new Point(SDM.getInstance().getWidth()-100,100);
+		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight()-100);
+		playerinitlocation[3]=new Point(SDM.getInstance().getWidth()-100,SDM.getInstance().getHeight());
 	}
 	public static synchronized CDC getInstance()
 	{
@@ -96,27 +97,23 @@ public class CDC
 	public Vector getUpdatInfo()
 	{
 		Vector<String> v=new Vector<String>();
-		int cnt=0;
 		for(Map.Entry<Integer,Player> entry:player.entrySet())
 		{
 			String str="";
 			str=entry.toString();
-			v.add(cnt,str);
-			cnt+=1;
+			v.add(str);
 		}
 		for(Map.Entry<Integer,Monster> entry:monster.entrySet())
 		{
 			String str;
 			str=entry.toString();
-			v.add(cnt,str);
-			cnt+=1;
+			v.add(str);
 		}
 		for(Map.Entry<Integer,Item> entry:item.entrySet())
 		{
 			String str;
 			str=entry.toString();
-			v.add(cnt,str);
-			cnt+=1;
+			v.add(str);
 		}
 		return v;
 	}
@@ -124,7 +121,7 @@ public class CDC
 	{
 		CDC cdc;
 		cdc=CDC.getInstance();
-		CDC.getInstance().addPlayer(1,0);
-		System.out.println(CDC.getInstance().getPlayer().get(1).toString());
+		CDC.getInstance().addPlayer(0,0);
+		System.out.println(CDC.getInstance().getPlayer().get(0).toString());
 	}
 }

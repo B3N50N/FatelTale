@@ -17,7 +17,7 @@ public class ItemInfo
 	{
 		try
 		{
-			FileReader fin=new FileReader("./resource/ItemInfo.txt");
+			FileReader fin=new FileReader("./resource/ItemInfo/ItemInfofile.txt");
 			BufferedReader buff=new BufferedReader(fin);
 			String str;
 			str=buff.readLine();
@@ -34,7 +34,7 @@ public class ItemInfo
 			fin.close();
 			for(int i=0;i<totaltype;i+=1)
 			{
-				fin=new FileReader("./resource/"+ItemFilePath[i]);
+				fin=new FileReader("./resource/ItemInfo/"+ItemFilePath[i]);
 				buff=new BufferedReader(fin);
 				str=buff.readLine();
 				diff_health[i]=Integer.parseInt(str);
