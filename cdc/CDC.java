@@ -86,10 +86,6 @@ public class CDC
 	public void addPlayer(int clientno,int type)
 	{
 		assert clientno>=0&&clientno<4:"The clientno is invalid";
-		for(int i=0;i<4;i+=1)
-		{
-			System.out.println(playerinitlocation[i]);
-		}
 		player.put(clientno,new Player(type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type)));
 	}
 	public void addItem(Point point,int type)
