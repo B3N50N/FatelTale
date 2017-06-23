@@ -10,7 +10,7 @@ import logger.Logger;
 
 public class TCPServer {
     // default number of threads(clients)
-    public static final int THREAD_NUM = 4;
+    public static final int THREAD_NUM = 2;
     // default port that server listening on
     public static final int DEFAULT_PORT = 8888;
     private static HashMap<Integer, ConnectionHandler> clients = null;
@@ -26,6 +26,15 @@ public class TCPServer {
     // remove the client from table
     public synchronized void removeConnection(int id) {
         clients.remove(id);
+    }
+    public void createObject(int objid, int type) {
+        for(ConnectionHandler conn : clients.values())
+            conn.modifyObject(codes.CREATEOBJ, objid, type);
+    }
+    public void deleteObject(int objid, int type) {
+        for(ConnectionHandler conn : clients.values())
+            conn.modifyObject(codes.REMOVEOBJ, objid, type);
+        
     }
     // initialize server with default port
     public void initTCPServer() {

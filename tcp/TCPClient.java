@@ -8,7 +8,7 @@ import java.util.concurrent.CyclicBarrier;
 
 import logger.Logger;
 
-public class TCPClient {
+public class TCPClient extends Thread{
     private InputStream is = null;
     private OutputStream os = null;
     private Socket sock = null;
@@ -99,6 +99,34 @@ public class TCPClient {
             ready_barrier.await();
         } catch(Exception e) {
         }
+    }
+    public void run() {
+        for(;;) {
+            try {
+                int code = is.read();
+                int objid = 0, type = 0;;
+                switch(code) {
+                case codes.CREATEOBJ:
+                    objid = is.read();
+                    type = is.read();
+                    break;
+                case codes.REMOVEOBJ:
+                    objid = is.read();
+                    type = is.read();
+                    break;
+                case -1:
+                    throw new IOException();
+                default:
+                    Logger.log("Unrecognized code <" + code + "> ignored");
+                }
+            } catch(IOException e) {
+                Logger.log("Connection closed : " + sock);
+                break;
+            }
+        }
+        try {
+            sock.close();
+        } catch(IOException e) {}
     }
 }
 

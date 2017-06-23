@@ -22,6 +22,8 @@ public class Client {
 
         // Wait until connection success or handle failed
         TCPClient.getClient().waitForReady();
+        TCPClient.getClient().start();
+
         Logger.log("Game start");
 		UI.getInstance().startGame();
 		RenderThread _render_thread = new RenderThread();
@@ -50,9 +52,9 @@ class RenderThread implements Runnable {
 		if ( bs != null && g != null ) {
 			SCENERE.getInstance().render(g);
 			SPRITERE.getInstance().render(g);
+            bs.show();
+            g.dispose();
 		}
-		bs.show();
-		g.dispose();
 	}
 	
 	@Override
