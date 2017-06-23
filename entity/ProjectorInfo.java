@@ -29,10 +29,17 @@ public class ProjectorInfo {
 		assert c != null : "Null Object.";
 		
 		if ( type == "StrikeProjector" ) {
+			if ( c.getType() == "Box" )
+				return new StrikeProjector( ((BoxCollider)c).getDirection(), c, 0L, 0, 0);
 			return new StrikeProjector(new Point(0, 0), c, 0L, 0, 0);
 		}
 		
 		assert false : "Wrong Format.";
+		return null;
+	}
+	
+	public Projector getProjector(BufferedReader br) {
+		
 		return null;
 	}
 }
