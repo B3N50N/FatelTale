@@ -44,11 +44,14 @@ public class ConnectionHandler extends Thread {
                 case codes.KEYDOWN:
                     key = is.read();
                     CDC.getInstance().keyDown(id, key);
+                    break;
                 case codes.KEYRELEASE:
                     key = is.read();
                     CDC.getInstance().keyRelease(id, key);
+                    break;
                 case -1:
                     throw new IOException();
+                    break;
                 default:
                     System.err.println("Unrecognized code <" + code + "> ignored");
                 }
