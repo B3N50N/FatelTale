@@ -41,6 +41,8 @@ public class PlayerInfo
 				str=buff.readLine();
 				health[i]=Integer.parseInt(str);
 				str=buff.readLine();
+				attack[i]=Integer.parseInt(str);
+				str=buff.readLine();
 				attackspeed[i]=Long.parseLong(str);
 				str=buff.readLine();
 				defense[i]=Integer.parseInt(str);
@@ -54,6 +56,7 @@ public class PlayerInfo
 		{
 			System.out.println("Cannot find the file");
 		}
+		
 	}
 	public Vector getTypeInfo(int type)
 	{

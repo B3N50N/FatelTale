@@ -45,10 +45,10 @@ public class CDC
 		}
 		return uniqueinstance;
 	}
-	public Map getPlayer(){return player;}
-	public Map getItem(){return item;}
-	public Map getMonster(){return monster;}
-	public Map getProjector(){return projector;}
+	public Map<Integer,Player> getPlayer(){return player;}
+	public Map<Integer,Item> getItem(){return item;}
+	public Map<Integer,Monster> getMonster(){return monster;}
+	public Map<Integer,Projector> getProjector(){return projector;}
 	public void keyDown(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
@@ -86,6 +86,10 @@ public class CDC
 	public void addPlayer(int clientno,int type)
 	{
 		assert clientno>=0&&clientno<4:"The clientno is invalid";
+		for(int i=0;i<4;i+=1)
+		{
+			System.out.println(playerinitlocation[i]);
+		}
 		player.put(clientno,new Player(type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type)));
 	}
 	public void addItem(Point point,int type)
@@ -121,7 +125,7 @@ public class CDC
 	{
 		CDC cdc;
 		cdc=CDC.getInstance();
-		CDC.getInstance().addPlayer(0,0);
-		System.out.println(CDC.getInstance().getPlayer().get(0).toString());
+		CDC.getInstance().addPlayer(1,0);
+		System.out.println(CDC.getInstance().getPlayer().get(1).toString());
 	}
 }
