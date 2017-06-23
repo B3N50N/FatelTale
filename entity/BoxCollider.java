@@ -9,10 +9,12 @@ public class BoxCollider extends Collider{
 	
 	private double[][] _vector;
 	
-	public BoxCollider(Point pos, Point dir) {
+	public BoxCollider(Point pos, Point dir, int width, int height) {
 		super(pos);
 		// TODO Auto-generated constructor stub
 		_dir = dir;
+		_width = width;
+		_height = height;
 	}
 	
 	public Point getDirection() {

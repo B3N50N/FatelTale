@@ -26,14 +26,10 @@ public class StrikeProjector extends Projector {
 		return false;
 	}
 	
-	public void nextPosition() {
+	public void move() {
 		if ( canMove() ) {
 			_pos.x += _dir.x;
 			_pos.y += _dir.y;
-		}
-		
-		if ( SDM.getInstance().isOutofBound(_pos.x, _pos.y) ) {
-			// TODO Delete this Projector, will call CDC's Delete Function
 		}
 	}
 
@@ -43,5 +39,10 @@ public class StrikeProjector extends Projector {
 		Collider c = _collider.clone();
 		Projector newInstance = new StrikeProjector(c.getPosition(), (Point)_dir.clone(), c, _speed, _attacker_ID);
 		return newInstance;
+	}
+
+	@Override
+	public String getType() {
+		return "StrikeProjector";
 	}
 }

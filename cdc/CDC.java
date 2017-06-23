@@ -46,18 +46,22 @@ public class CDC
 	public void keyDown(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
+		/*
 		if(action==codes.ATTACK)
 			player.get(clientno).playerAttack();
 		else
 			player.get(clientno).playerMove(action);
+		*/
 	}
 	public void keyRelease(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
+		/*
 		if(action==codes.ATTACK)
 			player.get(clientno).attackingEnd();
 		else
 			player.get(clientno).movingEnd();
+		*/
 	}
 	public int getMonsterNewId()
 	{

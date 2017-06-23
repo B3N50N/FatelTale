@@ -19,4 +19,9 @@ public class DirectlyEmitter extends Emitter {
 			PEM.getInstance().addTempProjector(newInstance);
 		}
 	}
+
+	@Override
+	public String getType() {
+		return "DirectlyEmitter";
+	}
 }

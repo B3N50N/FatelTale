@@ -30,8 +30,20 @@ public abstract class Projector {
 	}
 	
 	protected abstract boolean canMove();
-	public abstract void nextPosition();
+	public abstract void move();
 	public abstract Projector clone();
+	public abstract String getType();
+	
+	public void setCollider(Collider c) {
+		assert c != null : "Null Object.";
+		_collider = c;
+		_pos = _collider.getPosition();
+	}
+	
+	public void setDirection(Point p) {
+		assert p != null : "Null Object.";
+		_dir = p;
+	}
 	
 	public Collider getCollider() {
 		return _collider;

@@ -26,12 +26,12 @@ class KeyBoardListener implements KeyListener
 	public void keyReleased(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-		TCPClient.getClient().keyRelease(code);
+		//TCPClient.getClient().keyRelease(code);
 	}
 	public void keyPressed(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-		TCPClient.getClient().keyDown(code);
+		//TCPClient.getClient().keyDown(code);
 	}
 }
 public class UI

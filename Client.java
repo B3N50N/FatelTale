@@ -12,16 +12,16 @@ public class Client {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//assert 1 == 2 : "HI";
-
+		/*
         if(args.length < 1) {
             System.err.println("Usage : java Client SERVER_ADDR");
             System.exit(1);
         }
-		
-		UI.getInstance().startMenu(args[0]);
+		*/
+		//UI.getInstance().startMenu(args[0]);
 
         // Wait until connection success or handle failed
-        TCPClient.getClient().waitForReady();
+        //TCPClient.getClient().waitForReady();
         Logger.log("Game start");
 		UI.getInstance().startGame();
 		RenderThread _render_thread = new RenderThread();
@@ -50,9 +50,10 @@ class RenderThread implements Runnable {
 		if ( bs != null && g != null ) {
 			SCENERE.getInstance().render(g);
 			SPRITERE.getInstance().render(g);
+			bs.show();
+			g.dispose();
 		}
-		bs.show();
-		g.dispose();
+		
 	}
 	
 	@Override

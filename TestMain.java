@@ -32,7 +32,7 @@ class PEMThread implements Runnable {
 		Collider c = new SphereCollider(pos, 10);
 		Projector p = new StrikeProjector(pos, dir, c, 1000L, 0);
 		Emitter e = new DirectlyEmitter(1000L, dir, pos, p);
-		Monster m = new Monster(10, 50, 100, pos, dir, 0, e, 1500L, c);
+		Monster m = new Monster(10, 50, 100, 0, e, 1000L, c);
 		PEM.getInstance().putMonster_Test(m);
 	}
 	
@@ -57,6 +57,7 @@ class PEMThread implements Runnable {
 			}
 		}
 		PEM.getInstance().PrintState();
+		
 	}
 	
 	public synchronized void start() {

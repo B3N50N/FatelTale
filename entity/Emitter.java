@@ -43,4 +43,5 @@ public abstract class Emitter {
 	}
 	
 	protected abstract void attack();
+	public abstract String getType();
 }

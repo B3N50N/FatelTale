@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
+import cdc.CDC;
 import entity.*;
 
 public class PEM {
@@ -33,6 +34,7 @@ public class PEM {
 		
 		_monster = new ConcurrentHashMap<>();
 		_projector = new ConcurrentHashMap<>();
+		_item = new ConcurrentHashMap<>();
 	}
 	
 	public static synchronized PEM getInstance() {
@@ -57,22 +59,28 @@ public class PEM {
 	}
 	
 	public void nextPosition() {
+		
+		for (int i=0;i<_player.length;i++) {
+			_player[i].move();
+		}
+		
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
-			e.getValue().nextPosition();
+			e.getValue().move();
 		}
 		
 		for ( Map.Entry<Integer, Projector> e : _projector.entrySet() ) {
-			e.getValue().nextPosition();
+			e.getValue().move();
 		}
 	}
 	
 	public void checkCollision() {
+		/*
 		for (int i=0;i<_player.length;i++) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				
 			}
 		}
-		
+		*/
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( _delete_projector.contains( projector.getKey() ) || _delete_monster.contains( monster.getKey() ) ) {
@@ -107,24 +115,23 @@ public class PEM {
 	
 	public void addTempMonster(Monster m) {
 		// TODO get CDC get new Monster ID
-		_tmp_monster.put(_monster.size(), m);
+		_tmp_monster.put(CDC.getInstance().getMonsterNewId(), m);
 	}
 	
 	public void addTempProjector(Projector p) {
 		// TODO get CDC get new Projector ID
-		int ID = 0;
-		_tmp_projector.put(_projector.size(), p);
+		_tmp_projector.put(CDC.getInstance().getProjectorId(), p);
 		// TODO call TCP add() function
 	}
 	
 	private void deleteMonster(Integer ID) {
 		// TODO call TCP delete() function
-		_delete_monster.add(ID);
+		_monster.remove(ID);
 	}
 	
 	private void deleteProjector(Integer ID) {
 		// TODO call TCP delete() function
-		_delete_projector.add(ID);
+		_projector.remove(ID);
 	}
 	
 	public void PrintState() {

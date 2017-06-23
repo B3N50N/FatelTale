@@ -47,7 +47,7 @@ public class Monster {
 		return false;
 	}
 	
-	public void nextPosition() {
+	public void move() {
 		if ( canMove() ) {
 			changePosition(new Point(_pos.x + _dir.x, _pos.y + _dir.y));
 		}
@@ -70,7 +70,8 @@ public class Monster {
 	private void changePosition(Point pos) {
 		if ( SDM.getInstance().isWalkable(pos.x, pos.y) ) {
 			System.out.println("HI");
-			_pos = pos; 
+			_pos.x = pos.x;
+			_pos.y = pos.y;
 		}
 	}
 	
@@ -82,5 +83,6 @@ public class Monster {
 		System.out.println("Monster : ");
 		System.out.print("Position : ");
 		System.out.println(_pos.x + " " + _pos.y);
+		System.out.println("Emitter Position : " + _emitter.getPosition() );
 	}
 }
