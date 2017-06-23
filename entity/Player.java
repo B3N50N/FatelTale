@@ -11,7 +11,8 @@ public class Player
 	//private boolean active;
 	private boolean moving=false,attacking=false;
 	private int asset_index;
-	//private collider;
+	private Emitter _emitter;
+	private Collider _collider;
 	
 	private Long _last_move_time;
 	
@@ -100,12 +101,9 @@ public class Player
 			attack+=dif;
 	}
 	
-	public void changeAttackSpeed(int dif)
+	public void changeAttackSpeed(Long dif)
 	{
-		if(attackspeed+dif<0)
-			attackspeed=0L;
-		else
-			attackspeed+=dif;
+		_emitter.changeAttackSpeed(dif);
 	}
 	
 	public void changePos(int newx,int newy)
@@ -125,6 +123,7 @@ public class Player
 	public void attack() {
 		if ( attacking ) {
 			// TODO attack...
+			_emitter.attack();
 		}
 	}
 	
@@ -139,6 +138,10 @@ public class Player
 	
 	public int getAttack() {
 		return attack;
+	}
+	
+	public Point getPosition() {
+		return location;
 	}
 	
 	public String toString()

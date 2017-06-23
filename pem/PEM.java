@@ -20,7 +20,7 @@ public class PEM {
 	private Set<Integer> _delete_monster;
 	private Set<Integer> _delete_projector;
 	
-	public Player [] _player;
+	public Map<Integer, Player> _player;
 	public Map<Integer, Monster> _monster; // Only For Test
 	public Map<Integer, Projector> _projector; // Only For Test
 	public Map<Integer, Item> _item;
@@ -32,6 +32,7 @@ public class PEM {
 		_delete_monster = new HashSet<>();
 		_delete_projector = new HashSet<>();
 		
+		_player = new ConcurrentHashMap<>();
 		_monster = new ConcurrentHashMap<>();
 		_projector = new ConcurrentHashMap<>();
 		_item = new ConcurrentHashMap<>();
@@ -52,20 +53,20 @@ public class PEM {
 		_delete_projector.clear();
 		
 		nextPosition();
-		checkCollision();
-		attacking();
+		//checkCollision();
+		//attacking();
 		
 		updateData();
 	}
 	
 	public void nextPosition() {
 		
-		for (int i=0;i<_player.length;i++) {
-			_player[i].move();
+		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
+			e.getValue().move();
 		}
 		
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
-			e.getValue().move();
+			e.getValue().move(_player);
 		}
 		
 		for ( Map.Entry<Integer, Projector> e : _projector.entrySet() ) {
@@ -74,13 +75,13 @@ public class PEM {
 	}
 	
 	public void checkCollision() {
-		/*
-		for (int i=0;i<_player.length;i++) {
+
+		for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				
 			}
 		}
-		*/
+		
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( _delete_projector.contains( projector.getKey() ) || _delete_monster.contains( monster.getKey() ) ) {

@@ -33,6 +33,13 @@ public abstract class Emitter {
 		return _dir;
 	}
 	
+	public void changeAttackSpeed(Long delta) {
+		_attack_speed += delta;
+		if ( _attack_speed < 10L ) {
+			_attack_speed = 10L;
+		}
+	}
+	
 	protected boolean canAttack() {
 		if ( System.currentTimeMillis() - _last_attack_time >= _attack_speed ) {
 			_last_attack_time = System.currentTimeMillis();

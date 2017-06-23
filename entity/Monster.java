@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Point;
+import java.util.Map;
 
 import sdm.SDM;
 
@@ -16,14 +17,14 @@ public class Monster {
 	private int _asset_index;
 	
 	private Emitter _emitter;
-	private Long _last_move_time, _speed;
+	private Long _last_move_time, _speed, _last_direction_change;
 	
 	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
 		Init(health, attack, defense, pos, dir, index, emitter, speed, collider);
 	}
 	
 	public Monster(int health, int attack, int defense, int index, Emitter emitter, Long speed, Collider collider) {
-		Init(health, attack, defense, emitter.getPosition(), emitter.getDirection(), index, emitter, speed, collider);
+		Init(health, attack, defense, collider.getPosition(), emitter.getDirection(), index, emitter, speed, collider);
 	}
 	
 	private void Init(int health, int attack, int defense, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
@@ -35,7 +36,7 @@ public class Monster {
 		_asset_index = index;
 		_emitter = emitter;
 		_speed = speed;
-		_last_move_time = System.currentTimeMillis();
+		_last_direction_change = _last_move_time = System.currentTimeMillis();
 		_collider = collider;
 	}
 	
@@ -47,9 +48,35 @@ public class Monster {
 		return false;
 	}
 	
-	public void move() {
+	private boolean canChangeDirection() {
+		if ( System.currentTimeMillis() - _last_direction_change >= 100 ) {
+			_last_direction_change = System.currentTimeMillis();
+			return true;
+		}
+		return false;
+	}
+	
+	public void move(Map<Integer, Player> player) {
 		if ( canMove() ) {
 			changePosition(new Point(_pos.x + _dir.x, _pos.y + _dir.y));
+			if ( canChangeDirection() ) {
+				Point tmpPoint = null;
+				for ( Map.Entry<Integer, Player> p : player.entrySet() ) {
+					if ( tmpPoint == null ) {
+						tmpPoint = p.getValue().getPosition();
+					}
+					if ( tmpPoint.distanceSq(_pos) > p.getValue().getPosition().distanceSq(_pos) ) {
+						tmpPoint = p.getValue().getPosition();
+					}
+				}
+				
+				if ( tmpPoint != null ) {
+					Point nextDirection = new Point(tmpPoint.x - _pos.x, tmpPoint.y - _pos.y);
+					double dis = nextDirection.distance(0, 0);
+					_dir.x = (int) (( nextDirection.getX() / dis ) * 10.0);
+					_dir.y = (int) (( nextDirection.getY() / dis ) * 10.0);
+				}
+			}
 		}
 	}
 	
@@ -59,6 +86,7 @@ public class Monster {
 	
 	public void beAttacked(int attack) {
 		int damage = attack - _defense;
+		changeHealth(-damage);
 	}
 	
 	public void changeHealth(int delta) {
@@ -84,5 +112,9 @@ public class Monster {
 		System.out.print("Position : ");
 		System.out.println(_pos.x + " " + _pos.y);
 		System.out.println("Emitter Position : " + _emitter.getPosition() );
+	}
+	
+	public String toString() {
+		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y);
 	}
 }
