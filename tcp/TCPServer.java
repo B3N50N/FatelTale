@@ -13,8 +13,7 @@ public class TCPServer {
     public static final int THREAD_NUM = 4;
     // default port that server listening on
     public static final int DEFAULT_PORT = 8888;
-    private static HashMap<SocketAddress, ConnectionHandler> clients = null;
-    private static HashMap<Integer, ConnectionHandler> threads = null;
+    private static HashMap<Integer, ConnectionHandler> clients = null;
     private static TCPServer server = null;
     private static ServerSocket srv = null;
     private TCPServer() {}
@@ -25,8 +24,8 @@ public class TCPServer {
         return server;
     }
     // remove the client from table
-    public synchronized void removeConnection(SocketAddress addr) {
-        clients.remove(addr);
+    public synchronized void removeConnection(int id) {
+        clients.remove(id);
     }
     // initialize server with default port
     public void initTCPServer() {
@@ -57,13 +56,12 @@ public class TCPServer {
             Logger.log("Receive a connection : " + conn[i]);
         }
 
-        clients = new HashMap<SocketAddress, ConnectionHandler>();
+        clients = new HashMap<Integer, ConnectionHandler>();
         ConnectionHandler[] thrds = new ConnectionHandler[THREAD_NUM];
         // Spawn thread for each connection
         for(int i = 0; i < THREAD_NUM; ++i) {
             thrds[i] = new ConnectionHandler(conn[i], i + 1);
-            clients.put(conn[i].getRemoteSocketAddress(), thrds[i]);
-            threads.put(i, thrds[i]);
+            clients.put(i, thrds[i]);
             thrds[i].start();
         }
 
@@ -91,8 +89,10 @@ public class TCPServer {
     }
     // get a vector of client addresses
     public Vector<SocketAddress> getClientIPTable() {
-        return clients == null ? new Vector<SocketAddress>()
-                               : new Vector<SocketAddress>(clients.keySet());
+        Vector<SocketAddress> addrs = new Vector<SocketAddress>();
+        for(ConnectionHandler conn : clients.values())
+            addrs.add(conn.getAddress());
+        return addrs;
     }
 }
 
