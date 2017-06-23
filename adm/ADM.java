@@ -15,13 +15,20 @@ public class ADM {
 	private static ADM uniqueInstance;
 	
 	private BufferedImage[][] _map_assets;
-	private int _map_width, _map_height;
 	
 	private BufferedImage[][] _player_assets;
+	private BufferedImage[][] _monster_assets;
+	private BufferedImage[][] _projector_assets;
+	private BufferedImage[][] _item_assets;
 	
 	private ADM() {
 		_map_assets = readFile("./resource/Assets/Map/");
+		/*
 		_player_assets = readFile("./resource/Assets/Player/");
+		_monster_assets = readFile("./resource/Assets/Monster/");
+		_projector_assets = readFile("./resource/Assets/Projector/");
+		_item_assets = readFile("./resource/Assets/Projector/");
+		*/
 	}
 	
 	public static synchronized ADM getInstance() {
@@ -131,5 +138,23 @@ public class ADM {
 		assert index >= 0 && index < _player_assets.length : "Invalid Index.";
 		assert i >= 0 && i < _player_assets[i].length : "Invalid Index.";
 		return _player_assets[index][i];
+	}
+	
+	public BufferedImage getMonsterAsset(int index, int i) {
+		assert index >= 0 && index < _monster_assets.length : "Invalid Index.";
+		assert i >= 0 && i < _monster_assets[i].length : "Invalid Index.";
+		return _monster_assets[index][i];
+	}
+	
+	public BufferedImage getProjectorAsset(int index, int i) {
+		assert index >= 0 && index < _projector_assets.length : "Invalid Index.";
+		assert i >= 0 && i < _projector_assets[i].length : "Invalid Index.";
+		return _projector_assets[index][i];
+	}
+	
+	public BufferedImage getItemAsset(int index, int i) {
+		assert index >= 0 && index < _item_assets.length : "Invalid Index.";
+		assert i >= 0 && i < _item_assets[i].length : "Invalid Index.";
+		return _item_assets[index][i];
 	}
 }
