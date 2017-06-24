@@ -29,11 +29,13 @@ public class UDPUS {
     static char[] temp = new char[50];
     static char temp2;
     static String temp3;
+    
+    static int port =8890;
 	
 	public static void transfer() throws Exception {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
-        DatagramSocket ds = new DatagramSocket(80); // Set Server Port
+        DatagramSocket ds = new DatagramSocket(port); // Set Server Port
         System.out.println("伺服器啟動於 : "
                 + InetAddress.getLocalHost().getHostAddress() + ":" + ds.getLocalPort());
         String msg = "No Message...";
@@ -57,6 +59,12 @@ public class UDPUS {
 		
 		for(int i = 0;i< msg.length();i++)
 		{
+			
+			if(msg.charAt(0)!= '$')//check pakage
+			{
+				break;
+			}
+			
 			temp2 = msg.charAt(i);//取出字元
 			if(temp2 == ' ')
 			{

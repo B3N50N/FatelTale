@@ -18,6 +18,7 @@ public class UDPBC extends Thread {
 	private static Vector v;
 	private static int msg_crc;
 	private static int stage_max =1000;
+	private static int port =8890;
 	
 	 MyThread my = new MyThread();
 	 Thread t = new Thread(my,"_");
@@ -69,7 +70,7 @@ public class UDPBC extends Thread {
 	    		{
 	            	//msg = "&1=Player 2 0 10000 10000 west 0 -100.0 100.0 &";
 	            	//msg  = msg + " " + IPtable.get(i).getAddress().toString();
-	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i).getAddress(), 80);
+	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i).getAddress(), port);
 	            	DatagramSocket socket = new DatagramSocket();
 	 				socket.send(dp);
 	 				socket.close();
