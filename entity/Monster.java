@@ -72,10 +72,12 @@ public class Monster {
 				}
 				
 				if ( tmpPoint != null ) {
-					Point nextDirection = new Point(tmpPoint.x - _pos.x, tmpPoint.y - _pos.y);
-					double dis = nextDirection.distance(0, 0);
-					_dir.x = (int) (( nextDirection.getX() / dis ) * 10.0);
-					_dir.y = (int) (( nextDirection.getY() / dis ) * 10.0);
+					if ( tmpPoint.distance(_pos) >= 300 ) {
+						Point nextDirection = new Point(tmpPoint.x - _pos.x, tmpPoint.y - _pos.y);
+						double dis = nextDirection.distance(0, 0);
+						_dir.x = (int) (( nextDirection.getX() / dis ) * 10.0);
+						_dir.y = (int) (( nextDirection.getY() / dis ) * 10.0);
+					}
 				}
 			}
 		}
