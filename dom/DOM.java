@@ -119,6 +119,14 @@ public class DOM {
 		PlayerInfos.put(clientno, info);
 	}
 
+	public void updatePlayerInfo(int clientno, String name, int health, int maxHealth, int score) {
+		PlayerInfo info = PlayerInfos.get(clientno);
+		assert info == null : "Update playerInfo failed, no playerInfo with clientno " + clientno;
+		info.updateName(name);
+		info.updateHealth(health);
+		info.updateMaxHealth(maxHealth);
+		info.updateScore(score);
+	}
 	public void updatePlayerInfo(int clientno, int health, int maxHealth, int score) {
 		PlayerInfo info = PlayerInfos.get(clientno);
 		assert info == null : "Update playerInfo failed, no playerInfo with clientno " + clientno;
