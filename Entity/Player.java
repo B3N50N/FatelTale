@@ -12,16 +12,17 @@ public class Player
 	private Long movespeed,attackspeed;
 	private Point location;
 	private boolean moving=false,attacking=false;
-	private int score;
+	private int score,id;
 	private int asset_index;
 	private Long lastmovetime;
 	//private collider;
 	//static final int west=0,north=1,east=2,south=3;
 	//private boolean active;
 	private static Map<Integer,Point> dirtovector;
-	public Player(int type,Point point,Vector attribute)
+	public Player(int clientno,int type,Point point,Vector attribute)
 	{
 		//active=true;
+		id=clientno;
 		asset_index=type;
 		location=point;
 		health=(int)attribute.get(0);
@@ -136,11 +137,17 @@ public class Player
 	{
 		String str="";
 		str+="Player ";
+		str+=String.valueOf(id);
+		str+=" ";
 		str+=String.valueOf(asset_index);
 		str+=" ";
 		str+=String.valueOf(health);
 		str+=" ";
+		str+=String.valueOf(maxhealth);
+		str+=" ";
 		str+=dirvaluetoString(direction);
+		str+=" ";
+		str+=String.valueOf(score);
 		str+=" ";
 		str+=String.valueOf(location.getX());
 		str+=" ";
