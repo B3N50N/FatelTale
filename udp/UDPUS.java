@@ -11,21 +11,21 @@ import dom.*;
 
 public class UDPUS {
 	
-	static int clientno;
+	static int clientno =0;
     static Player player;
-    static int x;
-    static int y;
-    static int direction;
+    static int x =0;
+    static int y =0;
+    static int direction =0;
     static Point direction2 = new Point();
-    static int assetIndex;
+    static int assetIndex =0;
     //static int frame;
-    static int id;
+    static int id =0;
     static Monster monster ;
     static Projector projector;
     static Item item;
-    static int health;
-    static int maxHealth;
-    static int score;
+    static int health =0;
+    static int maxHealth =0;
+    static int score =0;
     static char[] temp = new char[50];
     static char temp2;
     static String temp3;
@@ -114,7 +114,7 @@ public class UDPUS {
 					{
 						type = 1;
 					}
-					/*if(temp3.equals("Monster"))
+					if(temp3.equals("Monster"))
 					{
 						type = 2;
 					}
@@ -129,7 +129,7 @@ public class UDPUS {
 					if(temp3.equals("PlayerInfo"))
 					{
 						type = 5;
-					}*/
+					}
 				}
 			    else if(type ==1)
 				{
@@ -154,7 +154,7 @@ public class UDPUS {
 					else if(numofelement ==3)
 					{
 						maxHealth = Integer.parseInt(temp3);
-						//System.out.println("axHealth = "+axHealth);
+						//System.out.println("maxHealth = "+maxHealth);
 						numofelement++;
 					}
 					else if(numofelement ==4)
@@ -228,7 +228,7 @@ public class UDPUS {
 					  else if(numofelement ==4)
 					  {
 						  direction2.y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+y);
+						  //System.out.println("location_y = "+y);
 						  numofelement++;
 					  }
 					  else if(numofelement ==5)
@@ -371,21 +371,26 @@ public class UDPUS {
 	{
 		if(type ==1)
 		{
+			System.out.println("call_updatePlayer : " + " clientno : "+ clientno +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex );
 			DOM.getInstance().updatePlayer(clientno, x, y, direction, assetIndex);
+			System.out.println("call_updatePlayerInfo : " + " clientno : "+ clientno +" health : "+ health +" maxHealth : "+ maxHealth +" score : " + score);
 			DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);
 		}
 		else if(type ==2)
 		{
 			analyzedirection();
+			System.out.println("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
 			DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
 		}
 		else if(type ==3)
 		{
 			analyzedirection();
+			System.out.println("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex);
 			DOM.getInstance().updateProjector(id, x, y, direction, assetIndex);
 		}
 		else if(type ==4)
 		{
+			System.out.println("call_updateItem : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : " + assetIndex);
 			DOM.getInstance().updateItem(id, x, y, direction, assetIndex);
 		}
 		/*else if(type ==5)
