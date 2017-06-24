@@ -8,7 +8,7 @@ import adm.ADM;
 
 public class DynamicObject {
 	static public class DIRECTION{
-		int DOWN=0, LEFT=1, RIGHT=2, UP=3;
+		public int DOWN=0, LEFT=1, RIGHT=2, UP=3;
 	}
 	
 	static public final int MAX_FRAME = 4;
