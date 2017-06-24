@@ -25,4 +25,11 @@ public class DirectlyEmitter extends Emitter {
 		return "DirectlyEmitter";
 	}
 
+	@Override
+	public Emitter clone() {
+		Projector p = _ori_projector.clone();
+		Emitter newInstance = new DirectlyEmitter(_attack_speed, p.getDirection(), p.getPosition(), p);
+		return newInstance;
+	}
+
 }

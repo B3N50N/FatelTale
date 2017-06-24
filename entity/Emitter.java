@@ -55,6 +55,7 @@ public abstract class Emitter {
 	
 	protected abstract void attack();
 	public abstract String getType();
+	public abstract Emitter clone();
 	
 	public void Print() {
 		System.out.println("Emitter :");

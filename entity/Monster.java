@@ -135,4 +135,11 @@ public class Monster {
 	public String toString() {
 		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y);
 	}
+	
+	public Monster clone() {
+		Collider c = _collider.clone();
+		Emitter e = _emitter.clone();
+		Monster newInstance = new Monster(_health, _attack, _defense, _asset_index, e, _speed, c);
+		return newInstance;
+	}
 }
