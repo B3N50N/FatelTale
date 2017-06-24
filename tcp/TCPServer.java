@@ -73,32 +73,10 @@ public class TCPServer {
             clients.put(i, thrds[i]);
             thrds[i].start();
         }
-
-        // event loop
-        for(;;) {
-            try {
-                Thread.sleep(3000);
-                if(clients.isEmpty())
-                    break;
-            } catch(InterruptedException e) {
-                break;
-            }
-        }
-        Logger.log("Shutting down server...");
-        for(ConnectionHandler hndl : thrds) {
-            try {
-                hndl.join();
-            } catch(InterruptedException e) {}
-        }
-        clients = null;
-        try {
-            srv.close();
-        } catch(IOException e) {}
-        srv = null;
     }
     // get a vector of client addresses
-    public Vector<SocketAddress> getClientIPTable() {
-        Vector<SocketAddress> addrs = new Vector<SocketAddress>();
+    public Vector<InetAddress> getClientIPTable() {
+        Vector<InetAddress> addrs = new Vector<InetAddress>();
         for(ConnectionHandler conn : clients.values())
             addrs.add(conn.getAddress());
         return addrs;

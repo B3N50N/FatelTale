@@ -58,7 +58,7 @@ public class UDPBC extends Thread {
 	        Scanner s = new Scanner(System.in);
 	        System.out.println("UDPBC start: ");
 	        String msg = "Key in";
-	        Vector<SocketAddress> IPtable = TCPServer.getServer().getClientIPTable();
+	        Vector<InetAddress> IPtable = TCPServer.getServer().getClientIPTable();
 	        while (true) {
 	            msg = encode();
 	            msg_crc = msg.hashCode();
@@ -69,7 +69,7 @@ public class UDPBC extends Thread {
 	    		{
 	            	//msg = "&1=Player 2 0 10000 10000 west 0 -100.0 100.0 &";
 	            	//msg  = msg + " " + IPtable.get(i).getAddress().toString();
-	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i));
+	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length, IPtable.get(i), port);
 	            	DatagramSocket socket = new DatagramSocket();
 	 				socket.send(dp);
 	 				socket.close();

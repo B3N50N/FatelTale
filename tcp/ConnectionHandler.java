@@ -11,8 +11,8 @@ public class ConnectionHandler extends Thread {
     private InputStream is;
     private OutputStream os;
     private Integer id;
-    public SocketAddress getAddress() {
-        return sock.getRemoteSocketAddress();
+    public InetAddress getAddress() {
+        return sock.getInetAddress();
     }
     public ConnectionHandler(Socket _sock, int _id) {
         sock = _sock;
