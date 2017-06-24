@@ -31,6 +31,40 @@ public class UDPUS {
     static String temp3;
     
     static int port =8890;
+    
+    
+    MyThread my = new MyThread();
+	 Thread t = new Thread(my,"_");
+	 public static UDPUS meow;
+	 public static synchronized UDPUS getInstance()
+	 {
+		 if(meow==null)
+		 {
+			 meow=new UDPUS();
+		 }
+		 return meow;
+	 }
+	 
+	 public  void initUDPServer()
+	 {
+		 t.start();
+	 }
+	 
+	 class MyThread extends Thread 
+	 {
+		 public void run()
+		 {
+			 try
+			 {
+				 transfer();
+			 }catch( Exception e){
+				 System.out.println("fail to start UDP");
+			 }
+			  
+		 }
+		
+	 }
+    
 	
 	public static void transfer() throws Exception {
         byte[] buffer = new byte[65507];

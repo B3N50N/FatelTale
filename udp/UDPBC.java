@@ -60,7 +60,7 @@ public class UDPBC extends Thread {
 	        String msg = "Key in";
 	        Vector<InetSocketAddress> IPtable = TCPClient.getClientIPTable();
 	        while (true) {
-	            msg = s.next();
+	            //msg = s.next();//meage之後，此行註解
 	            msg = encode();
 	            msg_crc = msg.hashCode();
 	            System.out.println(msg_crc);
