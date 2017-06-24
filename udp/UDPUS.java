@@ -1,5 +1,6 @@
 package udp;
 
+import java.awt.Point;
 import java.io.*;
 import java.net.*;
 import java.net.DatagramPacket;
@@ -15,6 +16,7 @@ public class UDPUS {
     static int x;
     static int y;
     static int direction;
+    static Point direction2 = new Point();
     static int assetIndex;
     //static int frame;
     static int id;
@@ -48,6 +50,8 @@ public class UDPUS {
 		int numofword=0;
 		int numofelement = 0;
 		
+		int CRCcheck=0;
+		
 		temp3 ="";
 		temp2 = ' ';
 		
@@ -80,10 +84,10 @@ public class UDPUS {
 					{
 						type = 4;
 					}
-					if(temp3.equals("PlayerInfo"))
+					/*if(temp3.equals("PlayerInfo"))
 					{
 						type = 5;
-					}
+					}*/
 				}
 			    else if(type ==1)
 				{
@@ -155,11 +159,81 @@ public class UDPUS {
 				  }
 				  else if(type ==2)
 				  {
-					  
+					  if(numofelement ==0)
+					  {
+						  id = Integer.parseInt(temp3);
+						  //System.out.println("clientno = "+clientno);
+						  numofelement++;
+					  }
+					  else if(numofelement ==1)
+					  {
+						  x = (int)Float.parseFloat(temp3);
+						  //System.out.println("location_X = "+x);
+						  numofelement++;
+					  }
+					  else if(numofelement ==2)
+					  {
+						  y = (int)Float.parseFloat(temp3);
+						  //System.out.println("location_X = "+y);
+						  numofelement++;
+					  }
+					  else if(numofelement ==3)
+					  {
+						  direction2.x= (int)Float.parseFloat(temp3);
+						  //System.out.println("location_X = "+x);
+						  numofelement++;
+					  }
+					  else if(numofelement ==4)
+					  {
+						  direction2.y = (int)Float.parseFloat(temp3);
+						  //System.out.println("location_X = "+y);
+						  numofelement++;
+					  }
+					  else if(numofelement ==5)
+					  {
+						  assetIndex = Integer.parseInt(temp3);
+						  //System.out.println("assetIndex = "+assetIndex);
+						  numofelement++;
+					  }
 				  }
 				  else if(type ==3)
 				  {
-					  
+					  if(numofelement ==0)
+					  {
+						  id = Integer.parseInt(temp3);
+						  //System.out.println("clientno = "+clientno);
+						  numofelement++;
+					  }
+					  else if(numofelement ==1)
+					  {
+						  x = (int)Float.parseFloat(temp3);
+						  //System.out.println("location_X = "+x);
+						  numofelement++;
+					  }
+					  else if(numofelement ==2)
+					  {
+						  y = (int)Float.parseFloat(temp3);
+						  //System.out.println("location_X = "+y);
+						  numofelement++;
+					  }
+					  else if(numofelement ==3)
+					  {
+						  direction2.x= (int)Float.parseFloat(temp3);
+						  //System.out.println("location_X = "+x);
+						  numofelement++;
+					  }
+					  else if(numofelement ==4)
+					  {
+						  direction2.y = (int)Float.parseFloat(temp3);
+						  //System.out.println("location_X = "+y);
+						  numofelement++;
+					  }
+					  else if(numofelement ==5)
+					  {
+						  assetIndex = Integer.parseInt(temp3);
+						  //System.out.println("assetIndex = "+assetIndex);
+						  numofelement++;
+					  }
 				  }
 				  else if(type ==4)
 				  {
@@ -185,8 +259,8 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
-				clientno = Integer.parseInt(temp3);//既瞦代
-				id = Integer.parseInt(temp3);//既瞦代
+				//clientno = Integer.parseInt(temp3);//既瞦代
+				//id = Integer.parseInt(temp3);//既瞦代
 				temp3 ="";
 				numofelement =0;
 				numofword =0;
@@ -198,6 +272,49 @@ public class UDPUS {
 				numofword =0;
 				numofelement =0;
 				type =0;
+			}
+			else if(temp2 == '$' && CRCcheck==0)
+			{
+				int CRCstate=0;
+				
+				String CRC_value ="";
+				String sample ="";
+				int CDC_value2 =0;
+				for(int k = 0;k< msg.length();k++)
+				{
+					if(CRCstate ==0 && msg.charAt(k) == '$')
+					{
+						CRCstate =1;
+					}
+					else if(CRCstate ==1 && msg.charAt(k) == '$')
+					{
+						CRCstate =2;
+					}
+					else if(CRCstate ==1 && msg.charAt(k) != '$')
+					{
+						CRC_value = CRC_value + msg.charAt(k);
+					}
+					else if(CRCstate ==2 )
+					{
+						sample =sample + msg.charAt(k);
+					}
+				}
+				//System.out.println(CRC_value.equals(sample.hashCode()));
+				CDC_value2 = Integer.parseInt(CRC_value);
+				if(CDC_value2 == sample.hashCode())
+				{
+					System.out.println("CRC_value: "+CRC_value);
+					System.out.println("sample.hashCode(): "+sample.hashCode());
+					CRCcheck=1;
+				}
+				else
+				{
+					System.out.println("CRC_value: "+CRC_value);
+					System.out.println("sample.hashCode(): "+sample.hashCode());
+					System.out.println("package error!!!! ");
+					break;
+				}
+				
 			}
 			else
 			{
@@ -217,10 +334,12 @@ public class UDPUS {
 		}
 		else if(type ==2)
 		{
+			analyzedirection();
 			DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
 		}
 		else if(type ==3)
 		{
+			analyzedirection();
 			DOM.getInstance().updateProjector(id, x, y, direction, assetIndex);
 		}
 		else if(type ==4)
@@ -240,6 +359,25 @@ public class UDPUS {
 		DOM.getInstance().updateItem( id, item);
 		DOM.getInstance().updateItem(id, x, y, direction, assetIndex);
 		DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);*/
+	}
+	private static void analyzedirection()
+	{
+		if(direction2.x ==0 && direction2.y >=0 )
+		{
+			direction = DynamicObject.DIRECTION.DOWN;
+		}
+		else if(direction2.x ==0 && direction2.y <0 )
+		{
+			direction = DynamicObject.DIRECTION.UP;
+		}
+		else if(direction2.x >0 && direction2.y ==0 )
+		{
+			direction = DynamicObject.DIRECTION.RIGHT;
+		}
+		else if(direction2.x <0 && direction2.y ==0 )
+		{
+			direction = DynamicObject.DIRECTION.LEFT;
+		}
 	}
 
 }

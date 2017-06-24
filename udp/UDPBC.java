@@ -16,7 +16,8 @@ public class UDPBC extends Thread {
 	
 	private static int blocknum =0, nowblocknum =0;
 	private static Vector v;
-	
+	private static int msg_crc;
+	private static int stage_max =1000;
 	
 	 MyThread my = new MyThread();
 	 Thread t = new Thread(my,"_");
@@ -60,6 +61,9 @@ public class UDPBC extends Thread {
 	        while (true) {
 	            msg = s.next();
 	            msg = encode();
+	            msg_crc = msg.hashCode();
+	            System.out.println(msg_crc);
+	            msg ="$"+ msg_crc +"$" + msg;
 	            
 	            for(int i=0;i<IPtable.size();i++)
 	    		{
@@ -93,13 +97,13 @@ public class UDPBC extends Thread {
 			 nowblocknum =0;
 		 }
 		 
-		 if(nowblocknum+1000> v.size())
+		 if(nowblocknum+stage_max> v.size())
 		 {
 			 stagenum = v.size();
 		 }
 		 else
 		 {
-			 stagenum = nowblocknum+1000;
+			 stagenum = nowblocknum+stage_max;
 		 }
 		 
 		 for(int i=nowblocknum;i<stagenum;i++)
