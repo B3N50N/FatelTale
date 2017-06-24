@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.HashMap;
 import java.lang.Thread;
 import java.util.concurrent.CyclicBarrier;
+import dom.*;
 
 import logger.Logger;
 
@@ -109,10 +110,38 @@ public class TCPClient extends Thread{
                 case codes.CREATEOBJ:
                     objid = is.read();
                     type = is.read();
+                    switch(type) {
+                        case codes.PLAYER:
+                            DOM.getInstance().addPlayer(objid);
+                            break;
+                        case codes.PROJECTOR:
+                            DOM.getInstance().addProjector(objid);
+                            break;
+                        case codes.MONSTER:
+                            DOM.getInstance().addMonster(objid);
+                            break;
+                        case codes.ITEM:
+                            DOM.getInstance().addItem(objid);
+                            break;
+                    }
                     break;
                 case codes.REMOVEOBJ:
                     objid = is.read();
                     type = is.read();
+                    switch(type) {
+                        case codes.PLAYER:
+                            DOM.getInstance().removePlayer(objid);
+                            break;
+                        case codes.PROJECTOR:
+                            DOM.getInstance().removeProjector(objid);
+                            break;
+                        case codes.MONSTER:
+                            DOM.getInstance().removeMonster(objid);
+                            break;
+                        case codes.ITEM:
+                            DOM.getInstance().removeItem(objid);
+                            break;
+                    }
                     break;
                 case -1:
                     throw new IOException();
