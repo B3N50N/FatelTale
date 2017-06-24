@@ -1,11 +1,13 @@
 import pem.PEM;
 import tcp.TCPServer;
+import udp.UDPBC;
 
 public class Server {
 	public static void main(String[] args) {
 
         TCPServer.getServer().initTCPServer();
-        
+        UDPBC.getInstance().startUDPBroadCast();
+
         PEMThread pt = new PEMThread();
         pt.start();
 	}
