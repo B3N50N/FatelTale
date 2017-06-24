@@ -7,6 +7,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Timer;
+import logger.Logger;
+
 import dom.*;
 
 public class UDPUS {
@@ -58,7 +60,7 @@ public class UDPUS {
 			 {
 				 transfer();
 			 }catch( Exception e){
-				 System.out.println("fail to start UDP");
+				 Logger.log("fail to start UDP");
 			 }
 			  
 		 }
@@ -69,14 +71,19 @@ public class UDPUS {
 	private static void transfer() throws Exception {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
-        DatagramSocket ds = new DatagramSocket(port); // Set Server Port
-        System.out.println(": "
+        DatagramSocket ds = null;
+        try {
+            ds = new DatagramSocket(port); // Set Server Port
+        } catch(SocketException e) {
+            Logger.log("Create udp socket failed");
+        }
+        Logger.log(": "
                 + InetAddress.getLocalHost().getHostAddress() + ":" + ds.getLocalPort());
         String msg = "No Message...";
         while (true) {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
-            System.out.println(": " + msg);
+            Logger.log(": " + msg);
             decode(msg);
         }
     }
@@ -106,7 +113,6 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
-				//System.out.println(temp3);
 				
 				if(type ==0)
 				{
@@ -345,15 +351,15 @@ public class UDPUS {
 				CDC_value2 = Integer.parseInt(CRC_value);
 				if(CDC_value2 == sample.hashCode())
 				{
-					System.out.println("CRC_value: "+CRC_value);
-					System.out.println("sample.hashCode(): "+sample.hashCode());
+					Logger.log("CRC_value: "+CRC_value);
+					Logger.log("sample.hashCode(): "+sample.hashCode());
 					CRCcheck=1;
 				}
 				else
 				{
-					System.out.println("CRC_value: "+CRC_value);
-					System.out.println("sample.hashCode(): "+sample.hashCode());
-					System.out.println("package error!!!! ");
+					Logger.log("CRC_value: "+CRC_value);
+					Logger.log("sample.hashCode(): "+sample.hashCode());
+					Logger.log("package error!!!! ");
 					break;
 				}
 				
