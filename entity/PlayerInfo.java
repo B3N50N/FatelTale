@@ -79,6 +79,17 @@ public class PlayerInfo
 		v.add(movespeed[type]);
 		return v;
 	}
+	
+	public Emitter getEmitter(int type) {
+		assert type >= 0 && type < _emitter.length : "Wrong Index Range.";
+		return _emitter[type].clone();
+	}
+	
+	public Collider getCollider(int type) {
+		assert type >= 0 && type < _collider.length : "Wrong Index Range.";
+		return _collider[type].clone();
+	}
+	
 	public static synchronized PlayerInfo getInstance()
 	{
 		if(uniqueinstance==null)
