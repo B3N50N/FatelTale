@@ -1,0 +1,13 @@
+5
+15
+25
+35
+450
+Sphere
+40
+DirectlyEmitter
+400
+StrikeProjector
+Sphere
+20
+300 1
