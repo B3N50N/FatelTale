@@ -27,7 +27,7 @@ public class ConnectionHandler extends Thread {
             is = sock.getInputStream();
             os = sock.getOutputStream();
         } catch(IOException e) {
-            System.err.println("An error occur whlie getting IO stream" + e);
+            Logger.log("An error occur whlie getting IO stream" + e);
             System.exit(1);
         }
     }
@@ -48,7 +48,11 @@ public class ConnectionHandler extends Thread {
         // TODO: set player type here
         CDC.getInstance().addPlayer(id, 0);
         try {
-            os.write("S".getBytes());
+            os.write(codes.SYN);
+            Logger.log("[" + id + "]" + " Sending synchronize message");
+            os.write(id);
+            Logger.log("[" + id + "]" + " Sending client ID");
+            os.flush();
         } catch(IOException e) {
             Logger.log("An error occur whlie sending synchronize message" + e);
             System.exit(1);

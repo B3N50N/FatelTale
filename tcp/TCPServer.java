@@ -69,7 +69,7 @@ public class TCPServer {
         ConnectionHandler[] thrds = new ConnectionHandler[THREAD_NUM];
         // Spawn thread for each connection
         for(int i = 0; i < THREAD_NUM; ++i) {
-            thrds[i] = new ConnectionHandler(conn[i], i + 1);
+            thrds[i] = new ConnectionHandler(conn[i], i);
             clients.put(i, thrds[i]);
             thrds[i].start();
         }
