@@ -53,14 +53,14 @@ public class UDPBC extends Thread {
 	 }
 	
 	 
-	 public static void transfer() throws Exception {
+	 private static void transfer() throws Exception {
 	        DatagramPacket dp;
 	        Scanner s = new Scanner(System.in);
 	        System.out.println("UDPBC start: ");
 	        String msg = "Key in";
 	        Vector<InetSocketAddress> IPtable = TCPClient.getClientIPTable();
 	        while (true) {
-	            //msg = s.next();//meage之後，此行註解
+	            //msg = s.next();//meage之後，此行註解(手動控制訊息傳送)
 	            msg = encode();
 	            msg_crc = msg.hashCode();
 	            System.out.println(msg_crc);
