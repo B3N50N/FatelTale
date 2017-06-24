@@ -113,9 +113,9 @@ public class CDC
 		for(Map.Entry<Integer,Player> entry:player.entrySet())
 		{
 			String str="";
-			str=entry.getValue().toString();
+			str = entry.getValue().toString();
 			v.add(str);
-		}
+		}/*
 		for(Map.Entry<Integer,Monster> entry:monster.entrySet())
 		{
 			String str = "Monster ";
@@ -136,7 +136,7 @@ public class CDC
 			String str;
 			str=entry.toString();
 			v.add(str);
-		}
+		}*/
 		return v;
 	}
 	public static void main(String[] args)

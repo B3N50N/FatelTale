@@ -199,28 +199,27 @@ public class Player
 	}
 	
 	public String toString()
-	{
-		String str="";
-		str+=String.valueOf(asset_index);
-		str+=" ";
-		str+=String.valueOf(health);
-		str+=" ";
-		str+=dirvaluetoString(direction);
-		str+=" ";
-		str+=String.valueOf(attack);
-		str+=" ";
-		str+=String.valueOf(attackspeed);
-		str+=" ";
-		str+=String.valueOf(movespeed);
-		str+=" ";
-		str+=String.valueOf(defense);
-		str+=" ";
-		str+=String.valueOf(location.getX());
-		str+=" ";
-		str+=String.valueOf(location.getY());
-		str+=" ";
-		return str;
-	}
+    {
+        String str="";
+        str+="Player ";
+        str+=String.valueOf(id);
+        str+=" ";
+        str+=String.valueOf(asset_index);
+        str+=" ";
+        str+=String.valueOf(health);
+        str+=" ";
+        str+=String.valueOf(maxhealth);
+        str+=" ";
+        str+=dirvaluetoString(direction);
+        str+=" ";
+        str+=String.valueOf(score);
+        str+=" ";
+        str+=String.valueOf(location.getX());
+        str+=" ";
+        str+=String.valueOf(location.getY());
+        str+=" ";
+        return str;
+    }
 	/*public boolean isActive()
 	{
 		return active;
