@@ -20,6 +20,8 @@ public class Monster {
 	private Emitter[] _emitters;
 	private Long _last_move_time, _speed, _last_direction_change;
 	
+	private boolean _walkable;
+	
 	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
 		Init(health, attack, defense, pos, dir, index, emitter, speed, collider);
 	}
@@ -39,6 +41,7 @@ public class Monster {
 		_speed = speed;
 		_last_direction_change = _last_move_time = System.currentTimeMillis();
 		_collider = collider;
+		_walkable = true;
 	}
 	
 	private boolean canMove() {
@@ -59,7 +62,6 @@ public class Monster {
 	
 	public void move(Map<Integer, Player> player) {
 		if ( canMove() ) {
-			changePosition(new Point(_pos.x + _dir.x, _pos.y + _dir.y));
 			if ( canChangeDirection() ) {
 				Point tmpPoint = null;
 				for ( Map.Entry<Integer, Player> p : player.entrySet() ) {
@@ -72,12 +74,13 @@ public class Monster {
 				}
 				
 				if ( tmpPoint != null ) {
-					if ( tmpPoint.distance(_pos) >= 300 ) {
-						Point nextDirection = new Point(tmpPoint.x - _pos.x, tmpPoint.y - _pos.y);
-						double dis = nextDirection.distance(0, 0);
-						_dir.x = (int) (( nextDirection.getX() / dis ) * 10.0);
-						_dir.y = (int) (( nextDirection.getY() / dis ) * 10.0);
+					if ( tmpPoint.distance(_dir) <= 300.0 ) {
+						changePosition(new Point(_pos.x + _dir.x, _pos.y + _dir.y));
 					}
+					Point nextDirection = new Point(tmpPoint.x - _pos.x, tmpPoint.y - _pos.y);
+					double dis = nextDirection.distance(0, 0);
+					_dir.x = (int) (( nextDirection.getX() / dis ) * 10.0);
+					_dir.y = (int) (( nextDirection.getY() / dis ) * 10.0);
 				}
 			}
 		}
