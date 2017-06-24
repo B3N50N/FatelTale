@@ -75,3 +75,4 @@ public class ItemInfo
 		return v;
 	}
 }
+

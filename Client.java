@@ -21,7 +21,9 @@ public class Client {
 		//UI.getInstance().startMenu(args[0]);
 
         // Wait until connection success or handle failed
-        //TCPClient.getClient().waitForReady();
+        TCPClient.getClient().waitForReady();
+        TCPClient.getClient().start();
+
         Logger.log("Game start");
 		UI.getInstance().startGame();
 		RenderThread _render_thread = new RenderThread();

@@ -1,6 +1,5 @@
 package dom;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import adm.ADM;
@@ -16,6 +15,15 @@ public class Player extends DynamicObject{
 		this.direction = direction;
 		this.assetIndex = assetIndex;
 		this.frame = frame;
+	}
+	public Player(int x, int y, int direction, int assetIndex){
+		drawable = true;
+		
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+		this.assetIndex = assetIndex;
+		this.frame = 0;
 	}
 	
 	public BufferedImage getImage(){
