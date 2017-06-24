@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import tcp.codes;
 import tcp.TCPClient;
+//import tcp.TCPClient;
 
 class KeyBoardListener implements KeyListener
 {
@@ -29,13 +30,12 @@ class KeyBoardListener implements KeyListener
 	public void keyReleased(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-		//TCPClient.getClient().keyRelease(code);
+		TCPClient.getClient().keyRelease(codetable.get(code));
 	}
 	public void keyPressed(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-		//TCPClient.getClient().keyDown(code);
-		//TCPClient.getClient().keyDown(codetable.get(code));
+		TCPClient.getClient().keyDown(codetable.get(code));
 	}
 	public KeyBoardListener()
 	{

@@ -1,4 +1,0 @@
-StrikeProjector
-Sphere
-30.5
-300 1
