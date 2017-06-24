@@ -117,7 +117,7 @@ public class CDC
 		}
 		return v;
 	}
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		CDC cdc;
 		cdc=CDC.getInstance();
@@ -125,5 +125,5 @@ public class CDC
 		CDC.getInstance().addPlayer(2,1);
 		System.out.println(CDC.getInstance().getPlayer().get(1).toString());
 		System.out.println(CDC.getInstance().getPlayer().get(2).toString());
-	}
+	}*/
 }
