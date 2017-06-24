@@ -64,10 +64,23 @@ public class MonsterInfo {
 		BufferedReader br=new BufferedReader(fr);	
 		
 		Collider c = ColliderInfo.getInstance().getCollider(br);
-		Emitter e = EmitterInfo.getInstance().getEmitter(br);
 		
 		String Input = br.readLine();
 		StringTokenizer st = new StringTokenizer(Input);
+		int emitter_size;
+		assert st.countTokens() == 1 : "Wrong Format.";
+		
+		Input = st.nextToken();
+		assert Input.matches("\\d+") : "Wrong Format.";
+		emitter_size = Integer.parseInt(Input);
+		
+		Emitter[] e = new Emitter[ emitter_size ];
+		for (int i=0;i<emitter_size;i++) {
+			e[i] = EmitterInfo.getInstance().getEmitter(br);
+		}
+		
+		Input = br.readLine();
+		st = new StringTokenizer(Input);
 		int health, attack, defense, index;
 		Long speed;
 		assert st.countTokens() == 5 : "Wrong Format."; 
@@ -101,7 +114,7 @@ public class MonsterInfo {
 		Random rand = new Random();
 		int size = _monster.length;
 		
-		return _monster[ rand.nextInt(size) ];
+		return _monster[ rand.nextInt(size) ].clone();
 	}
 	
 	private Collider getCollider(BufferedReader br) throws IOException {
@@ -140,10 +153,6 @@ public class MonsterInfo {
 		}
 		
 		assert false : "Wrong Format.";
-		return null;
-	}
-	
-	private Emitter getEmitter(BufferedReader br) throws IOException {
 		return null;
 	}
 }

@@ -13,6 +13,8 @@ public class PlayerInfo
 	private int health[],attack[];
 	private Long attackspeed[],movespeed[];
 	private int defense[];;
+	private Collider[] _collider;
+	private Emitter[] _emitter;
 	private String PlayerInfofilePath=System.getProperty("user.dir")+"\\resource\\PlayerInfo.txt";
 	private String[] PlayerFilePath;
 	private PlayerInfo()
@@ -31,6 +33,10 @@ public class PlayerInfo
 			attackspeed=new Long[totaltype];
 			defense=new int[totaltype];
 			movespeed=new Long[totaltype];
+			
+			_emitter = new Emitter[totaltype];
+			_collider = new Collider[totaltype];
+			
 			for(int i=0;i<totaltype;i+=1)
 				PlayerFilePath[i]=buff.readLine();
 			buff.close();
@@ -49,6 +55,10 @@ public class PlayerInfo
 				defense[i]=Integer.parseInt(str);
 				str=buff.readLine();
 				movespeed[i]=Long.parseLong(str);
+				
+				_collider[i] = ColliderInfo.getInstance().getCollider(buff);
+				_emitter[i] = EmitterInfo.getInstance().getEmitter(buff);
+				
 				fin.close();
 				buff.close();
 			}
@@ -69,6 +79,17 @@ public class PlayerInfo
 		v.add(movespeed[type]);
 		return v;
 	}
+	
+	public Emitter getEmitter(int type) {
+		assert type >= 0 && type < _emitter.length : "Wrong Index Range.";
+		return _emitter[type].clone();
+	}
+	
+	public Collider getCollider(int type) {
+		assert type >= 0 && type < _collider.length : "Wrong Index Range.";
+		return _collider[type].clone();
+	}
+	
 	public static synchronized PlayerInfo getInstance()
 	{
 		if(uniqueinstance==null)

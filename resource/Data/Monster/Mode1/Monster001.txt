@@ -1,5 +1,6 @@
 Sphere
 40.6
+1
 DirectlyEmitter
 400
 StrikeProjector

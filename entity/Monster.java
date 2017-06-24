@@ -16,18 +16,19 @@ public class Monster {
 	
 	private int _asset_index;
 	
-	private Emitter _emitter;
+	private Emitter[] _emitter;
+	private Emitter[] _emitters;
 	private Long _last_move_time, _speed, _last_direction_change;
 	
-	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
+	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
 		Init(health, attack, defense, pos, dir, index, emitter, speed, collider);
 	}
 	
-	public Monster(int health, int attack, int defense, int index, Emitter emitter, Long speed, Collider collider) {
-		Init(health, attack, defense, collider.getPosition(), emitter.getDirection(), index, emitter, speed, collider);
+	public Monster(int health, int attack, int defense, int index, Emitter[] emitter, Long speed, Collider collider) {
+		Init(health, attack, defense, collider.getPosition(), new Point(0, 0), index, emitter, speed, collider);
 	}
 	
-	private void Init(int health, int attack, int defense, Point pos, Point dir, int index, Emitter emitter, Long speed, Collider collider) {
+	private void Init(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
 		_health = _max_health = health;
 		_attack = attack;
 		_defense = defense;
@@ -81,7 +82,9 @@ public class Monster {
 	}
 	
 	public void attack() {
-		_emitter.attack();
+		for (int i=0;i<_emitter.length;i++) {
+			_emitter[i].attack();
+		}
 	}
 	
 	public void beAttacked(int attack) {
@@ -106,14 +109,18 @@ public class Monster {
 	public void setPosition(Point p) {
 		assert p != null : "Null Object.";
 		_pos = p;
-		_emitter.setPosition(p);
+		for (int i=0;i<_emitter.length;i++) {
+			_emitter[i].setPosition(p);
+		}
 		_collider.setPosition(p);
 	}
 	
 	public void setDirection(Point d) {
 		assert d != null : "Null Object.";
 		_pos = d;
-		_emitter.setPosition(d);
+		for (int i=0;i<_emitter.length;i++) {
+			_emitter[i].setDirection(d);
+		}
 		_collider.setPosition(d);
 	}
 	
@@ -128,11 +135,23 @@ public class Monster {
 		System.out.println("Direction : " + _dir);
 		System.out.println("Monster's Collider : ");
 		_collider.Print();
-		_emitter.Print();
+		for (int i=0;i<_emitter.length;i++) {
+			_emitter[i].Print();
+		}
 		System.out.println("==============");
 	}
 	
 	public String toString() {
-		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y);
+		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y) + " " + String.valueOf(_asset_index);
+	}
+	
+	public Monster clone() {
+		Collider c = _collider.clone();
+		Emitter[] e = new Emitter[ _emitter.length ];
+		for (int i=0;i<e.length;i++) {
+			e[i] = _emitter[i].clone();
+		}
+		Monster newInstance = new Monster(_health, _attack, _defense, _asset_index, e, _speed, c);
+		return newInstance;
 	}
 }
