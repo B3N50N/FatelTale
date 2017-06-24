@@ -29,6 +29,10 @@ public abstract class Emitter {
 		_ori_projector.setDirection(d);
 	}
 	
+	public void setAttack(int aID, int damage) {
+		_ori_projector.setAttack(aID, damage);
+	}
+	
 	public Point getPosition() {
 		return _pos;
 	}

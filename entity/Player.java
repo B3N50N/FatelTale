@@ -104,6 +104,8 @@ public class Player
 		assert newdir!=codes.MOVEDOWN&&newdir!=codes.MOVELEFT&&newdir!=codes.MOVERIGHT&&newdir!=codes.MOVEUP:"The new direction is invalid";
 		moving=true;
 		direction=newdir;
+		_dir.x = dirtovector.get( direction ).x;
+		_dir.y = dirtovector.get( direction ).y;
 	}
 	
 	public void movingEnd(){moving=false;}

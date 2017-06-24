@@ -8,6 +8,7 @@ public abstract class Projector {
 	protected Long _speed;
 	protected Long _last_move_time;
 	protected int _attacker_ID;
+	protected int _damage;
 	protected int _asset_index;
 	
 	protected Collider _collider;
@@ -55,6 +56,11 @@ public abstract class Projector {
 		_speed = speed;
 	}
 	
+	public void setAttack(int aID, int damage) {
+		_attacker_ID = aID;
+		_damage = damage;
+	}
+	
 	public Collider getCollider() {
 		return _collider;
 	}
@@ -73,6 +79,10 @@ public abstract class Projector {
 	
 	public Point getDirection() {
 		return _dir;
+	}
+	
+	public int getDamage() {
+		return _damage;
 	}
 	
 	public void Print() {
