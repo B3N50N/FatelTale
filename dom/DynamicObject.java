@@ -45,6 +45,7 @@ public class DynamicObject {
 	}
 
 	public void update(int nextX, int nextY, int nextDirection, int assetIndex){
+		drawable = true;
 		long currTime = System.currentTimeMillis();
 		if(direction != nextDirection)  // turn
 		{
