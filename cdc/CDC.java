@@ -11,6 +11,7 @@ import entity.Player;
 import entity.PlayerInfo;
 import entity.Monster;
 import entity.Projector;
+import sdm.SDM;
 import tcp.codes;
 public class CDC
 {
@@ -30,6 +31,11 @@ public class CDC
 		item=new ConcurrentHashMap<>();
 		monster=new ConcurrentHashMap<>();
 		projector=new ConcurrentHashMap<>();
+		playerinitlocation=new Point[MaxPlayerno];
+		playerinitlocation[0]=new Point(100,100);
+		playerinitlocation[1]=new Point(SDM.getInstance().getWidth()-100,100);
+		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight()-100);
+		playerinitlocation[3]=new Point(SDM.getInstance().getWidth()-100,SDM.getInstance().getHeight());
 	}
 	public static synchronized CDC getInstance()
 	{
@@ -39,10 +45,10 @@ public class CDC
 		}
 		return uniqueinstance;
 	}
-	public Map getPlayer(){return player;}
-	public Map getItem(){return item;}
-	public Map getMonster(){return monster;}
-	public Map getProjector(){return projector;}
+	public Map<Integer,Player> getPlayer(){return player;}
+	public Map<Integer,Item> getItem(){return item;}
+	public Map<Integer,Monster> getMonster(){return monster;}
+	public Map<Integer,Projector> getProjector(){return projector;}
 	public void keyDown(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
@@ -84,7 +90,7 @@ public class CDC
 	public void addPlayer(int clientno,int type)
 	{
 		assert clientno>=0&&clientno<4:"The clientno is invalid";
-		player.put(clientno,new Player(type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type)));
+		player.put(clientno,new Player(clientno,type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type)));
 	}
 	public void addItem(Point point,int type)
 	{
@@ -95,32 +101,33 @@ public class CDC
 	public Vector getUpdatInfo()
 	{
 		Vector<String> v=new Vector<String>();
-		int cnt=0;
 		for(Map.Entry<Integer,Player> entry:player.entrySet())
 		{
 			String str="";
 			str=entry.toString();
-			v.add(cnt,str);
-			cnt+=1;
+			v.add(str);
 		}
 		for(Map.Entry<Integer,Monster> entry:monster.entrySet())
 		{
 			String str;
 			str=entry.toString();
-			v.add(cnt,str);
-			cnt+=1;
+			v.add(str);
 		}
 		for(Map.Entry<Integer,Item> entry:item.entrySet())
 		{
 			String str;
 			str=entry.toString();
-			v.add(cnt,str);
-			cnt+=1;
+			v.add(str);
 		}
 		return v;
 	}
-	/*public static void main(String[] args)
+	public static void main(String[] args)
 	{
-		
-	}*/
+		CDC cdc;
+		cdc=CDC.getInstance();
+		CDC.getInstance().addPlayer(1,0);
+		CDC.getInstance().addPlayer(2,1);
+		System.out.println(CDC.getInstance().getPlayer().get(1).toString());
+		System.out.println(CDC.getInstance().getPlayer().get(2).toString());
+	}
 }

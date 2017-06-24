@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.HashMap;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +21,7 @@ class KeyBoardListener implements KeyListener
 {
 	final static int upcode=38,downcode=40,rightcode=39,leftcode=37;
 	final static int attackcode=87;
+	final HashMap<Integer,Integer> codetable;
 	public void keyTyped(KeyEvent e)
 	{
 		
@@ -32,6 +35,16 @@ class KeyBoardListener implements KeyListener
 	{
 		int code=e.getKeyCode();
 		//TCPClient.getClient().keyDown(code);
+		TCPClient.getClient().keyDown(codetable.get(code));
+	}
+	public KeyBoardListener()
+	{
+		codetable=new HashMap();
+		codetable.put(upcode,codes.MOVEUP);
+		codetable.put(leftcode,codes.MOVELEFT);
+		codetable.put(rightcode,codes.MOVERIGHT);
+		codetable.put(downcode,codes.MOVEDOWN);
+		codetable.put(attackcode, codes.ATTACK);
 	}
 }
 public class UI
