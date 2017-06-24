@@ -142,7 +142,8 @@ public class UI
 	public void startGame()
 	{
 		canvas=new Canvas();
-		frame.remove(frame.getContentPane());
+        frame.getContentPane().removeAll();
+//		frame.remove(frame.getContentPane());
 		frame.add(new JPanel());
 		canvas=new Canvas();
 		canvas.setBounds(0,0,framewidth,frameheight);		
