@@ -13,6 +13,7 @@ public class Player
 	private int asset_index;
 	private Emitter _emitter;
 	private Collider _collider;
+	private Point _dir;
 	
 	private Long _last_move_time;
 	
@@ -37,6 +38,23 @@ public class Player
 		//active=true;
 		
 		_last_move_time = System.currentTimeMillis();
+	}
+	
+	public Player(int type,Point point,Vector attribute, Emitter emitter, Collider collider)
+	{
+		//active=true;
+		asset_index=type;
+		location=point;
+		health=(int)attribute.get(0);
+		attack=(int)attribute.get(1);
+		attackspeed=(Long)attribute.get(2);
+		defense=(int)attribute.get(3);
+		movespeed=(Long)attribute.get(4);
+		//active=true;
+		
+		_last_move_time = System.currentTimeMillis();
+		_emitter = emitter;
+		_collider = collider;
 	}
 	
 	public String dirvaluetoString(int dir)
@@ -112,6 +130,20 @@ public class Player
 		location.setLocation(newx,newy);
 	}
 	
+	public void setPosition(Point p) {
+		assert p != null : "Null Object.";
+		location = p;
+		_emitter.setPosition(p);
+		_collider.setPosition(p);
+	}
+	
+	public void setDirection(Point d) {
+		assert d != null : "Null Object.";
+		_dir = d;
+		_emitter.setDirection(_dir);
+		_collider.setDirection(d);
+	}
+	
 	private boolean canMove() {
 		if ( System.currentTimeMillis() - _last_move_time >= movespeed ) {
 			_last_move_time = System.currentTimeMillis();
@@ -132,6 +164,8 @@ public class Player
 			if ( SDM.getInstance().isWalkable(location.x + DIRECTION[ direction ].x, location.y + DIRECTION[ direction ].y) ){
 				location.x += DIRECTION[ direction ].x;
 				location.y += DIRECTION[ direction ].y;
+				_dir.x = DIRECTION[ direction ].x;
+				_dir.y = DIRECTION[ direction ].y;
 			}
 		}
 	}

@@ -35,7 +35,7 @@ class KeyBoardListener implements KeyListener
 	{
 		int code=e.getKeyCode();
 		//TCPClient.getClient().keyDown(code);
-		TCPClient.getClient().keyDown(codetable.get(code));
+		//TCPClient.getClient().keyDown(codetable.get(code));
 	}
 	public KeyBoardListener()
 	{
