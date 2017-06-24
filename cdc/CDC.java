@@ -90,7 +90,7 @@ public class CDC
 	public void addPlayer(int clientno,int type)
 	{
 		assert clientno>=0&&clientno<4:"The clientno is invalid";
-		Player p = new Player(type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type),
+		Player p = new Player(clientno, type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type),
 				   PlayerInfo.getInstance().getEmitter(type), PlayerInfo.getInstance().getCollider(type) );
 		player.put(clientno, p);
 		
@@ -108,13 +108,22 @@ public class CDC
 		for(Map.Entry<Integer,Player> entry:player.entrySet())
 		{
 			String str="";
-			str=entry.toString();
+			str=entry.getValue().toString();
 			v.add(str);
 		}
 		for(Map.Entry<Integer,Monster> entry:monster.entrySet())
 		{
-			String str;
-			str=entry.toString();
+			String str = "Monster ";
+			str += String.valueOf( entry.getKey() );
+			str += " ";
+			str += entry.getValue().toString();
+			v.add(str);
+		}
+		for (Map.Entry<Integer, Projector> entry : projector.entrySet() ) {
+			String str = "Projector ";
+			str += String.valueOf( entry.getKey() );
+			str += " ";
+			str += entry.getValue().toString();
 			v.add(str);
 		}
 		for(Map.Entry<Integer,Item> entry:item.entrySet())
