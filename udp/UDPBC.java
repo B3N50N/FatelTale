@@ -63,7 +63,7 @@ public class UDPBC extends Thread {
 	            
 	            for(int i=0;i<IPtable.size();i++)
 	    		{
-	            	//msg = encode();
+	            	//msg = "&1=Player 2 0 10000 10000 west 0 -100.0 100.0 &";
 	            	//msg  = msg + " " + IPtable.get(i).getAddress().toString();
 	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i).getAddress(), 80);
 	            	DatagramSocket socket = new DatagramSocket();

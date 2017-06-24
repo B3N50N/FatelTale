@@ -89,45 +89,63 @@ public class UDPUS {
 				{
 					if(numofelement ==0)
 					{
+						clientno = Integer.parseInt(temp3);
+						//System.out.println("clientno = "+clientno);
+						numofelement++;
+					}
+					else if(numofelement ==1)
+					{
 						assetIndex = Integer.parseInt(temp3);
 						//System.out.println("assetIndex = "+assetIndex);
 						numofelement++;
 					}
-					else if(numofelement ==1)
+					else if(numofelement ==2)
 					{
 						health = Integer.parseInt(temp3);
 						//System.out.println("health = "+health);
 						numofelement++;
 					}
-					else if(numofelement ==2)
+					else if(numofelement ==3)
+					{
+						maxHealth = Integer.parseInt(temp3);
+						//System.out.println("axHealth = "+axHealth);
+						numofelement++;
+					}
+					else if(numofelement ==4)
 					{
 						if(temp3.equals("west"))
 						{
-							direction =1;
+							direction =DynamicObject.DIRECTION.LEFT;
 						}
 						else if(temp3.equals("north"))
 						{
-							direction =2;
+							direction =DynamicObject.DIRECTION.UP;
 						}
 						else if(temp3.equals("east"))
 						{
-							direction =3;
+							direction =DynamicObject.DIRECTION.RIGHT;
 						}
 						else if(temp3.equals("south"))
 						{
-							direction =4;
+							direction =DynamicObject.DIRECTION.DOWN;
 						}
 						  
 						//System.out.println("direction = "+ direction);
 						numofelement++;
 					}
-					else if(numofelement ==3)
+					else if(numofelement ==5)
+					{
+						score = Integer.parseInt(temp3);
+						//System.out.println("score = "+score);
+						numofelement++;
+					}
+					else if(numofelement ==6)
 					{
 						x = (int)Float.parseFloat(temp3);
 						//System.out.println("location_X = "+x);
 						numofelement++;
 					}
-					else if(numofelement ==4)
+					else if(numofelement ==7)
 					{
 						y = (int)Float.parseFloat(temp3);
 						//System.out.println("location_X = "+y);
@@ -147,10 +165,10 @@ public class UDPUS {
 				  {
 					  
 				  }
-				  else if(type ==5)
+				  /*else if(type ==5)
 				  {
 					  
-				  }
+				  }*/
 				  
 				
 				
@@ -195,6 +213,7 @@ public class UDPUS {
 		if(type ==1)
 		{
 			DOM.getInstance().updatePlayer(clientno, x, y, direction, assetIndex);
+			DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);
 		}
 		else if(type ==2)
 		{
@@ -208,10 +227,10 @@ public class UDPUS {
 		{
 			DOM.getInstance().updateItem(id, x, y, direction, assetIndex);
 		}
-		else if(type ==5)
+		/*else if(type ==5)
 		{
 			DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);
-		}
+		}*/
 		/*DOM.getInstance().updatePlayer(clientno, player);
 		DOM.getInstance().updatePlayer(clientno, x, y, direction, assetIndex);
 		DOM.getInstance().updateMonster(id, monster);
