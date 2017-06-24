@@ -70,13 +70,13 @@ public class UDPUS {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
         DatagramSocket ds = new DatagramSocket(port); // Set Server Port
-        System.out.println("伺服器啟動於 : "
+        System.out.println("server start at : "
                 + InetAddress.getLocalHost().getHostAddress() + ":" + ds.getLocalPort());
         String msg = "No Message...";
         while (true) {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
-            System.out.println("傳來的訊息 : " + msg);
+            System.out.println("msg recive : " + msg);
             decode(msg);
         }
     }
@@ -114,7 +114,7 @@ public class UDPUS {
 					{
 						type = 1;
 					}
-					if(temp3.equals("Monster"))
+					/*if(temp3.equals("Monster"))
 					{
 						type = 2;
 					}
@@ -126,7 +126,7 @@ public class UDPUS {
 					{
 						type = 4;
 					}
-					/*if(temp3.equals("PlayerInfo"))
+					if(temp3.equals("PlayerInfo"))
 					{
 						type = 5;
 					}*/
