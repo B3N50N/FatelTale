@@ -1,5 +1,6 @@
 package pem;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -32,10 +33,16 @@ public class PEM {
 		_delete_monster = new HashSet<>();
 		_delete_projector = new HashSet<>();
 		
-		_player = new ConcurrentHashMap<>();
-		_monster = new ConcurrentHashMap<>();
-		_projector = new ConcurrentHashMap<>();
-		_item = new ConcurrentHashMap<>();
+		_player = CDC.getInstance().getPlayer();
+		_monster = CDC.getInstance().getMonster();
+		_projector = CDC.getInstance().getProjector();
+		_item = CDC.getInstance().getItem();
+		
+		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+		Monster m = MonsterInfo.getInstance().getRandomMonster();
+		m.setPosition(new Point(100, 100));
+		m.setDirection(new Point(10, 0));
+		_monster.put(CDC.getInstance().getMonsterNewId(), m);
 	}
 	
 	public static synchronized PEM getInstance() {
@@ -51,6 +58,11 @@ public class PEM {
 		
 		_delete_monster.clear();
 		_delete_projector.clear();
+		
+		_player = CDC.getInstance().getPlayer();
+		_monster = CDC.getInstance().getMonster();
+		_projector = CDC.getInstance().getProjector();
+		_item = CDC.getInstance().getItem();
 		
 		nextPosition();
 		//checkCollision();
