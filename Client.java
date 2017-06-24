@@ -6,6 +6,7 @@ import sdm.SDM;
 import spritere.SPRITERE;
 import ui.UI;
 import tcp.TCPClient;
+import udp.UDPUS;
 import logger.Logger;
 
 public class Client {
@@ -26,6 +27,7 @@ public class Client {
 
         Logger.log("Game start");
 		UI.getInstance().startGame();
+        UDPUS.getInstance().initUDPServer();
 		RenderThread _render_thread = new RenderThread();
 		_render_thread.start();
 	}
