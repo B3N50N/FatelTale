@@ -239,7 +239,7 @@ public class DOM {
 		assert monster == null : "Update monster failed, no monster with id " + id;
 		monster.update(x, y, direction, assetIndex);
 	}
-
+	
 	public void removeMonster(int id) {
 		assert Monsters.get(id) == null : "Remove monster failed, no monster with id" + id;
 		Monsters.remove(id);
