@@ -66,7 +66,7 @@ public class UDPUS {
 	 }
     
 	
-	public static void transfer() throws Exception {
+	private static void transfer() throws Exception {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
         DatagramSocket ds = new DatagramSocket(port); // Set Server Port
