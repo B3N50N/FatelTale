@@ -54,12 +54,12 @@ public class TestMain {
 
 }
 
-class PEMThread implements Runnable {
+class PPP implements Runnable {
 
 	private Thread _thread;
 	private boolean isRunning = false;
 
-	public PEMThread() {
+	public PPP() {
 		init();
 	}
 	
