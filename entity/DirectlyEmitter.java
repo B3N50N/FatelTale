@@ -24,4 +24,5 @@ public class DirectlyEmitter extends Emitter {
 	public String getType() {
 		return "DirectlyEmitter";
 	}
+
 }

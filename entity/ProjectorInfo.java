@@ -2,16 +2,12 @@ package entity;
 
 import java.awt.Point;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class ProjectorInfo {
 	
 	private static ProjectorInfo uniqueInstance;
-	
-	private Projector[] _projector;
 	
 	private ProjectorInfo() {
 		
@@ -38,8 +34,32 @@ public class ProjectorInfo {
 		return null;
 	}
 	
-	public Projector getProjector(BufferedReader br) {
+	public Projector getProjector(BufferedReader br) throws IOException {
 		
+		String Input = br.readLine();
+		StringTokenizer st;
+		
+		if ( Input.equals("StrikeProjector") ) {
+			Collider c = ColliderInfo.getInstance().getCollider(br);
+			
+			Long speed;
+			int asset_index;
+			Input = br.readLine();
+			st = new StringTokenizer(Input);
+			assert st.countTokens() == 2 : "Wrong Format.";
+			
+			Input = st.nextToken();
+			assert Input.matches("\\d+") : "Wrong Format.";
+			speed = Long.parseLong(Input);
+			
+			Input = st.nextToken();
+			assert Input.matches("\\d+") : "Wrong Format.";
+			asset_index = Integer.parseInt(Input);
+			
+			return new StrikeProjector(new Point(0, 0), c, speed, -1, asset_index);
+		}
+		
+		assert false : "Wrong Format.";
 		return null;
 	}
 }

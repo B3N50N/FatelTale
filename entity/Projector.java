@@ -21,7 +21,6 @@ public abstract class Projector {
 	}
 	
 	private void Init(Point pos, Point dir, Collider collider, Long speed, int aID, int asset_index) {
-		assert aID >= 0 : "Invalid Index.";
 		_pos = pos;
 		_dir = dir;
 		_last_move_time = System.currentTimeMillis();
@@ -42,9 +41,14 @@ public abstract class Projector {
 		_pos = _collider.getPosition();
 	}
 	
-	public void setDirection(Point p) {
+	public void setDirection(Point d) {
+		assert d != null : "Null Object.";
+		_dir = d;
+	}
+	
+	public void setPosition(Point p) {
 		assert p != null : "Null Object.";
-		_dir = p;
+		_pos = p;
 	}
 	
 	public void setSpeed(Long speed) {
@@ -61,6 +65,14 @@ public abstract class Projector {
 	
 	public int getAttackerID() {
 		return _attacker_ID;
+	}
+	
+	public Point getPosition() {
+		return _pos;
+	}
+	
+	public Point getDirection() {
+		return _dir;
 	}
 	
 	public void Print() {

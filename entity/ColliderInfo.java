@@ -19,7 +19,7 @@ public class ColliderInfo {
 	public Collider getCollider(BufferedReader br) throws IOException {
 		String Input = br.readLine(); // Collider
 		StringTokenizer st;
-		if ( Input == "Box" ) {
+		if ( Input.equals("Box") ) {
 			int w, h;
 			
 			Input = br.readLine();
@@ -37,7 +37,7 @@ public class ColliderInfo {
 			
 			return new BoxCollider(new Point(0, 0), new Point(0, 0), w, h);
 		}
-		if ( Input == "Sphere" ) {
+		if ( Input.equals("Sphere") ) {
 			double r;
 			
 			Input = br.readLine();

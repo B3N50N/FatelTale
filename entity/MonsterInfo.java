@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class MonsterInfo {
@@ -14,7 +15,7 @@ public class MonsterInfo {
 	private Monster[] _monster;
 	
 	private MonsterInfo() {
-		
+		_monster = null;
 	}
 	
 	public static synchronized MonsterInfo getInstance() {
@@ -47,7 +48,7 @@ public class MonsterInfo {
 			
 			for (int i=0;i<size;i++) {
 				Input = br.readLine();
-				_monster[i] = readMonsterFile(Input);
+				_monster[i] = readMonsterFile(path+Input);
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -62,13 +63,45 @@ public class MonsterInfo {
 		fr = new FileReader(path);
 		BufferedReader br=new BufferedReader(fr);	
 		
-		String Input = br.readLine(); // Collider
 		Collider c = ColliderInfo.getInstance().getCollider(br);
+		Emitter e = EmitterInfo.getInstance().getEmitter(br);
 		
-		Input = br.readLine();
+		String Input = br.readLine();
+		StringTokenizer st = new StringTokenizer(Input);
+		int health, attack, defense, index;
+		Long speed;
+		assert st.countTokens() == 5 : "Wrong Format."; 
 		
+		Input = st.nextToken();
+		assert Input.matches("\\d+") : "Wrong Format.";
+		health = Integer.parseInt(Input);
 		
-		return null;
+		Input = st.nextToken();
+		assert Input.matches("\\d+") : "Wrong Format.";
+		attack = Integer.parseInt(Input);
+		
+		Input = st.nextToken();
+		assert Input.matches("\\d+") : "Wrong Format.";
+		defense = Integer.parseInt(Input);
+		
+		Input = st.nextToken();
+		assert Input.matches("\\d+") : "Wrong Format.";
+		index = Integer.parseInt(Input);
+		
+		Input = st.nextToken();
+		assert Input.matches("\\d+") : "Wrong Format.";
+		speed = Long.parseLong(Input);
+		
+		return new Monster(health, attack, defense, index, e, speed, c);
+	}
+	
+	public Monster getRandomMonster() {
+		assert _monster != null : "Null Object.";
+		
+		Random rand = new Random();
+		int size = _monster.length;
+		
+		return _monster[ rand.nextInt(size) ];
 	}
 	
 	private Collider getCollider(BufferedReader br) throws IOException {
@@ -111,8 +144,6 @@ public class MonsterInfo {
 	}
 	
 	private Emitter getEmitter(BufferedReader br) throws IOException {
-		
-		
 		return null;
 	}
 }

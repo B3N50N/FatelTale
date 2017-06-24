@@ -18,11 +18,15 @@ public abstract class Emitter {
 	}
 	
 	public void setPosition(Point p) {
+		assert p != null : "Null Object.";
 		_pos = p;
+		_ori_projector.setPosition(p);
 	}
 	
 	public void setDirection(Point d) {
+		assert d != null : "Null Object.";
 		_dir = d;
+		_ori_projector.setDirection(d);
 	}
 	
 	public Point getPosition() {
@@ -51,4 +55,13 @@ public abstract class Emitter {
 	
 	protected abstract void attack();
 	public abstract String getType();
+	
+	public void Print() {
+		System.out.println("Emitter :");
+		System.out.println("Position : " + _pos);
+		System.out.println("Direction : " + _dir);
+		System.out.println("AS : " + _attack_speed);
+		_ori_projector.Print();
+		System.out.println("============");
+	}
 }

@@ -1,4 +1,8 @@
 import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import entity.*;
 import pem.PEM;
@@ -6,12 +10,28 @@ import sdm.SDM;
 
 public class TestMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		SDM.getInstance().readMap("./resource/Map/Map001.txt");
+		/*
+		FileReader fr = new FileReader("./resource/Data/EmitterTest.txt");
+		BufferedReader br = new BufferedReader(fr);
+		Emitter e = EmitterInfo.getInstance().getEmitter(br);
 		
+		e.Print();
+		e.setPosition(new Point(100, 2000));
+		e.Print();
+		*/
+		
+		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+		Monster m = MonsterInfo.getInstance().getRandomMonster();
+		m.Print();
+		m.setPosition(new Point(100, 30));
+		m.Print();
+		/*
 		PEMThread t = new PEMThread();
 		t.start();
+		*/
 		//PEM.getInstance().PrintState();
 	}
 
@@ -27,6 +47,7 @@ class PEMThread implements Runnable {
 	}
 	
 	private void init() {
+		/*
 		Point pos = new Point(10, 10);
 		Point dir = new Point(0, 1);
 		Collider c = new SphereCollider(pos, 10);
@@ -34,6 +55,7 @@ class PEMThread implements Runnable {
 		Emitter e = new DirectlyEmitter(1000L, dir, pos, p);
 		Monster m = new Monster(10, 50, 100, 0, e, 1000L, c);
 		PEM.getInstance().putMonster_Test(m);
+		*/
 	}
 	
 	@Override

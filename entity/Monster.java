@@ -103,6 +103,20 @@ public class Monster {
 		}
 	}
 	
+	public void setPosition(Point p) {
+		assert p != null : "Null Object.";
+		_pos = p;
+		_emitter.setPosition(p);
+		_collider.setPosition(p);
+	}
+	
+	public void setDirection(Point d) {
+		assert d != null : "Null Object.";
+		_pos = d;
+		_emitter.setPosition(d);
+		_collider.setPosition(d);
+	}
+	
 	public Collider getCollider() {
 		return _collider;
 	}
@@ -111,7 +125,11 @@ public class Monster {
 		System.out.println("Monster : ");
 		System.out.print("Position : ");
 		System.out.println(_pos.x + " " + _pos.y);
-		System.out.println("Emitter Position : " + _emitter.getPosition() );
+		System.out.println("Direction : " + _dir);
+		System.out.println("Monster's Collider : ");
+		_collider.Print();
+		_emitter.Print();
+		System.out.println("==============");
 	}
 	
 	public String toString() {
