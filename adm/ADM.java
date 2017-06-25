@@ -24,9 +24,11 @@ public class ADM {
 	private ADM() {
 		_map_assets = readFile("./resource/Assets/Map/");
 		_player_assets = readFile("./resource/Assets/Player/");
+		/*
 		_monster_assets = readFile("./resource/Assets/Monster/");
 		_projector_assets = readFile("./resource/Assets/Projector/");
 		_item_assets = readFile("./resource/Assets/Projector/");
+		*/
 	}
 	
 	public static synchronized ADM getInstance() {
@@ -139,7 +141,6 @@ public class ADM {
 		assert i >= 0 && i < _monster_assets[i].length : "Invalid Index.";
 		return _monster_assets[index][i];
 	}
-	
 	public BufferedImage getProjectorAsset(int index, int i) {
 		assert index >= 0 && index < _projector_assets.length : "Invalid Index.";
 		assert i >= 0 && i < _projector_assets[i].length : "Invalid Index.";

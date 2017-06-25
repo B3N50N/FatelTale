@@ -24,7 +24,7 @@ public class SCENERE {
 	
 	public void render(Graphics g) {
 		//assert something..
-		int x = DOM.getInstance().getPlayerX(0), y = DOM.getInstance().getPlayerY(0);	
+		int x = DOM.getInstance().getPlayerX(), y = DOM.getInstance().getPlayerY();
 		int ix = x - ( UI.getInstance().getCanvasWidth() / 2 ), iy = y - ( UI.getInstance().getCanvasHeight() / 2 );
 		ix /= ADM.getInstance().getMapWidth();
 		iy /= ADM.getInstance().getMapHeight();

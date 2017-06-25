@@ -18,7 +18,7 @@ public class Monster {
 	
 	private Emitter[] _emitter;
 	private Long _last_move_time, _speed, _last_direction_change;
-	
+	private boolean _walkable;
 	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
 		Init(health, attack, defense, pos, dir, index, emitter, speed, collider);
 	}
@@ -38,6 +38,7 @@ public class Monster {
 		_speed = speed;
 		_last_direction_change = _last_move_time = System.currentTimeMillis();
 		_collider = collider;
+		_walkable = true;
 	}
 	
 	private boolean canMove() {
@@ -55,7 +56,6 @@ public class Monster {
 		}
 		return false;
 	}
-	
 	public void move(Map<Integer, Player> player) {
 		if ( canMove() ) {
 			if ( canChangeDirection() ) {
@@ -80,6 +80,10 @@ public class Monster {
 				}
 			}
 		}
+	}
+	
+	public int getAttack() {
+		return _attack;
 	}
 	
 	public void attack() {
@@ -124,16 +128,8 @@ public class Monster {
 		_collider.setPosition(d);
 	}
 	
-	public int getAttack() {
-		return _attack;
-	}
-	
 	public Collider getCollider() {
 		return _collider;
-	}
-	
-	public boolean isDead() {
-		return _health <= 0;
 	}
 	
 	public void Print() {
@@ -149,19 +145,12 @@ public class Monster {
 		System.out.println("==============");
 	}
 	
-	public String toString() {
-		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + getDirectionValue() + " " + String.valueOf(_asset_index);
+	public boolean isDead() {
+		return _health <= 0;
 	}
 	
-	private String getDirectionValue() {
-		int X = Math.abs(_dir.x), Y = Math.abs(_dir.y);
-		
-		if ( X > Y ) {
-			if ( _dir.x > 0 ) return "east";
-			return "west";
-		}
-		if ( _dir.y > 0 ) return "south";
-		return "north";
+	public String toString() {
+		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y) + " " + String.valueOf(_asset_index);
 	}
 	
 	public Monster clone() {
@@ -171,6 +160,7 @@ public class Monster {
 			e[i] = _emitter[i].clone();
 		}
 		Monster newInstance = new Monster(_health, _attack, _defense, _asset_index, e, _speed, c);
-		return newInstance;
+		return newInstance;	
 	}
+
 }

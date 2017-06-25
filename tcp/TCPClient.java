@@ -13,6 +13,7 @@ public class TCPClient extends Thread{
     private InputStream is = null;
     private OutputStream os = null;
     private Socket sock = null;
+    private Integer clientid = null;
     private CyclicBarrier ready_barrier = new CyclicBarrier(2);
     private static TCPClient client = null;
     public static final int DEFAULT_PORT = 8888;
@@ -53,21 +54,29 @@ public class TCPClient extends Thread{
             return false;
         }
 
-
         Logger.log("Connected to server : " + sock);
         Logger.log("Waiting for other clients...");
-        byte[] buf = new byte[16];
+
         try {
-            is.read(buf);
+            int syn = is.read();
+            if(syn != codes.SYN) {
+                Logger.log("Receive an invalid synchronize message : <" + syn + "> from" + sock);
+                return false;
+            }
         } catch(IOException e) {
             Logger.log("An error occure while reading from socket : " + sock);
             return false;
         }
-        String syn = new String(buf).trim();
-        if(!syn.equals("S")) {
-            Logger.log("Receive an invalid synchronize message : " + sock);
+        try {
+            clientid = is.read();
+        } catch(IOException e) {
+            Logger.log("An error occure while reading from socket : " + sock);
             return false;
         }
+        Logger.log("Delivered client ID " + clientid);
+        DOM.getInstance().addPlayer(clientid);
+        DOM.getInstance().addPlayerInfo(clientid);
+        DOM.getInstance().setClientno(clientid);
         try {
             ready_barrier.await();
         } catch(Exception e) {

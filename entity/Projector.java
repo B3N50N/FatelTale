@@ -55,7 +55,6 @@ public abstract class Projector {
 	public void setSpeed(Long speed) {
 		_speed = speed;
 	}
-	
 	public void setAttacker(int aID) {
 		_attacker_ID = aID;
 	}
