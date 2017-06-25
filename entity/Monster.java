@@ -17,10 +17,7 @@ public class Monster {
 	private int _asset_index;
 	
 	private Emitter[] _emitter;
-	private Emitter[] _emitters;
 	private Long _last_move_time, _speed, _last_direction_change;
-	
-	private boolean _walkable;
 	
 	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
 		Init(health, attack, defense, pos, dir, index, emitter, speed, collider);
@@ -41,7 +38,6 @@ public class Monster {
 		_speed = speed;
 		_last_direction_change = _last_move_time = System.currentTimeMillis();
 		_collider = collider;
-		_walkable = true;
 	}
 	
 	private boolean canMove() {
@@ -129,8 +125,16 @@ public class Monster {
 		_collider.setPosition(d);
 	}
 	
+	public int getAttack() {
+		return _attack;
+	}
+	
 	public Collider getCollider() {
 		return _collider;
+	}
+	
+	public boolean isDead() {
+		return _health <= 0;
 	}
 	
 	public void Print() {
