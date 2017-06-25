@@ -133,6 +133,9 @@ public class ADM {
 	public BufferedImage getPlayerAsset(int index, int i) {
 		assert index >= 0 && index < _player_assets.length : "Invalid Index.";
 		assert i >= 0 && i < _player_assets[index].length : "Invalid Index.";
+		assert _player_assets != null : "Null Object.";
+		assert _player_assets[index] != null : "Null Object.";
+		assert _player_assets[index][i] != null : "Null Object.";
 		return _player_assets[index][i];
 	}
 	
