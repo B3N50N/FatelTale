@@ -6,6 +6,7 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import tcp.*;
 import cdc.*;
@@ -18,7 +19,7 @@ public class UDPBC extends Thread {
 	private static int blocknum =0, nowblocknum =0;
 	private static Vector v;
 	private static int msg_crc;
-	private static int stage_max =1000;
+	private static int stage_max =500,delay =10;
 	private static int port =8890;
 	
 	 MyThread my = new MyThread();
@@ -59,18 +60,24 @@ public class UDPBC extends Thread {
 	        Scanner s = new Scanner(System.in);
 	        Logger.log("UDPBC start: ");
 	        String msg = "Key in";
+	        
 	        Vector<InetAddress> IPtable = TCPServer.getServer().getClientIPTable();
+	        //Vector<InetSocketAddress> IPtable = TCPServer.getClientIPTable();
 	        while (true) {
+	        	TimeUnit.MILLISECONDS.sleep(delay);
+	            //msg = s.next();//debug only
 	            msg = encode();
+	            //msg ="&Monster 0 4 -54 0 -9 2 &";
 	            msg_crc = msg.hashCode();
 	            Logger.log(msg_crc);
 	            msg ="$"+ msg_crc +"$" + msg;
 	            
 	            for(int i=0;i<IPtable.size();i++)
 	    		{
-	            	//msg = "&1=Player 2 0 10000 10000 west 0 -100.0 100.0 &";
+	            	//msg = "$-592448706$&Monster 0 4 -54 0 -9 2&";
 	            	//msg  = msg + " " + IPtable.get(i).getAddress().toString();
 	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length, IPtable.get(i), port);
+	            	// = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i).getAddress(), port);
 	            	DatagramSocket socket = new DatagramSocket();
 	 				socket.send(dp);
 	 				socket.close();
@@ -109,7 +116,7 @@ public class UDPBC extends Thread {
 		 
 		 for(int i=nowblocknum;i<stagenum;i++)
 		 {
-			 msg =msg + "&";
+			 msg =msg + " &";
 			 
 			 msg =msg+v.get(i);
 			 

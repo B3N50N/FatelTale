@@ -141,16 +141,14 @@ public class ADM {
 		assert i >= 0 && i < _monster_assets[i].length : "Invalid Index.";
 		return _monster_assets[index][i];
 	}
-	
 	public BufferedImage getProjectorAsset(int index, int i) {
 		assert index >= 0 && index < _projector_assets.length : "Invalid Index.";
 		assert i >= 0 && i < _projector_assets[i].length : "Invalid Index.";
 		return _projector_assets[index][i];
 	}
 	
-	public BufferedImage getItemAsset(int index, int i) {
-		assert index >= 0 && index < _item_assets.length : "Invalid Index.";
-		assert i >= 0 && i < _item_assets[i].length : "Invalid Index.";
-		return _item_assets[index][i];
+	public BufferedImage getItemAsset(int index) {
+		assert _item_assets[0] != null && index >= 0 && index < _item_assets[0].length : "Invalid Index.";
+		return _item_assets[0][index];
 	}
 }

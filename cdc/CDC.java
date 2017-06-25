@@ -5,6 +5,8 @@ import java.util.TreeMap;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import adm.ADM;
 import entity.Item;
 import entity.ItemInfo;
 import entity.Player;
@@ -33,12 +35,13 @@ public class CDC
 		projector=new ConcurrentHashMap<>();
 		playerinitlocation=new Point[MaxPlayerno];
 		playerinitlocation[0]=new Point(100,100);
-		playerinitlocation[1]=new Point(SDM.getInstance().getWidth()-100,100);
-		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight()-100);
-		playerinitlocation[3]=new Point(SDM.getInstance().getWidth()-100,SDM.getInstance().getHeight());
+		playerinitlocation[1]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 100);
+		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() - 100);
+		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
+				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
 		
 		for (int i=0;i<MaxPlayerno;i++) {
-			addPlayer(i, 0);
+			addPlayer(i, i);
 		}
 	}
 	public static synchronized CDC getInstance()
@@ -99,6 +102,7 @@ public class CDC
 		player.put(clientno, p);
 		
 		p.setPosition(new Point(playerinitlocation[clientno].x, playerinitlocation[clientno].y) );
+		System.out.println(p.toString());
 	}
 	public void addItem(Point point,int type)
 	{
