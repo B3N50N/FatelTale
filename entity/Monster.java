@@ -17,7 +17,6 @@ public class Monster {
 	private int _asset_index;
 	
 	private Emitter[] _emitter;
-	private Emitter[] _emitters;
 	private Long _last_move_time, _speed, _last_direction_change;
 	private boolean _walkable;
 	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
@@ -57,7 +56,7 @@ public class Monster {
 		}
 		return false;
 	}
-	ppublic void move(Map<Integer, Player> player) {
+	public void move(Map<Integer, Player> player) {
 		if ( canMove() ) {
 			if ( canChangeDirection() ) {
 				Point tmpPoint = null;
@@ -99,24 +98,6 @@ public class Monster {
 			_pos.x = pos.x;
 			_pos.y = pos.y;
 		}
-	}
-	
-	public void setPosition(Point p) {
-		assert p != null : "Null Object.";
-		_pos = p;
-		for (int i=0;i<_emitter.length;i++) {
-			_emitter[i].setPosition(p);
-		}
-		_collider.setPosition(p);
-	}
-	
-	public void setDirection(Point d) {
-		assert d != null : "Null Object.";
-		_dir = d;
-		for (int i=0;i<_emitter.length;i++) {
-			_emitter[i].setDirection(d);
-		}
-		_collider.setPosition(d);
 	}
 	
 	public void setPosition(Point p) {
