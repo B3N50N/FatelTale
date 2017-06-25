@@ -373,25 +373,30 @@ public class UDPUS {
 		{
 			System.out.println("call_updatePlayer : " + " clientno : "+ clientno +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex );
 			DOM.getInstance().updatePlayer(clientno, x, y, direction, assetIndex);
+			System.out.println("updatePlayer_SUCCESS");
 			System.out.println("call_updatePlayerInfo : " + " clientno : "+ clientno +" health : "+ health +" maxHealth : "+ maxHealth +" score : " + score);
 			DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);
+			System.out.println("updatePlayerInfo_SUCCESS");
 		}
 		else if(type ==2)
 		{
 			analyzedirection();
 			System.out.println("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
 			DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
+			System.out.println("updateMonster_SUCCESS");
 		}
 		else if(type ==3)
 		{
 			analyzedirection();
 			System.out.println("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex);
 			DOM.getInstance().updateProjector(id, x, y, direction, assetIndex);
+			System.out.println("updateProjector_SUCCESS");
 		}
 		else if(type ==4)
 		{
 			System.out.println("call_updateItem : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : " + assetIndex);
 			DOM.getInstance().updateItem(id, x, y, direction, assetIndex);
+			System.out.println("updateItem_SUCCESS");
 		}
 		/*else if(type ==5)
 		{
