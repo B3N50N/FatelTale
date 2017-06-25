@@ -154,6 +154,12 @@ public class Player
 		location.setLocation(newx,newy);
 	}
 	
+	public void beAttacked(int damage) {
+		int _damage = damage - defense;
+		changeHealth(_damage);
+		changeScore(-damage);
+	}
+	
 	public void setPosition(Point p) {
 		assert p != null : "Null Object.";
 		location = p;
@@ -179,7 +185,7 @@ public class Player
 	public void attack() {
 		if ( attacking ) {
 			// TODO attack...
-			_emitter.attack();
+			_emitter.attack(attack);
 		}
 	}
 	
@@ -196,6 +202,10 @@ public class Player
 	
 	public Point getPosition() {
 		return location;
+	}
+	
+	public Collider getColiider() {
+		return _collider;
 	}
 	
 	public String toString()

@@ -40,8 +40,10 @@ public class PEM {
 		
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
 		Monster m = MonsterInfo.getInstance().getRandomMonster();
-		m.setPosition(new Point(100, 100));
+		
+		m.setPosition(new Point(50, 50));
 		m.setDirection(new Point(10, 0));
+		m.Print();
 		_monster.put(CDC.getInstance().getMonsterNewId(), m);
 	}
 	
@@ -65,7 +67,7 @@ public class PEM {
 		_item = CDC.getInstance().getItem();
 		
 		nextPosition();
-		//checkCollision();
+		checkCollision();
 		//attacking();
 		
 		updateData();
@@ -90,7 +92,19 @@ public class PEM {
 
 		for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
-				
+				if ( projector.getValue().getAttackerID() < 4 ) {
+					if ( projector.getValue().getCollider().isCollide( player.getValue().getColiider() ) ) {
+						player.getValue().beAttacked( projector.getValue().getDamage() );
+						
+						// TODO remove projector
+					}
+				}
+			}
+			
+			for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
+				if ( monster.getValue().getCollider().isCollide( player.getValue().getColiider() ) ) {
+					//System.out.println("HIT");
+				}
 			}
 		}
 		
@@ -148,17 +162,22 @@ public class PEM {
 	}
 	
 	public void PrintState() {
+		
+		for ( Map.Entry<Integer, Player> p : _player.entrySet() ) {
+			System.out.println(p.getValue().toString());
+		}
 		System.out.println("Monster : ");
 		for ( Map.Entry<Integer, Monster> m : _monster.entrySet() ) {
-			System.out.println("ID : " + m.getKey() );
-			m.getValue().Print();
+			System.out.println(m.getKey() + " : " + m.getValue().toString() );
+			//m.getValue().Print();
 		}
-		
+		/*
 		System.out.println("Projector : ");
 		for ( Map.Entry<Integer, Projector> p : _projector.entrySet() ) {
 			System.out.println("ID : " + p.getKey() );
 			p.getValue().Print();
 		}
+		*/
 	}
 	
 	public void putMonster_Test(Monster m) {

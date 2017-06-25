@@ -29,8 +29,8 @@ public abstract class Emitter {
 		_ori_projector.setDirection(d);
 	}
 	
-	public void setAttack(int aID, int damage) {
-		_ori_projector.setAttack(aID, damage);
+	public void setAttacker(int aID) {
+		_ori_projector.setAttacker(aID);
 	}
 	
 	public Point getPosition() {
@@ -57,7 +57,7 @@ public abstract class Emitter {
 		return false;
 	}
 	
-	protected abstract void attack();
+	protected abstract void attack(int damage);
 	public abstract String getType();
 	public abstract Emitter clone();
 	

@@ -74,7 +74,7 @@ public class Monster {
 				}
 				
 				if ( tmpPoint != null ) {
-					if ( tmpPoint.distance(_dir) <= 300.0 ) {
+					if ( tmpPoint.distance(_dir) > 30.0 ) {
 						changePosition(new Point(_pos.x + _dir.x, _pos.y + _dir.y));
 					}
 					Point nextDirection = new Point(tmpPoint.x - _pos.x, tmpPoint.y - _pos.y);
@@ -88,7 +88,7 @@ public class Monster {
 	
 	public void attack() {
 		for (int i=0;i<_emitter.length;i++) {
-			_emitter[i].attack();
+			_emitter[i].attack(_attack);
 		}
 	}
 	
@@ -122,7 +122,7 @@ public class Monster {
 	
 	public void setDirection(Point d) {
 		assert d != null : "Null Object.";
-		_pos = d;
+		_dir = d;
 		for (int i=0;i<_emitter.length;i++) {
 			_emitter[i].setDirection(d);
 		}

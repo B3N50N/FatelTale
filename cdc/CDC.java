@@ -36,6 +36,10 @@ public class CDC
 		playerinitlocation[1]=new Point(SDM.getInstance().getWidth()-100,100);
 		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight()-100);
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth()-100,SDM.getInstance().getHeight());
+		
+		for (int i=0;i<MaxPlayerno;i++) {
+			addPlayer(i, 0);
+		}
 	}
 	public static synchronized CDC getInstance()
 	{
