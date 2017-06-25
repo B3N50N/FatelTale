@@ -77,7 +77,7 @@ public class UDPBC extends Thread {
 	            	//msg = "$-592448706$&Monster 0 4 -54 0 -9 2&";
 	            	//msg  = msg + " " + IPtable.get(i).getAddress().toString();
 	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length, IPtable.get(i), port);
-	            	 = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i).getAddress(), port);
+	            	// = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i).getAddress(), port);
 	            	DatagramSocket socket = new DatagramSocket();
 	 				socket.send(dp);
 	 				socket.close();
