@@ -10,12 +10,6 @@ public class AngleEmitter extends Emitter {
 	}
 
 	@Override
-	protected void attack() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public String getType() {
 		return "AngleEmitter";
 	}
@@ -24,6 +18,12 @@ public class AngleEmitter extends Emitter {
 	public Emitter clone() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected void attack(int damage) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
