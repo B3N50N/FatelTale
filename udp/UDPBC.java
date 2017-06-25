@@ -65,7 +65,7 @@ public class UDPBC extends Thread {
 	        	TimeUnit.MILLISECONDS.sleep(delay);
 	            //msg = s.next();//debug only
 	            msg = encode();
-	            msg ="&Monster 0 4 -54 0 -9 2 &";
+	            //msg ="&Monster 0 4 -54 0 -9 2 &";
 	            msg_crc = msg.hashCode();
 	            System.out.println(msg_crc);
 	            msg ="$"+ msg_crc +"$" + msg;
