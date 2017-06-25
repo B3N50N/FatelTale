@@ -13,21 +13,21 @@ import dom.*;
 
 public class UDPUS {
 	
-	static int clientno;
+	static int clientno =0;
     static Player player;
-    static int x;
-    static int y;
-    static int direction;
+    static int x =0;
+    static int y =0;
+    static int direction =DynamicObject.DIRECTION.DOWN;
     static Point direction2 = new Point();
-    static int assetIndex;
+    static int assetIndex =0;
     //static int frame;
-    static int id;
+    static int id =0;
     static Monster monster ;
     static Projector projector;
     static Item item;
-    static int health;
-    static int maxHealth;
-    static int score;
+    static int health =0;
+    static int maxHealth =0;
+    static int score =0;
     static char[] temp = new char[50];
     static char temp2;
     static String temp3;
@@ -71,19 +71,16 @@ public class UDPUS {
 	private static void transfer() throws Exception {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
-        DatagramSocket ds = null;
-        try {
-            ds = new DatagramSocket(port); // Set Server Port
-        } catch(SocketException e) {
-            Logger.log("Create udp socket failed");
-        }
-        Logger.log(": "
+
+        DatagramSocket ds = new DatagramSocket(port); // Set Server Port
+        System.out.println("server start at : "
                 + InetAddress.getLocalHost().getHostAddress() + ":" + ds.getLocalPort());
         String msg = "No Message...";
         while (true) {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
-            Logger.log(": " + msg);
+            System.out.println("msg recive : " + msg);
+
             decode(msg);
         }
     }
@@ -132,10 +129,10 @@ public class UDPUS {
 					{
 						type = 4;
 					}
-					/*if(temp3.equals("PlayerInfo"))
+					if(temp3.equals("PlayerInfo"))
 					{
 						type = 5;
-					}*/
+					}
 				}
 			    else if(type ==1)
 				{
@@ -160,7 +157,7 @@ public class UDPUS {
 					else if(numofelement ==3)
 					{
 						maxHealth = Integer.parseInt(temp3);
-						//System.out.println("axHealth = "+axHealth);
+						//System.out.println("maxHealth = "+maxHealth);
 						numofelement++;
 					}
 					else if(numofelement ==4)
@@ -227,15 +224,25 @@ public class UDPUS {
 					  }
 					  else if(numofelement ==3)
 					  {
-						  direction2.x= (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+x);
-						  numofelement++;
-					  }
-					  else if(numofelement ==4)
-					  {
-						  direction2.y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+y);
-						  numofelement++;
+						  if(temp3.equals("west"))
+							{
+								direction =DynamicObject.DIRECTION.LEFT;
+							}
+							else if(temp3.equals("north"))
+							{
+								direction =DynamicObject.DIRECTION.UP;
+							}
+							else if(temp3.equals("east"))
+							{
+								direction =DynamicObject.DIRECTION.RIGHT;
+							}
+							else if(temp3.equals("south"))
+							{
+								direction =DynamicObject.DIRECTION.DOWN;
+							}
+							  
+							//System.out.println("direction = "+ direction);
+							numofelement++;
 					  }
 					  else if(numofelement ==5)
 					  {
@@ -377,22 +384,33 @@ public class UDPUS {
 	{
 		if(type ==1)
 		{
+			System.out.println("call_updatePlayer : " + " clientno : "+ clientno +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex );
 			DOM.getInstance().updatePlayer(clientno, x, y, direction, assetIndex);
+			System.out.println("updatePlayer_SUCCESS");
+			System.out.println("call_updatePlayerInfo : " + " clientno : "+ clientno +" health : "+ health +" maxHealth : "+ maxHealth +" score : " + score);
 			DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);
+			System.out.println("updatePlayerInfo_SUCCESS");
 		}
 		else if(type ==2)
 		{
-			analyzedirection();
-			DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
+			//analyzedirection();
+			System.out.println("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
+			//DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
+			DOM.getInstance().updateMonster( id,x,y,direction,assetIndex);
+			System.out.println("updateMonster_SUCCESS");
 		}
 		else if(type ==3)
 		{
-			analyzedirection();
-			DOM.getInstance().updateProjector(id, x, y, direction, assetIndex);
+			//analyzedirection();
+			System.out.println("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" directionX : "+ direction2.x+" directionY : "+ direction2.y +" assertIndex : "+ assetIndex);
+			DOM.getInstance().updateProjector(id, x, y, direction2.x,  direction2.y, assetIndex);
+			System.out.println("updateProjector_SUCCESS");
 		}
 		else if(type ==4)
 		{
-			DOM.getInstance().updateItem(id, x, y, direction, assetIndex);
+			System.out.println("call_updateItem : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : " + assetIndex);
+			DOM.getInstance().updateItem(id, x, y, assetIndex);
+			System.out.println("updateItem_SUCCESS");
 		}
 		/*else if(type ==5)
 		{
