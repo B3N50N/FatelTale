@@ -17,7 +17,6 @@ public class Monster {
 	private int _asset_index;
 	
 	private Emitter[] _emitter;
-	private Emitter[] _emitters;
 	private Long _last_move_time, _speed, _last_direction_change;
 	
 	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
@@ -59,7 +58,6 @@ public class Monster {
 	
 	public void move(Map<Integer, Player> player) {
 		if ( canMove() ) {
-			changePosition(new Point(_pos.x + _dir.x, _pos.y + _dir.y));
 			if ( canChangeDirection() ) {
 				Point tmpPoint = null;
 				for ( Map.Entry<Integer, Player> p : player.entrySet() ) {
@@ -72,6 +70,9 @@ public class Monster {
 				}
 				
 				if ( tmpPoint != null ) {
+					if ( tmpPoint.distance(_dir) > 30.0 ) {
+						changePosition(new Point(_pos.x + _dir.x, _pos.y + _dir.y));
+					}
 					Point nextDirection = new Point(tmpPoint.x - _pos.x, tmpPoint.y - _pos.y);
 					double dis = nextDirection.distance(0, 0);
 					_dir.x = (int) (( nextDirection.getX() / dis ) * 10.0);
@@ -83,7 +84,7 @@ public class Monster {
 	
 	public void attack() {
 		for (int i=0;i<_emitter.length;i++) {
-			_emitter[i].attack();
+			_emitter[i].attack(_attack);
 		}
 	}
 	
@@ -117,15 +118,23 @@ public class Monster {
 	
 	public void setDirection(Point d) {
 		assert d != null : "Null Object.";
-		_pos = d;
+		_dir = d;
 		for (int i=0;i<_emitter.length;i++) {
 			_emitter[i].setDirection(d);
 		}
 		_collider.setPosition(d);
 	}
 	
+	public int getAttack() {
+		return _attack;
+	}
+	
 	public Collider getCollider() {
 		return _collider;
+	}
+	
+	public boolean isDead() {
+		return _health <= 0;
 	}
 	
 	public void Print() {
@@ -142,8 +151,18 @@ public class Monster {
 	}
 	
 	public String toString() {
-		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y) 
-		       + " " + String.valueOf(_asset_index) + " ";
+		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + getDirectionValue() + " " + String.valueOf(_asset_index);
+	}
+	
+	private String getDirectionValue() {
+		int X = Math.abs(_dir.x), Y = Math.abs(_dir.y);
+		
+		if ( X > Y ) {
+			if ( _dir.x > 0 ) return "east";
+			return "west";
+		}
+		if ( _dir.y > 0 ) return "south";
+		return "north";
 	}
 	
 	public Monster clone() {

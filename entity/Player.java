@@ -36,11 +36,11 @@ public class Player
 		//active=true;
 		asset_index=type;
 		location=point;
-		health=(int)attribute.get(0);
-		attack=(int)attribute.get(1);
-		attackspeed=(Long)attribute.get(2);
-		defense=(int)attribute.get(3);
-		movespeed=(Long)attribute.get(4);
+		health= new Integer((int)attribute.get(0));
+		attack= new Integer((int)attribute.get(1));
+		attackspeed= new Long((Long)attribute.get(2));
+		defense= new Integer((int)attribute.get(3));
+		movespeed=new Long((Long)attribute.get(4));
 		//active=true;
 		
 		_last_move_time = System.currentTimeMillis();
@@ -52,11 +52,12 @@ public class Player
 		id=clientno;
 		asset_index=type;
 		location=point;
-		maxhealth = health = (int)attribute.get(0);
-		attack=(int)attribute.get(1);
-		attackspeed=(Long)attribute.get(2);
-		defense=(int)attribute.get(3);
-		movespeed=(Long)attribute.get(4);
+		health= new Integer((int)attribute.get(0));
+		maxhealth = health;
+		attack= new Integer((int)attribute.get(1));
+		attackspeed= new Long((Long)attribute.get(2));
+		defense= new Integer((int)attribute.get(3));
+		movespeed=new Long((Long)attribute.get(4));
 		//active=true;
 		
 		_last_move_time = System.currentTimeMillis();
@@ -154,6 +155,13 @@ public class Player
 		location.setLocation(newx,newy);
 	}
 	
+	public void beAttacked(int damage) {
+		int _damage = damage - defense;
+		if ( _damage < 0 ) _damage = 0;
+		changeHealth(-_damage);
+		changeScore(-damage);
+	}
+	
 	public void setPosition(Point p) {
 		assert p != null : "Null Object.";
 		location = p;
@@ -179,7 +187,7 @@ public class Player
 	public void attack() {
 		if ( attacking ) {
 			// TODO attack...
-			_emitter.attack();
+			_emitter.attack(attack);
 		}
 	}
 	
@@ -196,6 +204,10 @@ public class Player
 	
 	public Point getPosition() {
 		return location;
+	}
+	
+	public Collider getColiider() {
+		return _collider;
 	}
 	
 	public String toString()

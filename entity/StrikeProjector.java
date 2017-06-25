@@ -37,7 +37,8 @@ public class StrikeProjector extends Projector {
 	public Projector clone() {
 		// TODO Auto-generated method stub
 		Collider c = _collider.clone();
-		Projector newInstance = new StrikeProjector(c.getPosition(), (Point)_dir.clone(), c, _speed, _attacker_ID, _asset_index);
+		Projector newInstance = new StrikeProjector(c.getPosition(), new Point(_dir), c, _speed, _attacker_ID, _asset_index);
+		newInstance.setDirection(new Point(_dir));
 		return newInstance;
 	}
 

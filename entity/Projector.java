@@ -56,8 +56,11 @@ public abstract class Projector {
 		_speed = speed;
 	}
 	
-	public void setAttack(int aID, int damage) {
+	public void setAttacker(int aID) {
 		_attacker_ID = aID;
+	}
+	
+	public void setDamaage(int damage) {
 		_damage = damage;
 	}
 	
