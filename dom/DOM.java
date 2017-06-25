@@ -51,53 +51,53 @@ public class DOM {
 	 **************************************/
 
 	public PlayerInfo getPlayerInfo() {
-		assert PlayerInfos.get(clientno) == null : "Get playerInfo failed, no playerInfo with clientno " + clientno;
+		assert PlayerInfos.get(clientno) != null : "Get playerInfo failed, no playerInfo with clientno " + clientno;
 		return PlayerInfos.get(clientno);
 	}
 	public PlayerInfo getPlayerInfo(int clientno) {
-		assert PlayerInfos.get(clientno) == null : "Get playerInfo failed, no playerInfo with clientno " + clientno;
+		assert PlayerInfos.get(clientno) != null : "Get playerInfo failed, no playerInfo with clientno " + clientno;
 		return PlayerInfos.get(clientno);
 	}
 
 	public String getPlayerName() {
-		assert PlayerInfos.get(clientno) == null : "Get player's health failed, no playerInfo with clientno "
+		assert PlayerInfos.get(clientno) != null : "Get player's health failed, no playerInfo with clientno "
 				+ clientno;
 		return PlayerInfos.get(clientno).getName();
 	}
 	public String getPlayerName(int clientno) {
-		assert PlayerInfos.get(clientno) == null : "Get player's health failed, no playerInfo with clientno "
+		assert PlayerInfos.get(clientno) != null : "Get player's health failed, no playerInfo with clientno "
 				+ clientno;
 		return PlayerInfos.get(clientno).getName();
 	}
 
 	public int getPlayerHealth() {
-		assert PlayerInfos.get(clientno) == null : "Get player's health failed, no playerInfo with clientno "
+		assert PlayerInfos.get(clientno) != null : "Get player's health failed, no playerInfo with clientno "
 				+ clientno;
 		return PlayerInfos.get(clientno).getHealth();
 	}
 	public int getPlayerHealth(int clientno) {
-		assert PlayerInfos.get(clientno) == null : "Get player's health failed, no playerInfo with clientno "
+		assert PlayerInfos.get(clientno) != null : "Get player's health failed, no playerInfo with clientno "
 				+ clientno;
 		return PlayerInfos.get(clientno).getHealth();
 	}
 
 	public int getPlayerMaxHealth() {
-		assert PlayerInfos.get(clientno) == null : "Get player's maxHealth failed, no playerInfo with clientno "
+		assert PlayerInfos.get(clientno) != null : "Get player's maxHealth failed, no playerInfo with clientno "
 				+ clientno;
 		return PlayerInfos.get(clientno).getMaxHealth();
 	}
 	public int getPlayerMaxHealth(int clientno) {
-		assert PlayerInfos.get(clientno) == null : "Get player's maxHealth failed, no playerInfo with clientno "
+		assert PlayerInfos.get(clientno) != null : "Get player's maxHealth failed, no playerInfo with clientno "
 				+ clientno;
 		return PlayerInfos.get(clientno).getMaxHealth();
 	}
 
 	public int getPlayerScore() {
-		assert PlayerInfos.get(clientno) == null : "Get player's score failed, no playerInfo with clientno " + clientno;
+		assert PlayerInfos.get(clientno) != null : "Get player's score failed, no playerInfo with clientno " + clientno;
 		return PlayerInfos.get(clientno).getScore();
 	}
 	public int getPlayerScore(int clientno) {
-		assert PlayerInfos.get(clientno) == null : "Get player's score failed, no playerInfo with clientno " + clientno;
+		assert PlayerInfos.get(clientno) != null : "Get player's score failed, no playerInfo with clientno " + clientno;
 		return PlayerInfos.get(clientno).getScore();
 	}
 
@@ -129,7 +129,7 @@ public class DOM {
 	}
 	public void updatePlayerInfo(int clientno, int health, int maxHealth, int score) {
 		PlayerInfo info = PlayerInfos.get(clientno);
-		assert info == null : "Update playerInfo failed, no playerInfo with clientno " + clientno;
+		assert info != null : "Update playerInfo failed, no playerInfo with clientno " + clientno;
 		PlayerInfos.put(clientno, info);
 		info.updateHealth(health);
 		info.updateMaxHealth(maxHealth);
@@ -137,7 +137,7 @@ public class DOM {
 	}
 
 	public void removePlayerInfo(int clientno) {
-		assert Players.get(clientno) == null : "Remove playerInfo failed, no playerInfo with clientno " + clientno;
+		assert Players.get(clientno) != null : "Remove playerInfo failed, no playerInfo with clientno " + clientno;
 		PlayerInfos.remove(clientno);
 	}
 
@@ -149,23 +149,23 @@ public class DOM {
 	
 	public int getPlayerX() {
 		Player player = Players.get(clientno);
-		assert player == null : "Get player's X failed, no player with clientno " + clientno;
+		assert player != null : "Get player's X failed, no player with clientno " + clientno;
 		return player.getX();
 	}
 	public int getPlayerX(int clientno) {
 		Player player = Players.get(clientno);
-		assert player == null : "Get player's X failed, no player with clientno " + clientno;
+		assert player != null : "Get player's X failed, no player with clientno " + clientno;
 		return player.getX();
 	}
 
 	public int getPlayerY() {
 		Player player = Players.get(clientno);
-		assert player == null : "Get player's Y failed, no player with clientno " + clientno;
+		assert player != null : "Get player's Y failed, no player with clientno " + clientno;
 		return player.getY();
 	}
 	public int getPlayerY(int clientno) {
 		Player player = Players.get(clientno);
-		assert player == null : "Get player's Y failed, no player with clientno " + clientno;
+		assert player != null : "Get player's Y failed, no player with clientno " + clientno;
 		return player.getY();
 	}
 
@@ -190,17 +190,17 @@ public class DOM {
 	}
 
 	public void updatePlayer(int clientno, Player player) {
-		assert Players.get(clientno) == null : "Update player failed, no player with clientno " + clientno;
+		assert Players.get(clientno) != null : "Update player failed, no player with clientno " + clientno;
 		Players.put(clientno, player);
 	}
 	public void updatePlayer(int clientno, int x, int y, int direction, int assetIndex) {
 		Player player = Players.get(clientno);
-		assert player == null : "Update player failed, no player with clientno " + clientno;
+		assert player != null : "Update player failed, no player with clientno " + clientno;
 		player.update(x, y, direction, assetIndex);
 	}
 	
 	public void removePlayer(int clientno) {
-		assert Players.get(clientno) == null : "Remove player failed, no player with clientno " + clientno;
+		assert Players.get(clientno) != null : "Remove player failed, no player with clientno " + clientno;
 		Players.remove(clientno);
 	}
 
@@ -231,17 +231,17 @@ public class DOM {
 	}
 
 	public void updateMonster(int id, Monster monster) {
-		assert Monsters.get(id) == null : "Update monster failed, no monster with id " + id;
+		assert Monsters.get(id) != null : "Update monster failed, no monster with id " + id;
 		Monsters.put(id, monster);
 	}
 	public void updateMonster(int id, int x, int y, int direction, int assetIndex) {
 		Monster monster = Monsters.get(id);
-		assert monster == null : "Update monster failed, no monster with id " + id;
+		assert monster != null : "Update monster failed, no monster with id " + id;
 		monster.update(x, y, direction, assetIndex);
 	}
 	
 	public void removeMonster(int id) {
-		assert Monsters.get(id) == null : "Remove monster failed, no monster with id" + id;
+		assert Monsters.get(id) != null : "Remove monster failed, no monster with id" + id;
 		Monsters.remove(id);
 	}
 
@@ -272,17 +272,17 @@ public class DOM {
 	}
 
 	public void updateProjector(int id, Projector projector) {
-		assert Projectors.get(id) == null : "Update projector failed, no projector with id " + id;
+		assert Projectors.get(id) != null : "Update projector failed, no projector with id " + id;
 		Projectors.put(id, projector);
 	}
 	public void updateProjector(int id, int x, int y, int direction, int assetIndex) {
 		Projector projector = Projectors.get(id);
-		assert projector == null : "Update projector failed, no projector with id " + id;
+		assert projector != null : "Update projector failed, no projector with id " + id;
 		projector.update(x, y, direction, assetIndex);
 	}
 
 	public void removeProjector(int id) {
-		assert Projectors.get(id) == null : "Remove projector failed, no projector with id " + id;
+		assert Projectors.get(id) != null : "Remove projector failed, no projector with id " + id;
 		Projectors.remove(id);
 	}
 
@@ -313,17 +313,17 @@ public class DOM {
 	}
 
 	public void updateItem(int id, Item item) {
-		assert Items.get(id) == null : "Update item failed, no item with id " + id;
+		assert Items.get(id) != null : "Update item failed, no item with id " + id;
 		Items.put(id, item);
 	}
 	public void updateItem(int id, int x, int y, int direction, int assetIndex) {
 		Item item = Items.get(id);
-		assert item == null : "Update item failed, no item with id " + id;
+		assert item != null : "Update item failed, no item with id " + id;
 		item.update(x, y, direction, assetIndex);
 	}
 
 	public void removeItem(int id) {
-		assert Items.get(id) == null : "Remove item failed, mo item with id " + id;
+		assert Items.get(id) != null : "Remove item failed, mo item with id " + id;
 		Items.remove(id);
 	}
 }
