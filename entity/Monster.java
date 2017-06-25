@@ -82,6 +82,16 @@ public class Monster {
 		}
 	}
 	
+	public int getAttack() {
+		return _attack;
+	}
+	
+	public void attack() {
+		for (int i=0;i<_emitter.length;i++) {
+			_emitter[i].attack(_attack);
+		}
+	}
+	
 	public void beAttacked(int attack) {
 		int damage = attack - _defense;
 		changeHealth(-damage);
@@ -133,6 +143,10 @@ public class Monster {
 			_emitter[i].Print();
 		}
 		System.out.println("==============");
+	}
+	
+	public boolean isDead() {
+		return _health <= 0;
 	}
 	
 	public String toString() {

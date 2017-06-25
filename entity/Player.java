@@ -159,6 +159,7 @@ public class Player
 		changeHealth(_damage);
 		changeScore(-damage);
 	}
+	
 	public void setPosition(Point p) {
 		assert p != null : "Null Object.";
 		location = p;
