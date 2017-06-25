@@ -55,7 +55,7 @@ public class DynamicObject {
 		    || y+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < playerY - canvasHeight/2
 		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > playerY + canvasHeight/2)
 			return;
-		g.drawImage(img, x-img.getWidth()/2 - playerX-canvasWidth/2 , y-img.getHeight()/2 - playerY - canvasHeight/2, null);
+		g.drawImage(img, x-playerX -img.getWidth()/2 +canvasWidth/2 , y-playerY -img.getHeight()/2 +canvasHeight/2, null);
 	}
 	
 	public void update(int nextX, int nextY, int nextDirection, int assetIndex){
