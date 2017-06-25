@@ -75,6 +75,7 @@ public class TCPClient extends Thread{
         }
         Logger.log("Delivered client ID " + clientid);
         DOM.getInstance().addPlayer(clientid);
+        DOM.getInstance().addPlayerInfo(clientid);
         DOM.getInstance().setClientno(clientid);
         try {
             ready_barrier.await();
