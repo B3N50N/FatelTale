@@ -3,9 +3,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Vector;
 
-import cdc.CDC;
+import adm.ADM;
 import entity.*;
 import pem.PEM;
 import sdm.SDM;
@@ -15,25 +14,22 @@ public class TestMain {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		SDM.getInstance().readMap("./resource/Map/Map001.txt");
-
-		Vector<String> v = CDC.getInstance().getUpdatInfo();
-		for(String s : v) {
-			System.out.println(s);
-		}
-		
-		PPP t = new PPP();
+		/*
+		PEMThread t = new PEMThread();
 		t.start();
-
+		*/
+		ADM.getInstance().getPlayerAsset(0, 0);
+		//PEM.getInstance().PrintState();
 	}
 
 }
 
-class PPP implements Runnable {
+class PEMThread implements Runnable {
 
 	private Thread _thread;
 	private boolean isRunning = false;
 
-	public PPP() {
+	public PEMThread() {
 		init();
 	}
 	
