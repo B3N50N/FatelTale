@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import tcp.*;
 import cdc.*;
 import cdc.CDC;
+import logger.Logger;
 
 public class UDPBC extends Thread {
 	
@@ -46,7 +47,7 @@ public class UDPBC extends Thread {
 			 {
 				 transfer();
 			 }catch( Exception e){
-				 System.out.println("fail to start UDP");
+				 Logger.log("fail to start UDPBC");
 			 }
 			  
 		 }
@@ -57,17 +58,19 @@ public class UDPBC extends Thread {
 	 private static void transfer() throws Exception {
 	        DatagramPacket dp;
 	        Scanner s = new Scanner(System.in);
-	        System.out.println("UDPBC start: ");
+	        Logger.log("UDPBC start: ");
 	        String msg = "Key in";
+	        
 	        Vector<InetAddress> IPtable = TCPServer.getServer().getClientIPTable();
 	        //Vector<InetSocketAddress> IPtable = TCPServer.getClientIPTable();
 	        while (true) {
 	        	TimeUnit.MILLISECONDS.sleep(delay);
-	            msg = s.next();//debug only
+	            //msg = s.next();//debug only
 	            msg = encode();
 	            //msg ="&Monster 0 4 -54 0 -9 2 &";
 	            msg_crc = msg.hashCode();
 	            msg ="$"+ msg_crc +"$" + msg;
+
 	            System.out.println(msg);
 	            System.out.println(msg_crc);
 	            for(int i=0;i<IPtable.size();i++)
