@@ -106,6 +106,12 @@ public class DOM {
 				+ clientno;
 		PlayerInfos.put(clientno, info);
 	}
+	public void addPlayerInfo(int clientno) {
+		assert PlayerInfos.get(clientno) == null : "Add playerInfo failed, already have a playerInfo with clientno "
+				+ clientno;
+		PlayerInfo info = new PlayerInfo(clientno);
+		PlayerInfos.put(clientno, info);
+	}
 	public void addPlayerInfo(int clientno, int health, int maxHealth, int score) {
 		assert PlayerInfos.get(clientno) == null : "Add playerInfo failed, already have a playerInfo with clientno "
 				+ clientno;

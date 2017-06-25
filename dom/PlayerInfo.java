@@ -8,6 +8,8 @@ public class PlayerInfo {
 	public PlayerInfo() {}
 	public PlayerInfo(int clientno) {
 		name = "Player" + clientno;
+		health = 100;
+		maxHealth = 100;
 		score = 0;
 	}
 	public PlayerInfo(int clientno, int maxHealth) {
