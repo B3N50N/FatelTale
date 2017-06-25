@@ -5,10 +5,11 @@ import java.net.*;
 import java.util.HashMap;
 import java.lang.Thread;
 import java.util.concurrent.CyclicBarrier;
+import dom.*;
 
 import logger.Logger;
 
-public class TCPClient {
+public class TCPClient extends Thread{
     private InputStream is = null;
     private OutputStream os = null;
     private Socket sock = null;
@@ -76,10 +77,20 @@ public class TCPClient {
         Logger.log("All clients connected.");
         return true;
     }
-    public void inputMoves(int MoveCode) {
+    public void keyDown(int Code) {
         try {
             if(os == null) return;
-            os.write(MoveCode);
+            os.write(codes.KEYDOWN);
+            os.write(Code);
+        } catch(IOException e) {
+            Logger.log("An error occur while sending to server : " + e);
+        }
+    }
+    public void keyRelease(int Code) {
+        try {
+            if(os == null) return;
+            os.write(codes.KEYRELEASE);
+            os.write(Code);
         } catch(IOException e) {
             Logger.log("An error occur while sending to server : " + e);
         }
@@ -89,6 +100,62 @@ public class TCPClient {
             ready_barrier.await();
         } catch(Exception e) {
         }
+    }
+    public void run() {
+        for(;;) {
+            try {
+                int code = is.read();
+                int objid = 0, type = 0;;
+                switch(code) {
+                case codes.CREATEOBJ:
+                    objid = is.read();
+                    type = is.read();
+                    switch(type) {
+                        case codes.PLAYER:
+                            DOM.getInstance().addPlayer(objid);
+                            break;
+                        case codes.PROJECTOR:
+                            DOM.getInstance().addProjector(objid);
+                            break;
+                        case codes.MONSTER:
+                            DOM.getInstance().addMonster(objid);
+                            break;
+                        case codes.ITEM:
+                            DOM.getInstance().addItem(objid);
+                            break;
+                    }
+                    break;
+                case codes.REMOVEOBJ:
+                    objid = is.read();
+                    type = is.read();
+                    switch(type) {
+                        case codes.PLAYER:
+                            DOM.getInstance().removePlayer(objid);
+                            break;
+                        case codes.PROJECTOR:
+                            DOM.getInstance().removeProjector(objid);
+                            break;
+                        case codes.MONSTER:
+                            DOM.getInstance().removeMonster(objid);
+                            break;
+                        case codes.ITEM:
+                            DOM.getInstance().removeItem(objid);
+                            break;
+                    }
+                    break;
+                case -1:
+                    throw new IOException();
+                default:
+                    Logger.log("Unrecognized code <" + code + "> ignored");
+                }
+            } catch(IOException e) {
+                Logger.log("Connection closed : " + sock);
+                break;
+            }
+        }
+        try {
+            sock.close();
+        } catch(IOException e) {}
     }
 }
 

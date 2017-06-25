@@ -23,7 +23,6 @@ public class SCENERE {
 	}
 	
 	public void render(Graphics g) {
-		g.clearRect(0, 0, UI.getInstance().getCanvasWidth(), UI.getInstance().getCanvasHeight());
 		//assert something..
 		int x = DOM.getInstance().getPlayerX(0), y = DOM.getInstance().getPlayerY(0);	
 		int ix = x - ( UI.getInstance().getCanvasWidth() / 2 ), iy = y - ( UI.getInstance().getCanvasHeight() / 2 );

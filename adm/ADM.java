@@ -65,12 +65,8 @@ public class ADM {
 			
 			return assets;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
 			assert false : "No Such File.";
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
 			assert false : "Wrong Format.";
 		}
 		return null;
@@ -152,9 +148,8 @@ public class ADM {
 		return _projector_assets[index][i];
 	}
 	
-	public BufferedImage getItemAsset(int index, int i) {
-		assert index >= 0 && index < _item_assets.length : "Invalid Index.";
-		assert i >= 0 && i < _item_assets[i].length : "Invalid Index.";
-		return _item_assets[index][i];
+	public BufferedImage getItemAsset(int index) {
+		assert _item_assets[0] != null && index >= 0 && index < _item_assets[0].length : "Invalid Index.";
+		return _item_assets[0][index];
 	}
 }

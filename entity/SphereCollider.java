@@ -42,4 +42,19 @@ public class SphereCollider extends Collider{
 		Collider newInstance = new SphereCollider(new Point(_pos), _radius);
 		return newInstance;
 	}
+
+	@Override
+	public void setDirection(Point d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Print() {
+		// TODO Auto-generated method stub
+		System.out.println("Sphere Collider : ");
+		System.out.println("Position : " + _pos);
+		System.out.println("Size : " + _radius);
+		System.out.println("==========");
+	}
 }

@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.HashMap;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +21,7 @@ class KeyBoardListener implements KeyListener
 {
 	final static int upcode=38,downcode=40,rightcode=39,leftcode=37;
 	final static int attackcode=87;
+	final HashMap<Integer,Integer> codetable;
 	public void keyTyped(KeyEvent e)
 	{
 		
@@ -26,12 +29,22 @@ class KeyBoardListener implements KeyListener
 	public void keyReleased(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-		TCPClient.getClient().keyRelease(code);
+		//TCPClient.getClient().keyRelease(code);
 	}
 	public void keyPressed(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-		TCPClient.getClient().keyDown(code);
+		//TCPClient.getClient().keyDown(code);
+		//TCPClient.getClient().keyDown(codetable.get(code));
+	}
+	public KeyBoardListener()
+	{
+		codetable=new HashMap();
+		codetable.put(upcode,codes.MOVEUP);
+		codetable.put(leftcode,codes.MOVELEFT);
+		codetable.put(rightcode,codes.MOVERIGHT);
+		codetable.put(downcode,codes.MOVEDOWN);
+		codetable.put(attackcode, codes.ATTACK);
 	}
 }
 public class UI
@@ -43,6 +56,7 @@ public class UI
 	private BufferStrategy bs;
 	private JPanel startmenupanel,waitingpanel;
 	private JPanel endgamepanel,gamepanel;
+    private String srvaddr;
 	private UI()
 	{
 		frame=new JFrame();
@@ -64,11 +78,11 @@ public class UI
 			public void actionPerformed(ActionEvent e)
 			{
 				waitingScreen();
-                /*new Thread() {
+                new Thread() {
                     public void run() {
                         TCPClient.getClient().connectServer(srvaddr);
                     }
-                }.start();*/
+                }.start();
 			}
 		}
 		);
@@ -118,8 +132,9 @@ public class UI
 		else
 			return bs;
 	}
-	public void startMenu(String srvaddr)
+	public void startMenu(String _srvaddr)
 	{
+        srvaddr = _srvaddr;
 		frame.remove(frame.getContentPane());
 		assert startmenupanel!=null:"startmenupanel is null";
 		frame.add(startmenupanel);
@@ -149,7 +164,7 @@ public class UI
 		frame.add(new JPanel());
 		frame.getContentPane().repaint();
 		JLabel lbl=new JLabel();
-		lbl.setIcon(new ImageIcon(this.getClass().getResource("/waitingscreen.jpg")));
+		lbl.setIcon(new ImageIcon(this.getClass().getResource("../resource/waitingscreen.jpg")));
 		lbl.setBounds(0, 0,500,500);
 		frame.getContentPane().add(lbl);
 		frame.getContentPane().setLayout(null);

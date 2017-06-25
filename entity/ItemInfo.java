@@ -1,4 +1,5 @@
 package entity;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,17 +8,18 @@ public class ItemInfo
 {
 	private static ItemInfo uniqueinstance;
 	private int totaltype;
-	private int diff_attack[]=new int[totaltype];
-	private int diff_attackspeed[]=new int[totaltype];
-	private int diff_defense[]=new int[totaltype];
-	private int diff_movespeed[]=new int[totaltype];
-	private int diff_health[]=new int[totaltype];
+	private int[] diff_attack=new int[totaltype];
+	private int[] diff_attackspeed=new int[totaltype];
+	private int[] diff_defense=new int[totaltype];
+	private int[] diff_movespeed=new int[totaltype];
+	private int[] diff_health=new int[totaltype];
+	private Point[] location;
 	private String[] ItemFilePath;
 	private ItemInfo()
 	{
 		try
 		{
-			FileReader fin=new FileReader("./resource/ItemInfo.txt");
+			FileReader fin=new FileReader("./resource/ItemInfo/ItemInfo.txt");
 			BufferedReader buff=new BufferedReader(fin);
 			String str;
 			str=buff.readLine();
@@ -34,7 +36,7 @@ public class ItemInfo
 			fin.close();
 			for(int i=0;i<totaltype;i+=1)
 			{
-				fin=new FileReader("./resource/"+ItemFilePath[i]);
+				fin=new FileReader("./resource/ItemInfo/"+ItemFilePath[i]);
 				buff=new BufferedReader(fin);
 				str=buff.readLine();
 				diff_health[i]=Integer.parseInt(str);
@@ -73,3 +75,4 @@ public class ItemInfo
 		return v;
 	}
 }
+

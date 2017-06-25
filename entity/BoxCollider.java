@@ -9,10 +9,12 @@ public class BoxCollider extends Collider{
 	
 	private double[][] _vector;
 	
-	public BoxCollider(Point pos, Point dir) {
+	public BoxCollider(Point pos, Point dir, int width, int height) {
 		super(pos);
 		// TODO Auto-generated constructor stub
 		_dir = dir;
+		_width = width;
+		_height = height;
 	}
 	
 	public Point getDirection() {
@@ -128,6 +130,23 @@ public class BoxCollider extends Collider{
 	@Override
 	public Collider clone() {
 		// TODO Auto-generated method stub
+		Collider newInstance = new BoxCollider(new Point(_pos), new Point(_dir), _width, _height);
 		return null;
+	}
+
+	@Override
+	public void setDirection(Point d) {
+		// TODO Auto-generated method stub
+		_dir = d;
+	}
+
+	@Override
+	public void Print() {
+		// TODO Auto-generated method stub
+		System.out.println("Box Collider : ");
+		System.out.println("Position : " + _pos);
+		System.out.println("Size : " + _width + " " + _height);
+		System.out.println("Direction : " + _dir);
+		System.out.println("==========");
 	}
 }

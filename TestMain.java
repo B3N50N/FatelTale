@@ -1,4 +1,8 @@
 import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import entity.*;
 import pem.PEM;
@@ -6,7 +10,7 @@ import sdm.SDM;
 
 public class TestMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		SDM.getInstance().readMap("./resource/Map/Map001.txt");
 		
@@ -27,13 +31,7 @@ class PEMThread implements Runnable {
 	}
 	
 	private void init() {
-		Point pos = new Point(10, 10);
-		Point dir = new Point(0, 1);
-		Collider c = new SphereCollider(pos, 10);
-		Projector p = new StrikeProjector(pos, dir, c, 1000L, 0);
-		Emitter e = new DirectlyEmitter(1000L, dir, pos, p);
-		Monster m = new Monster(10, 50, 100, pos, dir, 0, e, 1500L, c);
-		PEM.getInstance().putMonster_Test(m);
+		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
 	}
 	
 	@Override
@@ -49,6 +47,7 @@ class PEMThread implements Runnable {
 		while (Now <= Total) {
 			try {
 				PEM.getInstance().tick();
+				//PEM.getInstance().PrintState();
 				Thread.sleep(SleepTime);
 				Now += SleepTime;
 			} catch (InterruptedException e) {
@@ -57,6 +56,7 @@ class PEMThread implements Runnable {
 			}
 		}
 		PEM.getInstance().PrintState();
+		
 	}
 	
 	public synchronized void start() {
