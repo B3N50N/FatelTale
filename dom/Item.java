@@ -6,7 +6,7 @@ import adm.ADM;
 
 public class Item extends DynamicObject{
 	
-	public Item(){ drawable = false; }
+	public Item(){ drawable = false; direction = 0;}
 	public Item(int x, int y, int direction, int assetIndex, int frame){
 		drawable = true;
 		
@@ -27,6 +27,6 @@ public class Item extends DynamicObject{
 	}
 	
 	public BufferedImage getImage(){
-		return ADM.getInstance().getItemAsset(assetIndex, direction*DynamicObject.MAX_FRAME + frame);
+		return ADM.getInstance().getItemAsset(assetIndex);
 	}
 }
