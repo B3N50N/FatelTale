@@ -84,6 +84,7 @@ public class DynamicObject {
 		this.assetIndex = assetIndex;
 	}
 	public void update(int nextX, int nextY, int nextDirection){
+		drawable = true;
 		long currTime = System.currentTimeMillis();
 		if(direction != nextDirection)  // turn
 		{
@@ -223,11 +224,13 @@ public class DynamicObject {
 		y = nextY;
 	}
 	public void updateWithoutDirection(int nextX, int nextY, int assetIndex){
+		drawable = true;
 		x = nextX;
 		y = nextY;
 		this.assetIndex = assetIndex;
 	}
 	public void updateWithoutDirection(int nextX, int nextY){
+		drawable = true;
 		x = nextX;
 		y = nextY;
 	}
