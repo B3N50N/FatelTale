@@ -63,13 +63,13 @@ public class UDPBC extends Thread {
 	        Vector<InetSocketAddress> IPtable = TCPServer.getClientIPTable();
 	        while (true) {
 	        	TimeUnit.MILLISECONDS.sleep(delay);
-	            //msg = s.next();//debug only
+	            msg = s.next();//debug only
 	            msg = encode();
 	            //msg ="&Monster 0 4 -54 0 -9 2 &";
 	            msg_crc = msg.hashCode();
-	            System.out.println(msg_crc);
 	            msg ="$"+ msg_crc +"$" + msg;
-	            
+	            System.out.println(msg);
+	            System.out.println(msg_crc);
 	            for(int i=0;i<IPtable.size();i++)
 	    		{
 	            	//msg = "$-592448706$&Monster 0 4 -54 0 -9 2&";
@@ -118,7 +118,7 @@ public class UDPBC extends Thread {
 			 
 			 msg =msg+v.get(i);
 			 
-			 System.out.println(v.get(i)); 
+			 //System.out.println(v.get(i)); 
 			 //System.out.println(msg);
 			 blocknum --;
 		 }
