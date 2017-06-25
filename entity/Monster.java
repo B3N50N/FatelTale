@@ -151,7 +151,18 @@ public class Monster {
 	}
 	
 	public String toString() {
-		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y) + " " + String.valueOf(_asset_index);
+		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + getDirectionValue() + " " + String.valueOf(_asset_index);
+	}
+	
+	private String getDirectionValue() {
+		int X = Math.abs(_dir.x), Y = Math.abs(_dir.y);
+		
+		if ( X > Y ) {
+			if ( _dir.x > 0 ) return "east";
+			return "west";
+		}
+		if ( _dir.y > 0 ) return "south";
+		return "north";
 	}
 	
 	public Monster clone() {

@@ -41,7 +41,7 @@ public class CDC
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
 		
 		for (int i=0;i<MaxPlayerno;i++) {
-			addPlayer(i, 0);
+			addPlayer(i, i);
 		}
 	}
 	public static synchronized CDC getInstance()
@@ -102,6 +102,7 @@ public class CDC
 		player.put(clientno, p);
 		
 		p.setPosition(new Point(playerinitlocation[clientno].x, playerinitlocation[clientno].y) );
+		System.out.println(p.toString());
 	}
 	public void addItem(Point point,int type)
 	{
@@ -118,7 +119,7 @@ public class CDC
 			str=entry.getValue().toString();
 			v.add(str);
 		}
-		/*
+	
 		for(Map.Entry<Integer,Monster> entry:monster.entrySet())
 		{
 			String str = "Monster ";
@@ -127,6 +128,7 @@ public class CDC
 			str += entry.getValue().toString();
 			v.add(str);
 		}
+		/*
 		for (Map.Entry<Integer, Projector> entry : projector.entrySet() ) {
 			String str = "Projector ";
 			str += String.valueOf( entry.getKey() );
