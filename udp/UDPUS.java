@@ -15,7 +15,7 @@ public class UDPUS {
     static Player player;
     static int x =0;
     static int y =0;
-    static int direction =0;
+    static int direction =DynamicObject.DIRECTION.DOWN;
     static Point direction2 = new Point();
     static int assetIndex =0;
     //static int frame;
@@ -221,15 +221,25 @@ public class UDPUS {
 					  }
 					  else if(numofelement ==3)
 					  {
-						  direction2.x= (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+x);
-						  numofelement++;
-					  }
-					  else if(numofelement ==4)
-					  {
-						  direction2.y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_y = "+y);
-						  numofelement++;
+						  if(temp3.equals("west"))
+							{
+								direction =DynamicObject.DIRECTION.LEFT;
+							}
+							else if(temp3.equals("north"))
+							{
+								direction =DynamicObject.DIRECTION.UP;
+							}
+							else if(temp3.equals("east"))
+							{
+								direction =DynamicObject.DIRECTION.RIGHT;
+							}
+							else if(temp3.equals("south"))
+							{
+								direction =DynamicObject.DIRECTION.DOWN;
+							}
+							  
+							//System.out.println("direction = "+ direction);
+							numofelement++;
 					  }
 					  else if(numofelement ==5)
 					  {
@@ -380,22 +390,23 @@ public class UDPUS {
 		}
 		else if(type ==2)
 		{
-			analyzedirection();
+			//analyzedirection();
 			System.out.println("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
-			DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
+			//DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
+			DOM.getInstance().updateMonster( id,x,y,direction,assetIndex);
 			System.out.println("updateMonster_SUCCESS");
 		}
 		else if(type ==3)
 		{
-			analyzedirection();
-			System.out.println("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex);
-			DOM.getInstance().updateProjector(id, x, y, direction, assetIndex);
+			//analyzedirection();
+			System.out.println("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" directionX : "+ direction2.x+" directionY : "+ direction2.y +" assertIndex : "+ assetIndex);
+			DOM.getInstance().updateProjector(id, x, y, direction2.x,  direction2.y, assetIndex);
 			System.out.println("updateProjector_SUCCESS");
 		}
 		else if(type ==4)
 		{
 			System.out.println("call_updateItem : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : " + assetIndex);
-			DOM.getInstance().updateItem(id, x, y, direction, assetIndex);
+			DOM.getInstance().updateItem(id, x, y, assetIndex);
 			System.out.println("updateItem_SUCCESS");
 		}
 		/*else if(type ==5)

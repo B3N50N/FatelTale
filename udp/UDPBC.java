@@ -18,7 +18,7 @@ public class UDPBC extends Thread {
 	private static int blocknum =0, nowblocknum =0;
 	private static Vector v;
 	private static int msg_crc;
-	private static int stage_max =1000,delay =10;
+	private static int stage_max =500,delay =10;
 	private static int port =8890;
 	
 	 MyThread my = new MyThread();
@@ -114,7 +114,7 @@ public class UDPBC extends Thread {
 		 
 		 for(int i=nowblocknum;i<stagenum;i++)
 		 {
-			 msg =msg + "&";
+			 msg =msg + " &";
 			 
 			 msg =msg+v.get(i);
 			 
