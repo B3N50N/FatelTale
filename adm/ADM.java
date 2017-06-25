@@ -65,12 +65,8 @@ public class ADM {
 			
 			return assets;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
 			assert false : "No Such File.";
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
 			assert false : "Wrong Format.";
 		}
 		return null;

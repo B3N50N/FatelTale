@@ -1,5 +1,6 @@
 package pem;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
+import cdc.CDC;
 import entity.*;
 
 public class PEM {
@@ -19,7 +21,7 @@ public class PEM {
 	private Set<Integer> _delete_monster;
 	private Set<Integer> _delete_projector;
 	
-	public Player [] _player;
+	public Map<Integer, Player> _player;
 	public Map<Integer, Monster> _monster; // Only For Test
 	public Map<Integer, Projector> _projector; // Only For Test
 	public Map<Integer, Item> _item;
@@ -31,8 +33,16 @@ public class PEM {
 		_delete_monster = new HashSet<>();
 		_delete_projector = new HashSet<>();
 		
-		_monster = new ConcurrentHashMap<>();
-		_projector = new ConcurrentHashMap<>();
+		_player = CDC.getInstance().getPlayer();
+		_monster = CDC.getInstance().getMonster();
+		_projector = CDC.getInstance().getProjector();
+		_item = CDC.getInstance().getItem();
+		
+		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+		Monster m = MonsterInfo.getInstance().getRandomMonster();
+		m.setPosition(new Point(100, 100));
+		m.setDirection(new Point(10, 0));
+		_monster.put(CDC.getInstance().getMonsterNewId(), m);
 	}
 	
 	public static synchronized PEM getInstance() {
@@ -49,25 +59,36 @@ public class PEM {
 		_delete_monster.clear();
 		_delete_projector.clear();
 		
+		_player = CDC.getInstance().getPlayer();
+		_monster = CDC.getInstance().getMonster();
+		_projector = CDC.getInstance().getProjector();
+		_item = CDC.getInstance().getItem();
+		
 		nextPosition();
-		checkCollision();
-		attacking();
+		//checkCollision();
+		//attacking();
 		
 		updateData();
 	}
 	
 	public void nextPosition() {
+		
+		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
+			e.getValue().move();
+		}
+		
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
-			e.getValue().nextPosition();
+			e.getValue().move(_player);
 		}
 		
 		for ( Map.Entry<Integer, Projector> e : _projector.entrySet() ) {
-			e.getValue().nextPosition();
+			e.getValue().move();
 		}
 	}
 	
 	public void checkCollision() {
-		for (int i=0;i<_player.length;i++) {
+
+		for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				
 			}
@@ -107,24 +128,23 @@ public class PEM {
 	
 	public void addTempMonster(Monster m) {
 		// TODO get CDC get new Monster ID
-		_tmp_monster.put(_monster.size(), m);
+		_tmp_monster.put(CDC.getInstance().getMonsterNewId(), m);
 	}
 	
 	public void addTempProjector(Projector p) {
 		// TODO get CDC get new Projector ID
-		int ID = 0;
-		_tmp_projector.put(_projector.size(), p);
+		_tmp_projector.put(CDC.getInstance().getProjectorId(), p);
 		// TODO call TCP add() function
 	}
 	
 	private void deleteMonster(Integer ID) {
 		// TODO call TCP delete() function
-		_delete_monster.add(ID);
+		_monster.remove(ID);
 	}
 	
 	private void deleteProjector(Integer ID) {
 		// TODO call TCP delete() function
-		_delete_projector.add(ID);
+		_projector.remove(ID);
 	}
 	
 	public void PrintState() {

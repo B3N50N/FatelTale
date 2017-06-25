@@ -6,13 +6,14 @@ import sdm.SDM;
 import spritere.SPRITERE;
 import ui.UI;
 import tcp.TCPClient;
+import udp.UDPUS;
 import logger.Logger;
 
 public class Client {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//assert 1 == 2 : "HI";
-
+		
         if(args.length < 1) {
             System.err.println("Usage : java Client SERVER_ADDR");
             System.exit(1);
@@ -26,6 +27,7 @@ public class Client {
 
         Logger.log("Game start");
 		UI.getInstance().startGame();
+        UDPUS.getInstance().initUDPServer();
 		RenderThread _render_thread = new RenderThread();
 		_render_thread.start();
 	}
@@ -52,9 +54,10 @@ class RenderThread implements Runnable {
 		if ( bs != null && g != null ) {
 			SCENERE.getInstance().render(g);
 			SPRITERE.getInstance().render(g);
-            bs.show();
-            g.dispose();
+			bs.show();
+			g.dispose();
 		}
+		
 	}
 	
 	@Override

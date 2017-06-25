@@ -29,12 +29,13 @@ class KeyBoardListener implements KeyListener
 	public void keyReleased(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-		TCPClient.getClient().keyRelease(codetable.get(code));
+		//TCPClient.getClient().keyRelease(code);
 	}
 	public void keyPressed(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-		TCPClient.getClient().keyDown(codetable.get(code));
+		//TCPClient.getClient().keyDown(code);
+		//TCPClient.getClient().keyDown(codetable.get(code));
 	}
 	public KeyBoardListener()
 	{
@@ -141,7 +142,8 @@ public class UI
 	public void startGame()
 	{
 		canvas=new Canvas();
-		frame.remove(frame.getContentPane());
+        frame.getContentPane().removeAll();
+//		frame.remove(frame.getContentPane());
 		frame.add(new JPanel());
 		canvas=new Canvas();
 		canvas.setBounds(0,0,framewidth,frameheight);		

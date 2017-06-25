@@ -159,7 +159,6 @@ public class Player
 		changeHealth(_damage);
 		changeScore(-damage);
 	}
-	
 	public void setPosition(Point p) {
 		assert p != null : "Null Object.";
 		location = p;
@@ -203,7 +202,6 @@ public class Player
 	public Point getPosition() {
 		return location;
 	}
-	
 	public Collider getColiider() {
 		return _collider;
 	}

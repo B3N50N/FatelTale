@@ -19,9 +19,7 @@ public class Monster {
 	private Emitter[] _emitter;
 	private Emitter[] _emitters;
 	private Long _last_move_time, _speed, _last_direction_change;
-	
 	private boolean _walkable;
-	
 	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
 		Init(health, attack, defense, pos, dir, index, emitter, speed, collider);
 	}
@@ -59,8 +57,7 @@ public class Monster {
 		}
 		return false;
 	}
-	
-	public void move(Map<Integer, Player> player) {
+	ppublic void move(Map<Integer, Player> player) {
 		if ( canMove() ) {
 			if ( canChangeDirection() ) {
 				Point tmpPoint = null;
@@ -86,12 +83,6 @@ public class Monster {
 		}
 	}
 	
-	public void attack() {
-		for (int i=0;i<_emitter.length;i++) {
-			_emitter[i].attack(_attack);
-		}
-	}
-	
 	public void beAttacked(int attack) {
 		int damage = attack - _defense;
 		changeHealth(-damage);
@@ -109,6 +100,24 @@ public class Monster {
 			_pos.x = pos.x;
 			_pos.y = pos.y;
 		}
+	}
+	
+	public void setPosition(Point p) {
+		assert p != null : "Null Object.";
+		_pos = p;
+		for (int i=0;i<_emitter.length;i++) {
+			_emitter[i].setPosition(p);
+		}
+		_collider.setPosition(p);
+	}
+	
+	public void setDirection(Point d) {
+		assert d != null : "Null Object.";
+		_dir = d;
+		for (int i=0;i<_emitter.length;i++) {
+			_emitter[i].setDirection(d);
+		}
+		_collider.setPosition(d);
 	}
 	
 	public void setPosition(Point p) {
@@ -157,6 +166,8 @@ public class Monster {
 			e[i] = _emitter[i].clone();
 		}
 		Monster newInstance = new Monster(_health, _attack, _defense, _asset_index, e, _speed, c);
-		return newInstance;
+		return newInstance;	
 	}
+
 }
+

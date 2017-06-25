@@ -8,7 +8,7 @@ import adm.ADM;
 
 public class DynamicObject {
 	static public class DIRECTION{
-		int DOWN=0, LEFT=1, RIGHT=2, UP=3;
+		static public final int DOWN=0, LEFT=1, RIGHT=2, UP=3;
 	}
 	
 	static public final int MAX_FRAME = 4;
@@ -45,6 +45,7 @@ public class DynamicObject {
 	}
 
 	public void update(int nextX, int nextY, int nextDirection, int assetIndex){
+		drawable = true;
 		long currTime = System.currentTimeMillis();
 		if(direction != nextDirection)  // turn
 		{

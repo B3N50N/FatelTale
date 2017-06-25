@@ -1,8 +1,8 @@
 package tcp;
 
-
 // Encode format : action + keystatus
 public class codes {
+    public static final int SYN = 0xFF;
     // subactions
     public static final int MOVELEFT = 0x0;
     public static final int MOVERIGHT = 0x1;
@@ -14,5 +14,10 @@ public class codes {
     public static final int KEYRELEASE = 0x1;
     public static final int CREATEOBJ = 0x2;
     public static final int REMOVEOBJ = 0x3;
+    // type
+    public static final int PLAYER = 0x0;
+    public static final int PROJECTOR = 0x1;
+    public static final int MONSTER = 0x2;
+    public static final int ITEM = 0x3;
     private codes() {};
 }
