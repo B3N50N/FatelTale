@@ -102,3 +102,4 @@ public class PlayerInfo
 		playerinfo=PlayerInfo.getInstance();
 	}*/
 }
+
