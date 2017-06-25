@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import adm.ADM;
+import ui.UI;
 
 
 public class DynamicObject {
@@ -18,7 +19,7 @@ public class DynamicObject {
 	protected boolean drawable;
 	
 	protected int x,y; //position
-	protected int direction; //face direction
+	protected int direction; //face direction   pictureID
 	protected int assetIndex;
 	protected int frame;
 	protected long lastUpdateTime;
@@ -43,7 +44,18 @@ public class DynamicObject {
 	public boolean getDrawable(){
 		return drawable;
 	}
-
+	public void drawImage(Graphics g){
+		if(!drawable)
+			return;
+		BufferedImage img = getImage();
+		if( x+img.getWidth()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0 
+		    || x-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getinstance().getCanvasWidth()
+		    || y+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0
+		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getinstance().getCanvasWidth())
+			continue;
+		g.drawImage(img, x-img.getWidth()/2, y-img.getHeight()/2, null);
+	}
+	
 	public void update(int nextX, int nextY, int nextDirection, int assetIndex){
 		drawable = true;
 		long currTime = System.currentTimeMillis();

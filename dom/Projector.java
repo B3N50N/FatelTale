@@ -1,8 +1,13 @@
 package dom;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 import adm.ADM;
+import ui.UI;
 
 public class Projector extends DynamicObject {
 	
@@ -76,6 +81,26 @@ public class Projector extends DynamicObject {
 		}
 		x = nextX;
 		y = nextY;
+	}
+	public void drawImage(Graphics g){
+		if(!drawable)
+			return;
+		BufferedImage img = getImage();
+		if( x+img.getWidth()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0 
+		    || x-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getinstance().getCanvasWidth()
+		    || y+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0
+		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getinstance().getCanvasWidth())
+			continue;
+		
+		Graphics2D g2d = (Graphics2D) g;
+		
+		double locationX = img.getWidth() / 2;
+		double locationY = img.getHeight() / 2;
+		AffineTransform tx = AffineTransform.getRotateInstance(rotateRadian, locationX, locationY);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+		// Drawing the rotated image at the required drawing locations
+		g2d.drawImage(op.filter(img, null), x-img.getWidth()/2, y-img.getHeight()/2, null);
 	}
 	
 	public BufferedImage getImage(){
