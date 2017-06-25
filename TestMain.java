@@ -18,7 +18,16 @@ public class TestMain {
 		PEMThread t = new PEMThread();
 		t.start();
 		*/
-		ADM.getInstance().getPlayerAsset(0, 0);
+		Item item = new Item(new Point(0, 0), 0, ItemInfo.getInstance().getTypeInfo(0), ItemInfo.getInstance().getCollider(0));
+		
+		item.setPosition(new Point(100, 100));
+		item.Print();
+		
+		Item newItem = item.clone();
+		newItem.setPosition(new Point(200, 100));
+		
+		item.Print();
+		newItem.Print();
 		//PEM.getInstance().PrintState();
 	}
 

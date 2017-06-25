@@ -8,11 +8,12 @@ public class ItemInfo
 {
 	private static ItemInfo uniqueinstance;
 	private int totaltype;
-	private int[] diff_attack=new int[totaltype];
-	private int[] diff_attackspeed=new int[totaltype];
-	private int[] diff_defense=new int[totaltype];
-	private int[] diff_movespeed=new int[totaltype];
-	private int[] diff_health=new int[totaltype];
+	private int[] diff_attack;
+	private int[] diff_attackspeed;
+	private int[] diff_defense;
+	private int[] diff_movespeed;
+	private int[] diff_health;
+	private Collider[] _collider;
 	private Point[] location;
 	private String[] ItemFilePath;
 	private ItemInfo()
@@ -30,6 +31,7 @@ public class ItemInfo
 			diff_attackspeed=new int[totaltype];
 			diff_defense=new int[totaltype];
 			diff_movespeed=new int[totaltype];
+			_collider = new Collider[totaltype];
 			for(int i=0;i<totaltype;i+=1)
 				ItemFilePath[i]=buff.readLine();
 			buff.close();
@@ -48,6 +50,7 @@ public class ItemInfo
 				diff_defense[i]=Integer.parseInt(str);
 				str=buff.readLine();
 				diff_movespeed[i]=Integer.parseInt(str);
+				_collider[i] = ColliderInfo.getInstance().getCollider(buff);
 				fin.close();
 				buff.close();
 			}
@@ -65,7 +68,7 @@ public class ItemInfo
 	}
 	public Vector getTypeInfo(int type)
 	{
-		assert type>=0&&type<=totaltype:"The type number is invalid!!";
+		assert type>=0&&type<totaltype:"The type number is invalid!!";
 		Vector<Integer> v=new Vector<Integer>();
 		v.add(0,diff_health[type]);
 		v.add(1,diff_attack[type]);
@@ -73,6 +76,12 @@ public class ItemInfo
 		v.add(3,diff_defense[type]);
 		v.add(4,diff_movespeed[type]);
 		return v;
+	}
+	
+	public Collider getCollider(int type) {
+		assert type >= 0 && type < totaltype : "Wrong Index.";
+		
+		return _collider[type];
 	}
 }
 
