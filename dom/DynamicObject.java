@@ -167,6 +167,61 @@ public class DynamicObject {
 		x = nextX;
 		y = nextY;
 	}
+	public void updateByDirection(int nextX, int nextY, int directionX, int directionY, int assetIndex){
+		drawable = true;
+		long currTime = System.currentTimeMillis();
+		int nextDirection = setDirection(directionX, directionY);
+		if(this.direction != nextDirection)  // turn
+		{
+			direction = nextDirection;
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		else if(nextX!=x || nextY!=y) // move
+		{
+			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			{
+				frame += 1;
+				frame %= MAX_FRAME;
+				lastUpdateTime = currTime;
+			}
+		}
+		else // stay
+		{
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		x = nextX;
+		y = nextY;
+		this.assetIndex = assetIndex;
+	}
+	public void updateByDirection(int nextX, int nextY, int directionX, int directionY){
+		drawable = true;
+		long currTime = System.currentTimeMillis();
+		int nextDirection = setDirection(directionX, directionY);
+		if(this.direction != nextDirection)  // turn
+		{
+			direction = nextDirection;
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		else if(nextX!=x || nextY!=y) // move
+		{
+			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			{
+				frame += 1;
+				frame %= MAX_FRAME;
+				lastUpdateTime = currTime;
+			}
+		}
+		else // stay
+		{
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		x = nextX;
+		y = nextY;
+	}
 	public void updateWithoutDirection(int nextX, int nextY, int assetIndex){
 		x = nextX;
 		y = nextY;

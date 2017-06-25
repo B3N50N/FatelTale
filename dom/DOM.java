@@ -198,11 +198,17 @@ public class DOM {
 		assert player != null : "Update player failed, no player with clientno " + clientno;
 		player.update(x, y, direction, assetIndex);
 	}
+	public void updatePlayer(int clientno, int x, int y, int directionX, int directionY, int assetIndex) {
+		Player player = Players.get(clientno);
+		assert player != null : "Update player failed, no player with clientno " + clientno;
+		player.updateByDirection(x, y, directionX, directionY, assetIndex);
+	}
 	
 	public void removePlayer(int clientno) {
 		assert Players.get(clientno) != null : "Remove player failed, no player with clientno " + clientno;
 		Players.remove(clientno);
 	}
+	
 
 	
 	
@@ -238,6 +244,11 @@ public class DOM {
 		Monster monster = Monsters.get(id);
 		assert monster != null : "Update monster failed, no monster with id " + id;
 		monster.update(x, y, direction, assetIndex);
+	}
+	public void updateMonster(int id, int x, int y, int directionX, int directionY, int assetIndex) {
+		Monster monster = Monsters.get(id);
+		assert monster != null : "Update monster failed, no monster with id " + id;
+		monster.updateByDirection(x, y, directionX, directionY, assetIndex);
 	}
 	
 	public void removeMonster(int id) {
@@ -280,6 +291,11 @@ public class DOM {
 		assert projector != null : "Update projector failed, no projector with id " + id;
 		projector.update(x, y, direction, assetIndex);
 	}
+	public void updateProjector(int id, int x, int y, int directionX, int directionY, int assetIndex) {
+		Projector projector = Projectors.get(id);
+		assert projector != null : "Update projector failed, no projector with id " + id;
+		projector.updateByDirection(x, y, directionX, directionY, assetIndex);
+	}
 
 	public void removeProjector(int id) {
 		assert Projectors.get(id) != null : "Remove projector failed, no projector with id " + id;
@@ -320,6 +336,11 @@ public class DOM {
 		Item item = Items.get(id);
 		assert item != null : "Update item failed, no item with id " + id;
 		item.update(x, y, direction, assetIndex);
+	}
+	public void updateItem(int id, int x, int y, int assetIndex) {
+		Item item = Items.get(id);
+		assert item != null : "Update item failed, no item with id " + id;
+		item.updateWithoutDirection(x, y, assetIndex);
 	}
 
 	public void removeItem(int id) {

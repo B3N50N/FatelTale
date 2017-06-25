@@ -61,7 +61,6 @@ public class Projector extends DynamicObject {
 	public void updateByDirection(int directionX, int directionY){
 		drawable = true;
 		long currTime = System.currentTimeMillis();
-		//int nextDirection = setDirection(directionX, directionY);
 		rotateRadian = Math.atan2(directionY, directionX);
 		int nextX = x+directionX;
 		int nextY = y+directionY;
@@ -82,6 +81,51 @@ public class Projector extends DynamicObject {
 		x = nextX;
 		y = nextY;
 	}
+	public void updateByDirection(int nextX, int nextY, int directionX, int directionY, int assetIndex){
+		drawable = true;
+		long currTime = System.currentTimeMillis();
+		//int nextDirection = setDirection(directionX, directionY);
+		rotateRadian = Math.atan2(directionY, directionX);
+		if(nextX!=x || nextY!=y) // move
+		{
+			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			{
+				frame += 1;
+				frame %= MAX_FRAME;
+				lastUpdateTime = currTime;
+			}
+		}
+		else // stay
+		{
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		x = nextX;
+		y = nextY;
+		this.assetIndex = assetIndex;
+	}
+	public void updateByDirection(int nextX, int nextY, int directionX, int directionY){
+		drawable = true;
+		long currTime = System.currentTimeMillis();
+		rotateRadian = Math.atan2(directionY, directionX);
+		if(nextX!=x || nextY!=y) // move
+		{
+			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			{
+				frame += 1;
+				frame %= MAX_FRAME;
+				lastUpdateTime = currTime;
+			}
+		}
+		else // stay
+		{
+			frame = 0;
+			lastUpdateTime = currTime;
+		}
+		x = nextX;
+		y = nextY;
+	}
+	
 	public void drawImage(Graphics g){
 		if(!drawable)
 			return;
@@ -104,6 +148,6 @@ public class Projector extends DynamicObject {
 	}
 	
 	public BufferedImage getImage(){
-		return ADM.getInstance().getProjectorAsset(assetIndex, direction*DynamicObject.MAX_FRAME + frame);
+		return ADM.getInstance().getProjectorAsset(assetIndex, 0);
 	}
 }
