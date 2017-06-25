@@ -96,7 +96,6 @@ public class Monster {
 	
 	private void changePosition(Point pos) {
 		if ( SDM.getInstance().isWalkable(pos.x, pos.y) ) {
-			System.out.println("HI");
 			_pos.x = pos.x;
 			_pos.y = pos.y;
 		}
