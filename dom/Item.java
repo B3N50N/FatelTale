@@ -27,6 +27,6 @@ public class Item extends DynamicObject{
 	}
 	
 	public BufferedImage getImage(){
-		return ADM.getInstance().getItemAsset(assetIndex, direction*DynamicObject.MAX_FRAME + frame);
+		return ADM.getInstance().getItemAsset(assetIndex);
 	}
 }

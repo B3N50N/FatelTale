@@ -131,10 +131,10 @@ public class Projector extends DynamicObject {
 			return;
 		BufferedImage img = getImage();
 		if( x+img.getWidth()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0 
-		    || x-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getinstance().getCanvasWidth()
+		    || x-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getInstance().getCanvasWidth()
 		    || y+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0
-		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getinstance().getCanvasWidth())
-			continue;
+		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getInstance().getCanvasWidth())
+			return;
 		
 		Graphics2D g2d = (Graphics2D) g;
 		
