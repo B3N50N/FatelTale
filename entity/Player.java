@@ -1,16 +1,20 @@
 package entity;
 import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import sdm.SDM;
+import tcp.codes;
 public class Player 
 {
-	private int health,attack,direction,defense;
+	private int health,attack,direction,defense, maxhealth;
 	private Long attackspeed,movespeed;
 	private Point location;
 	//private boolean active;
 	private boolean moving=false,attacking=false;
 	private int asset_index;
+	private int score,id;
 	private Emitter _emitter;
 	private Collider _collider;
 	private Point _dir;
@@ -24,6 +28,8 @@ public class Player
 		new Point(10 , 0  ),
 		new Point(0  , -10)
 	};
+	
+	private static Map<Integer,Point> dirtovector;
 	
 	public Player(int type,Point point,Vector attribute)
 	{
@@ -40,12 +46,13 @@ public class Player
 		_last_move_time = System.currentTimeMillis();
 	}
 	
-	public Player(int type,Point point,Vector attribute, Emitter emitter, Collider collider)
+	public Player(int clientno, int type,Point point,Vector attribute, Emitter emitter, Collider collider)
 	{
 		//active=true;
+		id=clientno;
 		asset_index=type;
 		location=point;
-		health=(int)attribute.get(0);
+		maxhealth = health = (int)attribute.get(0);
 		attack=(int)attribute.get(1);
 		attackspeed=(Long)attribute.get(2);
 		defense=(int)attribute.get(3);
@@ -55,6 +62,15 @@ public class Player
 		_last_move_time = System.currentTimeMillis();
 		_emitter = emitter;
 		_collider = collider;
+		
+		if(dirtovector==null)
+		{
+			dirtovector=new HashMap<>();
+			dirtovector.put(codes.MOVELEFT,new Point(-10,0));
+			dirtovector.put(codes.MOVEUP,new Point(0,-10));
+			dirtovector.put(codes.MOVERIGHT,new Point(10,0));
+			dirtovector.put(codes.MOVEDOWN,new Point(0,10));
+		}
 	}
 	
 	public String dirvaluetoString(int dir)
@@ -81,20 +97,20 @@ public class Player
 			health+=dif;
 	}
 	
-	public void playerMove(int newdirection)
+	public int getAttack() {return attack;}
+	public void playerAttack(){attacking=true;}
+	public void playerMove(int newdir)
 	{
-		assert newdirection>=west && newdirection<=south:"The new direction is invalid";
+		assert newdir!=codes.MOVEDOWN&&newdir!=codes.MOVELEFT&&newdir!=codes.MOVERIGHT&&newdir!=codes.MOVEUP:"The new direction is invalid";
 		moving=true;
-		direction=newdirection;
-	}
-	
-	public void playerAttack()
-	{
-		attacking=true;
+		direction=newdir;
+		_dir.x = dirtovector.get( direction ).x;
+		_dir.y = dirtovector.get( direction ).y;
 	}
 	
 	public void movingEnd(){moving=false;}
 	public void attackingEnd(){attacking=false;}
+	
 	public void changemove_speed(int dif)
 	{
 		if(movespeed+dif<0)
@@ -124,10 +140,24 @@ public class Player
 		_emitter.changeAttackSpeed(dif);
 	}
 	
+	public void changeScore(int dif)
+	{
+		if(score+dif<0)
+			score=0;
+		else
+			score+=dif;
+	}
+	
 	public void changePos(int newx,int newy)
 	{
 		assert newx>=0&&newy>=0:"The position is invalid";
 		location.setLocation(newx,newy);
+	}
+	
+	public void beAttacked(int damage) {
+		int _damage = damage - defense;
+		changeHealth(_damage);
+		changeScore(-damage);
 	}
 	
 	public void setPosition(Point p) {
@@ -155,7 +185,7 @@ public class Player
 	public void attack() {
 		if ( attacking ) {
 			// TODO attack...
-			_emitter.attack();
+			_emitter.attack(attack);
 		}
 	}
 	
@@ -170,12 +200,12 @@ public class Player
 		}
 	}
 	
-	public int getAttack() {
-		return attack;
-	}
-	
 	public Point getPosition() {
 		return location;
+	}
+	
+	public Collider getColiider() {
+		return _collider;
 	}
 	
 	public String toString()
@@ -205,4 +235,5 @@ public class Player
 	{
 		return active;
 	}*/
+	// useless comment
 }

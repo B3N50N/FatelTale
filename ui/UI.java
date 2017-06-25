@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import tcp.codes;
 import tcp.TCPClient;
-//import tcp.TCPClient;
 
 class KeyBoardListener implements KeyListener
 {
@@ -56,6 +55,7 @@ public class UI
 	private BufferStrategy bs;
 	private JPanel startmenupanel,waitingpanel;
 	private JPanel endgamepanel,gamepanel;
+    private String srvaddr;
 	private UI()
 	{
 		frame=new JFrame();
@@ -77,11 +77,11 @@ public class UI
 			public void actionPerformed(ActionEvent e)
 			{
 				waitingScreen();
-                /*new Thread() {
+                new Thread() {
                     public void run() {
                         TCPClient.getClient().connectServer(srvaddr);
                     }
-                }.start();*/
+                }.start();
 			}
 		}
 		);
@@ -131,8 +131,9 @@ public class UI
 		else
 			return bs;
 	}
-	public void startMenu(String srvaddr)
+	public void startMenu(String _srvaddr)
 	{
+        srvaddr = _srvaddr;
 		frame.remove(frame.getContentPane());
 		assert startmenupanel!=null:"startmenupanel is null";
 		frame.add(startmenupanel);
@@ -162,7 +163,7 @@ public class UI
 		frame.add(new JPanel());
 		frame.getContentPane().repaint();
 		JLabel lbl=new JLabel();
-		lbl.setIcon(new ImageIcon(this.getClass().getResource("/waitingscreen.jpg")));
+		lbl.setIcon(new ImageIcon(this.getClass().getResource("../resource/waitingscreen.jpg")));
 		lbl.setBounds(0, 0,500,500);
 		frame.getContentPane().add(lbl);
 		frame.getContentPane().setLayout(null);
