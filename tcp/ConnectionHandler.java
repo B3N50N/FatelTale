@@ -52,6 +52,8 @@ public class ConnectionHandler extends Thread {
             Logger.log("[" + id + "] Sending synchronize message");
             os.write(id);
             Logger.log("[" + id + "] Sending client ID");
+            os.write(TCPServer.THREAD_NUM);
+            Logger.log("[" + id + "] Sending player number");
             os.flush();
         } catch(IOException e) {
             Logger.log("An error occur whlie sending synchronize message" + e);
