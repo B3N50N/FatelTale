@@ -49,6 +49,21 @@ public class UDPUS {
 	 {
 		 t.start();
 	 }
+	 @SuppressWarnings("deprecation")
+	public  void puseUDPServer()
+	 {
+		 t.suspend();
+	 }
+	 @SuppressWarnings("deprecation")
+	public  void stopUDPServer()
+	 {
+		 t.stop();
+	 }
+	 @SuppressWarnings("deprecation")
+	public  void resumeUDPServer()
+	 {
+		 t.resume();
+	 }
 	 
 	 class MyThread extends Thread 
 	 {

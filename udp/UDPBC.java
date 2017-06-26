@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 import tcp.*;
 import cdc.*;
 import cdc.CDC;
-import logger.Logger;
 
 public class UDPBC extends Thread {
 	
@@ -38,7 +37,21 @@ public class UDPBC extends Thread {
 	 {
 		 t.start();
 	 }
-	 
+	 @SuppressWarnings("deprecation")
+	 public  void puseUDPServer()
+	 {
+		 t.stop();
+	 }
+	 @SuppressWarnings("deprecation")
+	 public  void stopUDPServer()
+	 {
+		 t.suspend();
+	 }
+	 @SuppressWarnings("deprecation")
+	 public  void resumeUDPServer()
+	 {
+		 t.resume();;
+	 }
 	 class MyThread extends Thread 
 	 {
 		 public void run()
@@ -47,7 +60,7 @@ public class UDPBC extends Thread {
 			 {
 				 transfer();
 			 }catch( Exception e){
-				 Logger.log("fail to start UDPBC");
+				 System.out.println("fail to start UDP");
 			 }
 			  
 		 }
@@ -58,19 +71,17 @@ public class UDPBC extends Thread {
 	 private static void transfer() throws Exception {
 	        DatagramPacket dp;
 	        Scanner s = new Scanner(System.in);
-	        Logger.log("UDPBC start: ");
+	        System.out.println("UDPBC start: ");
 	        String msg = "Key in";
-	        
 	        Vector<InetAddress> IPtable = TCPServer.getServer().getClientIPTable();
 	        //Vector<InetSocketAddress> IPtable = TCPServer.getClientIPTable();
 	        while (true) {
 	        	TimeUnit.MILLISECONDS.sleep(delay);
-	            //msg = s.next();//debug only
+	            msg = s.next();//debug only
 	            msg = encode();
-	            //msg ="&Monster 0 4 -54 0 -9 2 &";
+	            //msg ="&Player 0 2 0 10000 west 0 100.0 100.0   &";
 	            msg_crc = msg.hashCode();
 	            msg ="$"+ msg_crc +"$" + msg;
-
 	            System.out.println(msg);
 	            System.out.println(msg_crc);
 	            for(int i=0;i<IPtable.size();i++)
