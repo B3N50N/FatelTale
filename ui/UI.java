@@ -30,15 +30,14 @@ class KeyBoardListener implements KeyListener
 	public void keyReleased(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-        Logger.log("Key Released");
-		//TCPClient.getClient().keyRelease(code);
+        if(!codetable.containsKey(code)) return;
+		TCPClient.getClient().keyRelease(codetable.get(code));
 	}
 	public void keyPressed(KeyEvent e)
 	{
 		int code=e.getKeyCode();
-        Logger.log("Key Pressed");
-		//TCPClient.getClient().keyDown(code);
-		//TCPClient.getClient().keyDown(codetable.get(code));
+        if(!codetable.containsKey(code)) return;
+		TCPClient.getClient().keyDown(codetable.get(code));
 	}
 	public KeyBoardListener()
 	{

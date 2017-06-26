@@ -86,20 +86,22 @@ public class TCPClient extends Thread{
         Logger.log("All clients connected.");
         return true;
     }
-    public void keyDown(int Code) {
+    public void keyDown(int code) {
         try {
             if(os == null) return;
             os.write(codes.KEYDOWN);
-            os.write(Code);
+            os.write(code);
+            Logger.log("Sent press code " + code + " to server");
         } catch(IOException e) {
             Logger.log("An error occur while sending to server : " + e);
         }
     }
-    public void keyRelease(int Code) {
+    public void keyRelease(int code) {
         try {
             if(os == null) return;
             os.write(codes.KEYRELEASE);
-            os.write(Code);
+            os.write(code);
+            Logger.log("Sent release code " + code + " to server");
         } catch(IOException e) {
             Logger.log("An error occur while sending to server : " + e);
         }

@@ -72,7 +72,7 @@ public class UDPBC extends Thread {
 	 private static void transfer() throws Exception {
 	        DatagramPacket dp;
 	        Scanner s = new Scanner(System.in);
-	        Logger.log("UDPBC start: ");
+	        Logger.log("UDPBC starts");
 	        String msg = "Key in";
 	        
 	        Vector<InetAddress> IPtable = TCPServer.getServer().getClientIPTable();
@@ -84,8 +84,8 @@ public class UDPBC extends Thread {
 	            //msg ="&Monster 0 4 -54 0 -9 2 &";
 	            msg_crc = msg.hashCode();
 	            msg ="$"+ msg_crc +"$" + msg;
-	            Logger.log(msg);
-	            Logger.log(msg_crc);
+	            //Logger.log(msg);
+	            //Logger.log(msg_crc);
 	            for(int i=0;i<IPtable.size();i++)
 	    		{
 	            	//msg = "$-592448706$&Monster 0 4 -54 0 -9 2&";
