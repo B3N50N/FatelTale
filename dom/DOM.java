@@ -50,6 +50,10 @@ public class DOM {
 	 *              PlayerInfo            *
 	 **************************************/
 
+	public int getPlayerNumber() {
+		return PlayerInfos.size();
+	}
+	
 	public PlayerInfo getPlayerInfo() {
 		assert PlayerInfos.get(clientno) != null : "Get playerInfo failed, no playerInfo with clientno " + clientno;
 		return PlayerInfos.get(clientno);
