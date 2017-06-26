@@ -14,6 +14,7 @@ public class TCPClient extends Thread{
     private OutputStream os = null;
     private Socket sock = null;
     private Integer clientid = null;
+    private int player_num = 0;
     private CyclicBarrier ready_barrier = new CyclicBarrier(2);
     private static TCPClient client = null;
     public static final int DEFAULT_PORT = 8888;
@@ -75,8 +76,16 @@ public class TCPClient extends Thread{
             return false;
         }
         Logger.log("Delivered client ID " + clientid);
-        DOM.getInstance().addPlayer(clientid);
-        DOM.getInstance().addPlayerInfo(clientid);
+        try {
+            player_num = is.read();
+        } catch(IOException e) {
+            Logger.log("An error occure while reading from socket : " + sock);
+            return false;
+        }
+        for(int i = 0; i < player_num; ++i) {
+            DOM.getInstance().addPlayer(i);
+            DOM.getInstance().addPlayerInfo(i);
+        }
         DOM.getInstance().setClientno(clientid);
         try {
             ready_barrier.await();
