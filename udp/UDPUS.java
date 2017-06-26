@@ -50,7 +50,7 @@ public class UDPUS {
 		 t.start();
 	 }
 	 @SuppressWarnings("deprecation")
-	public  void puseUDPServer()
+	public  void pauseUDPServer()
 	 {
 		 t.suspend();
 	 }

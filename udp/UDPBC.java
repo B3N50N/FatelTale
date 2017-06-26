@@ -38,7 +38,7 @@ public class UDPBC extends Thread {
 		 t.start();
 	 }
 	 @SuppressWarnings("deprecation")
-	 public  void puseUDPServer()
+	 public  void pauseUDPServer()
 	 {
 		 t.stop();
 	 }
