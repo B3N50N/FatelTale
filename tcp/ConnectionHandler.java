@@ -67,12 +67,10 @@ public class ConnectionHandler extends Thread {
                 switch(code) {
                 case codes.KEYDOWN:
                     key = is.read();
-                    Logger.log("[" + id + "] recieve pressed key " + key);
                     CDC.getInstance().keyDown(id, key);
                     break;
                 case codes.KEYRELEASE:
                     key = is.read();
-                    Logger.log("[" + id + "] recieve released key " + key);
                     CDC.getInstance().keyRelease(id, key);
                     break;
                 case -1:
