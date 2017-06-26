@@ -77,8 +77,8 @@ public class TCPServer {
     // get a vector of client addresses
     public Vector<InetAddress> getClientIPTable() {
         Vector<InetAddress> addrs = new Vector<InetAddress>();
-        for(ConnectionHandler conn : clients.values())
-            addrs.add(conn.getAddress());
+        for(int i = 0; i < THREAD_NUM; ++i)
+            addrs.add(clients.get(i).getAddress());
         return addrs;
     }
 }

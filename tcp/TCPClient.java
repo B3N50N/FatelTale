@@ -18,6 +18,7 @@ public class TCPClient extends Thread{
     private static TCPClient client = null;
     public static final int DEFAULT_PORT = 8888;
     private TCPClient() {}
+    public Integer getClientNo() { return clientid; }
     public static TCPClient getClient() {
         if(client == null)
             client = new TCPClient();
