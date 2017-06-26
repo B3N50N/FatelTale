@@ -74,14 +74,13 @@ public class UDPBC extends Thread {
 	        Scanner s = new Scanner(System.in);
 	        Logger.log("UDPBC start: ");
 	        String msg = "Key in";
-	        
 	        Vector<InetAddress> IPtable = TCPServer.getServer().getClientIPTable();
 	        //Vector<InetSocketAddress> IPtable = TCPServer.getClientIPTable();
 	        while (true) {
 	        	TimeUnit.MILLISECONDS.sleep(delay);
 	            //msg = s.next();//debug only
 	            msg = encode();
-	            //msg ="&Monster 0 4 -54 0 -9 2 &";
+	            //msg ="&Player 0 2 0 10000 west 0 100.0 100.0   &";
 	            msg_crc = msg.hashCode();
 	            msg ="$"+ msg_crc +"$" + msg;
 	            System.out.println(msg);
