@@ -172,9 +172,9 @@ public class UI
 		frame.getContentPane().add(lbl);
 		frame.getContentPane().setLayout(null);
 	}
-	/*public static void main(String[] args)
+	public static void main(String[] args)
 	{
 		UI demo=new UI();
 		demo.startGame();
-	}*/
+	}
 }
