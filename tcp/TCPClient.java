@@ -101,7 +101,6 @@ public class TCPClient extends Thread{
             if(os == null) return;
             os.write(codes.KEYDOWN);
             os.write(code);
-            Logger.log("Sent press code " + code + " to server");
         } catch(IOException e) {
             Logger.log("An error occur while sending to server : " + e);
         }
@@ -111,7 +110,6 @@ public class TCPClient extends Thread{
             if(os == null) return;
             os.write(codes.KEYRELEASE);
             os.write(code);
-            Logger.log("Sent release code " + code + " to server");
         } catch(IOException e) {
             Logger.log("An error occur while sending to server : " + e);
         }
