@@ -60,7 +60,6 @@ public class CDC
 	public void keyDown(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
-        Logger.log("Player " + clientno + " handling keydown");
 		if(action==codes.ATTACK)
 			player.get(clientno).playerAttack();
 		else

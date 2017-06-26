@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import sdm.SDM;
 import tcp.codes;
+import logger.Logger;
 public class Player 
 {
 	private int health,attack,direction,defense, maxhealth;
@@ -17,7 +18,7 @@ public class Player
 	private int score,id;
 	private Emitter _emitter;
 	private Collider _collider;
-	private Point _dir;
+	private Point _dir = new Point();
 	
 	private Long _last_move_time;
 	
@@ -108,10 +109,10 @@ public class Player
                || newdir == codes.MOVELEFT
                || newdir == codes.MOVERIGHT
                || newdir == codes.MOVEUP : "The new direction is invalid";
+        assert _dir != null : "_dir is null";
 		moving=true;
-		direction=newdir;
-		_dir.x = dirtovector.get( direction ).x;
-		_dir.y = dirtovector.get( direction ).y;
+		_dir.x = dirtovector.get( newdir ).x;
+        _dir.y = dirtovector.get( newdir ).y;
 	}
 	
 	public void movingEnd(){moving=false;}
