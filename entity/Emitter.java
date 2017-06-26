@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Point;
+import logger.Logger;
 
 public abstract class Emitter {
 	

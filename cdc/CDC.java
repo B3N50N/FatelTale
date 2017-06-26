@@ -15,6 +15,7 @@ import entity.Monster;
 import entity.Projector;
 import sdm.SDM;
 import tcp.codes;
+import logger.Logger;
 public class CDC
 {
 	final static int MaxPlayerno=4;
