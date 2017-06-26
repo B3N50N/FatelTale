@@ -46,7 +46,6 @@ public class ConnectionHandler extends Thread {
     public void run() {
         Logger.log("[" + id + "] Thread starts");
         // TODO: set player type here
-        CDC.getInstance().addPlayer(id, 0);
         try {
             os.write(codes.SYN);
             Logger.log("[" + id + "] Sending synchronize message");
@@ -59,6 +58,12 @@ public class ConnectionHandler extends Thread {
             Logger.log("An error occur whlie sending synchronize message" + e);
             System.exit(1);
         }
+        try {
+            TCPServer.getServer().getBarrier().await();
+        } catch(Exception e) {
+            Logger.log("Failed to wait on barrier");
+        }
+        CDC.getInstance().addPlayer(id, 0);
         for(;;) {
             try {
                 // prase the request message
