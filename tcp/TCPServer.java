@@ -10,7 +10,7 @@ import logger.Logger;
 
 public class TCPServer {
     // default number of threads(clients)
-    public static final int THREAD_NUM = 1;
+    public static final int THREAD_NUM = 4;
     // default port that server listening on
     public static final int DEFAULT_PORT = 8888;
     private static HashMap<Integer, ConnectionHandler> clients = null;
@@ -77,8 +77,8 @@ public class TCPServer {
     // get a vector of client addresses
     public Vector<InetAddress> getClientIPTable() {
         Vector<InetAddress> addrs = new Vector<InetAddress>();
-        for(ConnectionHandler conn : clients.values())
-            addrs.add(conn.getAddress());
+        for(int i = 0; i < THREAD_NUM; ++i)
+            addrs.add(clients.get(i).getAddress());
         return addrs;
     }
 }

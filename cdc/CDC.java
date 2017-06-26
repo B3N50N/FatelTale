@@ -41,8 +41,6 @@ public class CDC
 		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() - 100);
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
-		
-		addPlayer(0, 0);
 	}
 	public static synchronized CDC getInstance()
 	{
@@ -94,7 +92,7 @@ public class CDC
 	{
 		assert clientno>=0&&clientno<4:"The clientno is invalid";
 		Player p = new Player(clientno, type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type),
-				   PlayerInfo.getInstance().getEmitter(type), PlayerInfo.getInstance().getCollider(type) );
+				   PlayerInfo.getInstance().getEmitter(type).clone(), PlayerInfo.getInstance().getCollider(type).clone() );
 		player.put(clientno, p);
 		
 		p.setPosition(new Point(playerinitlocation[clientno].x, playerinitlocation[clientno].y) );

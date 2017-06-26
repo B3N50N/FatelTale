@@ -8,12 +8,12 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Timer;
 import logger.Logger;
+import tcp.TCPClient;
 
 import dom.*;
 
 public class UDPUS {
 	
-	static int clientno =0;
     static Player player;
     static int x =0;
     static int y =0;
@@ -32,7 +32,9 @@ public class UDPUS {
     static char temp2;
     static String temp3;
     
-    static int port =8890;
+    static int port_start =8890;
+    static int clientno =0;
+    static int myclientno =0;
     
     
     MyThread my = new MyThread();
@@ -43,6 +45,7 @@ public class UDPUS {
 		 if(meow==null)
 		 {
 			 meow=new UDPUS();
+             myclientno = TCPClient.getClient().getClientNo();
 		 }
 		 return meow;
 	 }
@@ -86,8 +89,8 @@ public class UDPUS {
 	private static void transfer() throws Exception {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
-        DatagramSocket ds = new DatagramSocket(port); // Set Server Port
-        Logger.log("UDPUS starts");
+        DatagramSocket ds = new DatagramSocket(port_start + myclientno); // Set Server Port
+        Logger.log("UDPUS starts on port " + (port_start + myclientno));
         String msg = "No Message...";
         while (true) {
             ds.receive(dp);

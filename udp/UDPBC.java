@@ -20,7 +20,7 @@ public class UDPBC extends Thread {
 	private static Vector<String> v;
 	private static int msg_crc;
 	private static int stage_max =500,delay =10;
-	private static int port =8890;
+	private static int port_start =8890;
 	
 	 MyThread my = new MyThread();
 	 Thread t = new Thread(my,"_");
@@ -76,7 +76,6 @@ public class UDPBC extends Thread {
 	        String msg = "Key in";
 	        
 	        Vector<InetAddress> IPtable = TCPServer.getServer().getClientIPTable();
-	        //Vector<InetSocketAddress> IPtable = TCPServer.getClientIPTable();
 	        while (true) {
 	        	TimeUnit.MILLISECONDS.sleep(delay);
 	            //msg = s.next();//debug only
@@ -90,8 +89,7 @@ public class UDPBC extends Thread {
 	    		{
 	            	//msg = "$-592448706$&Monster 0 4 -54 0 -9 2&";
 	            	//msg  = msg + " " + IPtable.get(i).getAddress().toString();
-	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length, IPtable.get(i), port);
-	            	//dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i).getAddress(), port);
+	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length, IPtable.get(i), port_start + i);
 	            	DatagramSocket socket = new DatagramSocket();
 	 				socket.send(dp);
 	 				socket.close();
