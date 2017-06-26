@@ -12,10 +12,13 @@ import entity.ItemInfo;
 import entity.Player;
 import entity.PlayerInfo;
 import entity.Monster;
+import entity.MonsterInfo;
 import entity.Projector;
 import sdm.SDM;
+import tcp.TCPServer;
 import tcp.codes;
 import logger.Logger;
+import pem.PEM;
 public class CDC
 {
 	final static int MaxPlayerno=4;
@@ -41,6 +44,10 @@ public class CDC
 		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() - 100);
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
+		
+		monsterid++;
+		monster.put(0, MonsterInfo.getInstance().getRandomMonster() );
+		TCPServer.getServer().createObject(0, codes.MONSTER);
 	}
 	public static synchronized CDC getInstance()
 	{
