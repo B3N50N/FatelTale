@@ -55,6 +55,7 @@ public class UI
 	private JFrame frame;
 	private Canvas canvas;
 	private final int framewidth=500,frameheight=500;
+	private final int canvasx=100,canvasy=0;
 	private BufferStrategy bs;
 	private JPanel startmenupanel,waitingpanel;
 	private JPanel endgamepanel,gamepanel;
@@ -172,9 +173,9 @@ public class UI
 		frame.getContentPane().add(lbl);
 		frame.getContentPane().setLayout(null);
 	}
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		UI demo=new UI();
 		demo.startGame();
-	}
+	}*/
 }
