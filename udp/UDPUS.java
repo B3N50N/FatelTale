@@ -51,6 +51,21 @@ public class UDPUS {
 	 {
 		 t.start();
 	 }
+	 @SuppressWarnings("deprecation")
+	public  void pauseUDPServer()
+	 {
+		 t.suspend();
+	 }
+	 @SuppressWarnings("deprecation")
+	public  void stopUDPServer()
+	 {
+		 t.stop();
+	 }
+	 @SuppressWarnings("deprecation")
+	public  void resumeUDPServer()
+	 {
+		 t.resume();
+	 }
 	 
 	 class MyThread extends Thread 
 	 {
@@ -71,7 +86,6 @@ public class UDPUS {
 	private static void transfer() throws Exception {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
-
         DatagramSocket ds = new DatagramSocket(port); // Set Server Port
         System.out.println("server start at : "
                 + InetAddress.getLocalHost().getHostAddress() + ":" + ds.getLocalPort());
@@ -80,7 +94,6 @@ public class UDPUS {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
             System.out.println("msg recive : " + msg);
-
             decode(msg);
         }
     }
@@ -110,6 +123,7 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
+				//System.out.println(temp3);
 				
 				if(type ==0)
 				{
@@ -314,8 +328,8 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
-				//clientno = Integer.parseInt(temp3);/
-				//id = Integer.parseInt(temp3);//
+				//clientno = Integer.parseInt(temp3);
+				//id = Integer.parseInt(temp3);
 				temp3 ="";
 				numofelement =0;
 				numofword =0;
