@@ -44,14 +44,14 @@ public class ConnectionHandler extends Thread {
         }
     }
     public void run() {
-        Logger.log("[" + id + "]" + " Thread starts");
+        Logger.log("[" + id + "] Thread starts");
         // TODO: set player type here
         CDC.getInstance().addPlayer(id, 0);
         try {
             os.write(codes.SYN);
-            Logger.log("[" + id + "]" + " Sending synchronize message");
+            Logger.log("[" + id + "] Sending synchronize message");
             os.write(id);
-            Logger.log("[" + id + "]" + " Sending client ID");
+            Logger.log("[" + id + "] Sending client ID");
             os.flush();
         } catch(IOException e) {
             Logger.log("An error occur whlie sending synchronize message" + e);
@@ -65,21 +65,21 @@ public class ConnectionHandler extends Thread {
                 switch(code) {
                 case codes.KEYDOWN:
                     key = is.read();
-                    Logger.log("[" + id + "]" + "recieve pressed key " + key);
+                    Logger.log("[" + id + "] recieve pressed key " + key);
                     CDC.getInstance().keyDown(id, key);
                     break;
                 case codes.KEYRELEASE:
                     key = is.read();
-                    Logger.log("[" + id + "]" + "recieve released key " + key);
+                    Logger.log("[" + id + "] recieve released key " + key);
                     CDC.getInstance().keyRelease(id, key);
                     break;
                 case -1:
                     throw new IOException();
                 default:
-                    Logger.log("[" + id + "]" + "Unrecognized code <" + code + "> ignored");
+                    Logger.log("[" + id + "] Unrecognized code <" + code + "> ignored");
                 }
             } catch(IOException e) {
-                Logger.log("[" + id + "]" + "Connection closed : " + sock);
+                Logger.log("[" + id + "] Connection closed : " + sock);
                 try {
                     TCPServer.getServer().removeConnection(id);
                 } catch(NullPointerException ee){};
