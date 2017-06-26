@@ -36,12 +36,11 @@ public class CDC
 		projector=new ConcurrentHashMap<>();
 		playerinitlocation=new Point[MaxPlayerno];
 		playerinitlocation[0]=new Point(100,100);
-		/*
+		
 		playerinitlocation[1]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 100);
 		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() - 100);
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
-		*/
 		
 		addPlayer(0, 0);
 	}

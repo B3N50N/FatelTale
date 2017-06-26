@@ -25,8 +25,8 @@ public class Player
 	static final Point[] DIRECTION = new Point[] {
 		new Point(-10, 0  ), 
 		new Point(10 , 0  ),
-		new Point(0  , 10 ),
-		new Point(0  , -10)
+		new Point(0  , -10),
+		new Point(0  , 10 )
 	};
 	
     @SuppressWarnings("rawtypes")

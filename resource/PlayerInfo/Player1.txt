@@ -2,7 +2,7 @@
 1000
 100
 10
-1000
+50
 Sphere
 50
 DirectlyEmitter
