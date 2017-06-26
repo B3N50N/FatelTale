@@ -1,5 +1,5 @@
 all:
-	javac *.java -Xlint
+	javac Server.java Client.java -Xlint
 server:
 	javac Server.java -Xlint
 client:
