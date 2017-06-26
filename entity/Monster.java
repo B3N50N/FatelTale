@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Map;
 
 import sdm.SDM;
+import logger.Logger;
 
 public class Monster {
 	
@@ -133,16 +134,16 @@ public class Monster {
 	}
 	
 	public void Print() {
-		System.out.println("Monster : ");
-		System.out.print("Position : ");
-		System.out.println(_pos.x + " " + _pos.y);
-		System.out.println("Direction : " + _dir);
-		System.out.println("Monster's Collider : ");
+		Logger.log("Monster : ");
+		Logger.log("Position : ");
+		Logger.log(_pos.x + " " + _pos.y);
+		Logger.log("Direction : " + _dir);
+		Logger.log("Monster's Collider : ");
 		_collider.Print();
 		for (int i=0;i<_emitter.length;i++) {
 			_emitter[i].Print();
 		}
-		System.out.println("==============");
+		Logger.log("==============");
 	}
 	
 	public boolean isDead() {

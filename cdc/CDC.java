@@ -102,7 +102,7 @@ public class CDC
 		player.put(clientno, p);
 		
 		p.setPosition(new Point(playerinitlocation[clientno].x, playerinitlocation[clientno].y) );
-		System.out.println(p.toString());
+		Logger.log(p.toString());
 	}
 	public void addItem(Point point,int type)
 	{
@@ -152,7 +152,7 @@ public class CDC
 		cdc=CDC.getInstance();
 		CDC.getInstance().addPlayer(1,0);
 		CDC.getInstance().addPlayer(2,1);
-		System.out.println(CDC.getInstance().getPlayer().get(1).toString());
-		System.out.println(CDC.getInstance().getPlayer().get(2).toString());
+		Logger.log(CDC.getInstance().getPlayer().get(1).toString());
+		Logger.log(CDC.getInstance().getPlayer().get(2).toString());
 	}
 }

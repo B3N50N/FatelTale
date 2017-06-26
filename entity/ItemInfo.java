@@ -54,7 +54,7 @@ public class ItemInfo
 		}
 		catch(IOException e)
 		{
-			System.out.println("Cannot find the file");
+			Logger.log("Cannot find the file");
 		}
 	}
 	public static synchronized ItemInfo getInstance()

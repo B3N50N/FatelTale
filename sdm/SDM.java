@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
+import logger.Logger;
 
 import adm.ADM;
 
@@ -37,7 +38,7 @@ public class SDM {
 			analyisFile(br);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.err.println("File is not exist.");
+			Logger.log("File doesn't exist.");
 		}
 	}
 	
@@ -128,9 +129,9 @@ public class SDM {
 	public void printMap() {
 		for (int i=0;i<_height;i++) {
 			for (int j=0;j<_width;j++) {
-				System.out.print(_map[i][j].getAssetIndex() + " ");
+				Logger.log(_map[i][j].getAssetIndex() + " ");
 			}
-			System.out.println();
+			Logger.log("");
 		}
 	}
 }

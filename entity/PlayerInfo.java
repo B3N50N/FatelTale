@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.Vector;
+import logger.Logger;
 public class PlayerInfo 
 {
 	private static PlayerInfo uniqueinstance;
@@ -26,7 +27,7 @@ public class PlayerInfo
 			String str;
 			str=buff.readLine();
 			totaltype=Integer.parseInt(str);
-			System.out.println(totaltype);
+		    Logger.log(totaltype);
 			PlayerFilePath=new String[totaltype];
 			health=new int[totaltype];
 			attack=new int[totaltype];
@@ -65,7 +66,7 @@ public class PlayerInfo
 		}
 		catch(IOException e)
 		{
-			System.out.println("Cannot find the file");
+			Logger.log("Cannot find the file");
 		}
 		
 	}
