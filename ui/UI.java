@@ -39,7 +39,7 @@ class KeyBoardListener implements KeyListener
 	}
 	public KeyBoardListener()
 	{
-		codetable=new HashMap();
+		codetable=new HashMap<Integer, Integer>();
 		codetable.put(upcode,codes.MOVEUP);
 		codetable.put(leftcode,codes.MOVELEFT);
 		codetable.put(rightcode,codes.MOVERIGHT);

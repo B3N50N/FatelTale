@@ -69,6 +69,7 @@ public class PlayerInfo
 		}
 		
 	}
+    @SuppressWarnings(value={"rawtypes", "unchecked"})
 	public Vector getTypeInfo(int type)
 	{
 		Vector v=new Vector(5);

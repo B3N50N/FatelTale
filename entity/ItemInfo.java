@@ -63,7 +63,7 @@ public class ItemInfo
 			uniqueinstance=new ItemInfo();
 		return uniqueinstance;
 	}
-	public Vector getTypeInfo(int type)
+	public Vector<Integer> getTypeInfo(int type)
 	{
 		assert type>=0&&type<=totaltype:"The type number is invalid!!";
 		Vector<Integer> v=new Vector<Integer>();

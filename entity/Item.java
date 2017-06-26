@@ -7,6 +7,7 @@ public class Item
 	private int attack,attackspeed,defense,movespeed,health;
 	private int asset_index;
 	private Point location;
+    @SuppressWarnings("rawtypes")
 	public Item(Point point,int type,Vector attribute)
 	{
 		assert point.getX()>=0&&point.getX()<Maxx&&point.getY()>=0&&point.getY()<Maxy:"Location is wrong!!";

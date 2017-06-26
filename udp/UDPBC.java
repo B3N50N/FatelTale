@@ -17,7 +17,7 @@ public class UDPBC extends Thread {
 	
 	
 	private static int blocknum =0, nowblocknum =0;
-	private static Vector v;
+	private static Vector<String> v;
 	private static int msg_crc;
 	private static int stage_max =500,delay =10;
 	private static int port =8890;
@@ -113,7 +113,7 @@ public class UDPBC extends Thread {
 		 
 		 if(blocknum == 0)
 		 {
-			 v =  CDC.getInstance().getUpdatInfo();
+			 v =  CDC.getInstance().getUpdateInfo();
 			 //System.out.println(v.size());
 			 blocknum = v.size();
 			 nowblocknum =0;

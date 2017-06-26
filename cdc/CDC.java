@@ -110,7 +110,7 @@ public class CDC
 		item.putIfAbsent(itemid,tmp);
 		itemid+=1;
 	}
-	public Vector getUpdatInfo()
+	public Vector<String> getUpdateInfo()
 	{
 		Vector<String> v=new Vector<String>();
 		for(Map.Entry<Integer,Player> entry:player.entrySet())

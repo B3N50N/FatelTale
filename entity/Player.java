@@ -31,6 +31,7 @@ public class Player
 	
 	private static Map<Integer,Point> dirtovector;
 	
+    @SuppressWarnings("rawtypes")
 	public Player(int type,Point point,Vector attribute)
 	{
 		//active=true;
@@ -46,6 +47,7 @@ public class Player
 		_last_move_time = System.currentTimeMillis();
 	}
 	
+    @SuppressWarnings("rawtypes")
 	public Player(int clientno, int type,Point point,Vector attribute, Emitter emitter, Collider collider)
 	{
 		//active=true;
