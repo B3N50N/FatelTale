@@ -45,6 +45,7 @@ public class CDC
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
 		
+		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
 		monsterid++;
 		monster.put(0, MonsterInfo.getInstance().getRandomMonster() );
 		TCPServer.getServer().createObject(0, codes.MONSTER);
