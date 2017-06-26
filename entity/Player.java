@@ -104,7 +104,10 @@ public class Player
 	public void playerAttack(){attacking=true;}
 	public void playerMove(int newdir)
 	{
-		assert newdir!=codes.MOVEDOWN&&newdir!=codes.MOVELEFT&&newdir!=codes.MOVERIGHT&&newdir!=codes.MOVEUP:"The new direction is invalid";
+		assert newdir == codes.MOVEDOWN
+               || newdir == codes.MOVELEFT
+               || newdir == codes.MOVERIGHT
+               || newdir == codes.MOVEUP : "The new direction is invalid";
 		moving=true;
 		direction=newdir;
 		_dir.x = dirtovector.get( direction ).x;

@@ -61,26 +61,25 @@ public class ConnectionHandler extends Thread {
             try {
                 // prase the request message
                 int code = is.read();
-                Logger.log("recieve actioncode " + code);
                 int key = 0;
                 switch(code) {
                 case codes.KEYDOWN:
                     key = is.read();
-                    Logger.log("recieve keycode " + key);
+                    Logger.log("[" + id + "]" + "recieve pressed key " + key);
                     CDC.getInstance().keyDown(id, key);
                     break;
                 case codes.KEYRELEASE:
                     key = is.read();
-                    Logger.log("recieve keycode " + key);
+                    Logger.log("[" + id + "]" + "recieve released key " + key);
                     CDC.getInstance().keyRelease(id, key);
                     break;
                 case -1:
                     throw new IOException();
                 default:
-                    Logger.log("Unrecognized code <" + code + "> ignored");
+                    Logger.log("[" + id + "]" + "Unrecognized code <" + code + "> ignored");
                 }
             } catch(IOException e) {
-                Logger.log("Connection closed : " + sock);
+                Logger.log("[" + id + "]" + "Connection closed : " + sock);
                 try {
                     TCPServer.getServer().removeConnection(id);
                 } catch(NullPointerException ee){};
