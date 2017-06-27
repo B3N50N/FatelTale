@@ -125,7 +125,7 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
-				System.out.println(temp3);
+				//System.out.println(temp3);
 				
 				if(type ==0)
 				{
@@ -149,7 +149,7 @@ public class UDPUS {
 					{
 						type = 5;
 					}
-					System.out.println("type = "+type);
+					//System.out.println("type = "+type);
 				}
 			    else if(type ==1)
 				{
