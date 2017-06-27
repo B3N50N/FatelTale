@@ -25,8 +25,8 @@ public class ADM {
 	private ADM() {
 		_map_assets = readFile("./resource/Assets/Map/");
 		_player_assets = readFile("./resource/Assets/Player/");
-		/*
 		_monster_assets = readFile("./resource/Assets/Monster/");
+        /*
 		_projector_assets = readFile("./resource/Assets/Projector/");
 		_item_assets = readFile("./resource/Assets/Projector/");
 		*/

@@ -40,13 +40,13 @@ public class PEM {
 		_projector = CDC.getInstance().getProjector();
 		_item = CDC.getInstance().getItem();
 		
-		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
-		Monster m = MonsterInfo.getInstance().getRandomMonster();
+//		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+//		Monster m = MonsterInfo.getInstance().getRandomMonster();
 		
-		m.setPosition(new Point(50, 50));
-		m.setDirection(new Point(10, 0));
-		m.Print();
-		_monster.put(CDC.getInstance().getMonsterNewId(), m);
+//		m.setPosition(new Point(50, 50));
+//		m.setDirection(new Point(10, 0));
+//		m.Print();
+//		_monster.put(CDC.getInstance().getMonsterNewId(), m);
 	}
 	
 	public static synchronized PEM getInstance() {
