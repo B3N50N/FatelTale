@@ -1,6 +1,8 @@
 import java.awt.Point;
 import java.io.IOException;
+import java.util.Vector;
 
+import cdc.CDC;
 import entity.*;
 import pem.PEM;
 import sdm.SDM;
@@ -10,10 +12,10 @@ public class TestMain {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		SDM.getInstance().readMap("./resource/Map/Map001.txt");
-		
+		/*
 		PEMThread t = new PEMThread();
 		t.start();
-		
+		*/
 		/*
 		Item item = new Item(new Point(0, 0), 0, ItemInfo.getInstance().getTypeInfo(0), ItemInfo.getInstance().getCollider(0).clone());
 		
@@ -26,6 +28,28 @@ public class TestMain {
 		item.Print();
 		newItem.Print();
 		*/
+		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+		
+		Monster m = MonsterInfo.getInstance().getRandomMonster();
+		m.setDirection(new Point(10, 10));
+		m.setPosition(new Point(19, 0));
+		PEM.getInstance().putMonster_Test(m);
+		PEM.getInstance().PrintState();
+		
+		Monster m1 = m.clone();
+		m1.setPosition(new Point(8, 8));
+		PEM.getInstance().putMonster_Test(m1);
+		
+		
+		Projector p = new StrikeProjector(new Point(0, 0), new Point(1, 2), m1.getCollider().clone(), 1L, 1, 1);
+		PEM.getInstance().putProjector_Test(p);
+		CDC.getInstance().getProjector().put(1, p);
+		Vector<String> v = CDC.getInstance().getUpdateInfo();
+		for ( String str : v ) {
+			System.out.println(str);
+		}
+		
+		
 		//PEM.getInstance().PrintState();
 	}
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
 import cdc.CDC;
@@ -128,6 +129,13 @@ public class PEM {
 				}
 			}
 		}
+		
+		for ( Map.Entry<Integer, Item> item : _item.entrySet() ) {
+			Vector<Integer> v = new Vector<>();
+			for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
+				//if ( player.getValue().getColiider().isCollide( item.getValue().geC))
+			}
+		}
 	}
 	
 	public void attacking() {
@@ -140,49 +148,31 @@ public class PEM {
 	}
 	
 	private void updateData() {
-		
-		for ( Map.Entry<Integer, Projector> e : _tmp_projector.entrySet() ) {
-			TCPServer.getServer().createObject(e.getKey(), codes.PROJECTOR);
-		}
-		for ( Map.Entry<Integer, Monster> e : _tmp_monster.entrySet() ) {
-			TCPServer.getServer().createObject(e.getKey(), codes.MONSTER);
-		}
 		_monster.putAll(_tmp_monster);
 		_projector.putAll(_tmp_projector);
 		
-		/*
-		for ( Integer index : _delete_monster ) {
-			_monster.remove(index);
-		}
-		for ( Integer index : _delete_projector ) {
-			_projector.remove(index);
-		}
-		*/
 	}
 	
 	public void addTempMonster(Monster m) {
-		// TODO get CDC get new Monster ID
 		int ID = CDC.getInstance().getMonsterNewId();
 		_tmp_monster.put(ID, m);
+		
 		TCPServer.getServer().createObject(ID, codes.MONSTER);
 	}
 	
 	public void addTempProjector(Projector p) {
-		// TODO get CDC get new Projector ID
 		int ID = CDC.getInstance().getProjectorId();
 		_tmp_projector.put(ID, p);
-		// TODO call TCP add() function
+	
 		TCPServer.getServer().createObject(ID, codes.PROJECTOR);
 	}
 	
 	private void deleteMonster(Integer ID) {
-		// TODO call TCP delete() function
 		_monster.remove(ID);
 		TCPServer.getServer().deleteObject(ID, codes.MONSTER);
 	}
 	
 	private void deleteProjector(Integer ID) {
-		// TODO call TCP delete() function
 		_projector.remove(ID);
 		TCPServer.getServer().deleteObject(ID, codes.PROJECTOR);
 	}
@@ -208,6 +198,10 @@ public class PEM {
 	
 	public void putMonster_Test(Monster m) {
 		// TODO Will Delete After Complete
-		_monster.put(0, m);
+		_monster.put(CDC.getInstance().getMonsterNewId(), m);
+	}
+	
+	public void putProjector_Test(Projector p) {
+		_projector.put(CDC.getInstance().getProjectorId(), p);
 	}
 }

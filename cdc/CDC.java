@@ -47,7 +47,7 @@ public class CDC
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
 		
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
-		
+		/*
 		monsterid++;
 		Monster m = MonsterInfo.getInstance().getRandomMonster();
 		m.setPosition(new Point(50, 50));
@@ -55,6 +55,7 @@ public class CDC
 		monster.put(0, m );
 		
 		TCPServer.getServer().createObject(0, codes.MONSTER);
+		*/
 	}
 	public static synchronized CDC getInstance()
 	{

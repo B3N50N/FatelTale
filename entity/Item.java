@@ -44,6 +44,8 @@ public class Item
 	public int getMoveSpeed(){return movespeed;}
 	public int getHealth(){return health;}
 	public Point getPosition(){return _pos;}
+	public Collider getCollider() { return _collider; }
+	
 	public String toString()
 	{
 		String str="";
