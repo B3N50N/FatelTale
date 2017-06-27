@@ -72,6 +72,12 @@ public class AngleEmitter extends Emitter {
 				return 90;
 			return 270;
 		}
+		if ( d.y == 0 ) {
+			if ( d.x > 0 ) {
+				return 0;
+			}
+			return 180;
+		}
 		
 		return Math.toDegrees( Math.atan( d.y / d.x ) );
 	}

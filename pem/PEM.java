@@ -122,6 +122,9 @@ public class PEM {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
 				    Logger.log("Collision!");
 					// TODO Notice PEM to Delete Projector and change Monster's Health
+				    if ( _player.get( projector.getValue().getAttackerID() ) == null ) {
+				    	continue;
+				    }
 					monster.getValue().beAttacked( projector.getValue().getDamage() );
 					_player.get( projector.getValue().getAttackerID() ).changeScore( projector.getValue().getDamage() );
 					deleteProjector( projector.getKey() );
