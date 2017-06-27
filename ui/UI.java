@@ -1,30 +1,13 @@
 package ui;
-import java.awt.Canvas;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferStrategy;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
 import java.util.HashMap;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.border.Border;
+import javax.swing.*;
+import javax.swing.border.*;
 import dom.DOM;
-
-import tcp.codes;
-import tcp.TCPClient;
+import tcp.*;
 import logger.Logger;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 
 
 class KeyBoardListener implements KeyListener
@@ -149,7 +132,7 @@ public class UI
 	}
 	public void showScore()
 	{
-		Maxplayerno=dom.DOM.getInstance().getPlayerNumber();
+		Maxplayerno=TCPServer.THREAD_NUM;
 		if(lbl==null)
 		{
 			lbl=new JLabel[Maxplayerno];
@@ -161,11 +144,30 @@ public class UI
 				lbl[i].setFont(new Font("Serif", Font.PLAIN, 30));   
 			}
 		}
+		int[] playerscore=new int[Maxplayerno];
+		int[] playerid=new int[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
-			int score=DOM.getInstance().getPlayerScore(i);
-			String tmp="Player "+String.valueOf(i)+" : ";
-			tmp+=String.valueOf(score);
+			playerid[i]=i;
+			playerscore[i]=DOM.getInstance().getPlayerScore(i);
+		}
+		for(int i=Maxplayerno;i>=0;i-=1)
+		{
+			for(int j=0;j<i - 1;j+=1)
+			{
+				if(playerscore[j]<playerscore[j+1])
+				{
+					int tmpscore=playerscore[j],tmpid=playerid[j];
+					playerscore[j]=playerscore[j+1];
+					playerid[j]=playerid[j+1];
+					playerscore[j+1]=tmpscore;
+					playerid[j+1]=tmpid;
+				}
+			}
+		}
+		for(int i=0;i<Maxplayerno;i+=1)
+		{
+			String tmp = "Player " + playerid[i] +" : " + playerscore[i];
 			lbl[i].setText(tmp);
 			frame.add(lbl[i]);
 			frame.repaint();
@@ -219,13 +221,13 @@ public class UI
 	public void endGameScreen()
 	{
 		frame.remove(canvas);
-                frame.remove(lifebar);
-                for(int i=0;i<Maxplayerno;i+=1)
-                {
-                   frame.remove(lbl[i]);
-                }
-                frame.repaint();
-                int[] number=new int[Maxplayerno];
+        frame.remove(lifebar);
+        for(int i=0;i<Maxplayerno;i+=1)
+        {
+           frame.remove(lbl[i]);
+        }
+        frame.repaint();
+        int[] number=new int[Maxplayerno];
 		int[] finalscore=new int[Maxplayerno];
 		JLabel[] finalscorelabel=new JLabel[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
@@ -234,7 +236,7 @@ public class UI
 			finalscore[i]=DOM.getInstance().getPlayerScore(i);
 		for(int i=Maxplayerno;i>=0;i-=1)
 		{
-			for(int j=0;j<i;j+=1)
+			for(int j=0;j<i - 1;j+=1)
 			{
 				if(finalscore[j]>finalscore[j+1])
 				{

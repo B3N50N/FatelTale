@@ -27,7 +27,6 @@ public class Client {
 
         Logger.log("Game starts");
 		UI.getInstance().startGame();
-		UI.getInstance().showScore();
         UDPUS.getInstance().initUDPServer();
 		RenderThread _render_thread = new RenderThread();
 		_render_thread.start();
@@ -58,6 +57,7 @@ class RenderThread implements Runnable {
 			SPRITERE.getInstance().render(g);
 			bs.show();
 			g.dispose();
+            UI.getInstance().showScore();
 		}
 		
 	}
