@@ -46,8 +46,8 @@ public class UI
 	private static UI uniqueinstance; 
 	private JFrame frame;
 	private Canvas canvas;
-	private final int framewidth=800,frameheight=800;
-	private final int canvaswidth=500,canvasheight=500;
+	private final int framewidth=800,frameheight=700;
+	private final int canvaswidth=800,canvasheight=600;
 	private BufferStrategy bs;
     private String srvaddr;
     private int Maxplayerno;
@@ -111,11 +111,11 @@ public class UI
 			}
 		}
 		);
-		startbutton.setBounds(300,100, 150,50);
+		startbutton.setBounds((framewidth - 150)/ 2, frameheight / 3, 150, 50);
 		frame.add(startbutton);
 		frame.repaint();
 		frame.setVisible(true);
-		exitbutton=new JButton("Exit");
+		exitbutton = new JButton("Exit");
 		exitbutton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -124,7 +124,7 @@ public class UI
 			}
 		}
 		);
-		exitbutton.setBounds(300, 500,150,50);
+		exitbutton.setBounds((framewidth - 150)/ 2, frameheight * 2 / 3, 150, 50);
 		frame.add(startbutton);
 		frame.add(exitbutton);
 		frame.repaint();
@@ -140,8 +140,8 @@ public class UI
 			{
 				String tmp="";
 				lbl[i]=new JLabel(tmp);
-				lbl[i].setBounds(50,i*100+10,250,50);
-				lbl[i].setFont(new Font("Serif", Font.PLAIN, 30));   
+				lbl[i].setBounds(50 + i * ((framewidth - 100)/ 4), 10, 250, 50);
+				lbl[i].setFont(new Font("Serif", Font.PLAIN, 18));   
 			}
 		}
 		int[] playerscore=new int[Maxplayerno];
@@ -167,7 +167,7 @@ public class UI
 		}
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
-			String tmp = "Player " + playerid[i] +" : " + playerscore[i];
+			String tmp = "Player " + playerid[i] +" score " + playerscore[i];
 			lbl[i].setText(tmp);
 			frame.add(lbl[i]);
 			frame.repaint();
@@ -178,10 +178,10 @@ public class UI
 		health=DOM.getInstance().getPlayerHealth();
 		maxhealth=DOM.getInstance().getPlayerMaxHealth();
 		lifebar.setValue(health*100/maxhealth); 
-		Border border = BorderFactory.createMatteBorder(6,6,6,6,Color.BLUE);  
+		Border border = BorderFactory.createMatteBorder(6, 6, 6, 6, Color.BLUE);  
 		lifebar.setStringPainted(true);
 		lifebar.setBorder(border);
-		lifebar.setBounds(200,50,300,100);
+		lifebar.setBounds(10 ,frameheight - canvasheight - 40 - 10, 300, 40);
 		frame.add(lifebar);
 		frame.repaint();
 	}
@@ -191,7 +191,7 @@ public class UI
 		frame.remove(waitingscreenimage);
 		frame.repaint();
 		canvas=new Canvas();
-		canvas.setBounds(300,300,canvaswidth,canvasheight);		
+		canvas.setBounds(0, frameheight - canvasheight ,canvaswidth, canvasheight);		
 		canvas.addKeyListener(new KeyBoardListener());
 		frame.add(canvas);
 		frame.repaint();
@@ -211,7 +211,7 @@ public class UI
 	{
 		waitingscreenimage=new JLabel();
 		waitingscreenimage.setIcon(new ImageIcon(this.getClass().getResource("../resource/waitingscreen.jpg")));
-		waitingscreenimage.setBounds(0, 0,500,500);
+		waitingscreenimage.setBounds(framewidth - canvaswidth, frameheight - canvasheight, frameheight, canvasheight);
 		frame.remove(startbutton);
 		frame.remove(exitbutton);
 		frame.add(waitingscreenimage);
@@ -250,8 +250,7 @@ public class UI
 		}
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
-			String tmpstr="";
-			tmpstr="Player "+String.valueOf(i)+" : "+String.valueOf(finalscore[i]);
+			String tmpstr = "Player " + i + " score :  " + finalscore[i];
 			finalscorelabel[i].setText(tmpstr);
 			finalscorelabel[i].setBounds(100,100+i*100,100,200);
 			frame.add(finalscorelabel[i]);

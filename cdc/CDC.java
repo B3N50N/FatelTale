@@ -30,7 +30,7 @@ public class CDC
 	private ConcurrentHashMap<Integer,Projector> projector;
 	private int itemid=0;
 	private int monsterid=0;
-	private int projectorid=300;
+	private int projectorid=0;
 	public static CDC uniqueinstance;
 	private CDC()
 	{
