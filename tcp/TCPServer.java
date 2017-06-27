@@ -33,10 +33,14 @@ public class TCPServer {
         clients.remove(id);
     }
     public void createObject(int objid, int type) {
+        if(type == codes.PROJECTOR)
+            Logger.log("Creating projector " + objid);
         for(ConnectionHandler conn : clients.values())
             conn.modifyObject(codes.CREATEOBJ, objid, type);
     }
     public void deleteObject(int objid, int type) {
+        if(type == codes.PROJECTOR)
+            Logger.log("Removing projector " + objid);
         for(ConnectionHandler conn : clients.values())
             conn.modifyObject(codes.REMOVEOBJ, objid, type);
     }

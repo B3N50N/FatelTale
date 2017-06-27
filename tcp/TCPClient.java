@@ -138,6 +138,7 @@ public class TCPClient extends Thread{
                             DOM.getInstance().addPlayer(objid);
                             break;
                         case codes.PROJECTOR:
+                            Logger.log("Create projector " + objid);
                             DOM.getInstance().addProjector(objid);
                             break;
                         case codes.MONSTER:
@@ -157,6 +158,7 @@ public class TCPClient extends Thread{
                             DOM.getInstance().removePlayer(objid);
                             break;
                         case codes.PROJECTOR:
+                            Logger.log("Remove projector " + objid);
                             DOM.getInstance().removeProjector(objid);
                             break;
                         case codes.MONSTER:
