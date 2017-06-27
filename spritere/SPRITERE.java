@@ -35,7 +35,7 @@ public class SPRITERE {
 	    	public int compare(DynamicObject o1, DynamicObject o2) {
 	            if(o1.getX()==o2.getX())
 	            {
-	            	if(o1.getY() > o2.getY())
+	            	if(o1.getY() < o2.getY())
 	            		return -1;
 	            	else if(o1.getY() == o2.getY())
 	            		return 0;
@@ -43,7 +43,7 @@ public class SPRITERE {
 	            		return 1;
 	            }
 	            else
-	            	return (o1.getX() > o2.getX()) ? -1 : 1;        
+	            	return (o1.getX() < o2.getX()) ? -1 : 1;        
 	        }
 		});
 		
