@@ -23,10 +23,10 @@ public class CDC
 {
 	final static int MaxPlayerno=4;
 	private static Point playerinitlocation[];
-	private Map<Integer,Player> player;
-	private Map<Integer,Item> item;
-	private Map<Integer,Monster> monster;
-	private Map<Integer,Projector> projector;
+	private ConcurrentHashMap<Integer,Player> player;
+	private ConcurrentHashMap<Integer,Item> item;
+	private ConcurrentHashMap<Integer,Monster> monster;
+	private ConcurrentHashMap<Integer,Projector> projector;
 	private int itemid=0;
 	private int monsterid=0;
 	private int projectorid=0;
@@ -44,10 +44,10 @@ public class CDC
 		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() - 100);
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
-		
+		/*
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
 		monster.put(getMonsterNewId(), MonsterInfo.getInstance().getRandomMonster() );
-		TCPServer.getServer().createObject(0, codes.MONSTER);
+		TCPServer.getServer().createObject(0, codes.MONSTER);*/
 	}
 	public static synchronized CDC getInstance()
 	{
@@ -57,10 +57,10 @@ public class CDC
 		}
 		return uniqueinstance;
 	}
-	public Map<Integer,Player> getPlayer(){return player;}
-	public Map<Integer,Item> getItem(){return item;}
-	public Map<Integer,Monster> getMonster(){return monster;}
-	public Map<Integer,Projector> getProjector(){return projector;}
+	public ConcurrentHashMap<Integer,Player> getPlayer(){return player;}
+	public ConcurrentHashMap<Integer,Item> getItem(){return item;}
+	public ConcurrentHashMap<Integer,Monster> getMonster(){return monster;}
+	public ConcurrentHashMap<Integer,Projector> getProjector(){return projector;}
 	public void keyDown(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
@@ -101,10 +101,15 @@ public class CDC
 	}
 	public void addItem(Point point,int type)
 	{
-		Item tmp=new Item(point,type,ItemInfo.getInstance().getTypeInfo(type));
-		item.putIfAbsent(itemid,tmp);
-		itemid+=1;
+		//Item tmp=new Item(point,type,ItemInfo.getInstance().getTypeInfo(type));
+		//item.putIfAbsent(itemid,tmp);
+		//itemid+=1;
 	}
+	
+	public void addProjector(Projector p) {
+		projector.put(getProjectorId(), p);
+	}
+	
 	public Vector<String> getUpdateInfo()
 	{
 		Vector<String> v=new Vector<String>();

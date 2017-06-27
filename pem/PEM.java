@@ -23,14 +23,14 @@ public class PEM {
 	private Set<Integer> _delete_monster;
 	private Set<Integer> _delete_projector;
 	
-	public Map<Integer, Player> _player;
-	public Map<Integer, Monster> _monster; // Only For Test
-	public Map<Integer, Projector> _projector; // Only For Test
-	public Map<Integer, Item> _item;
+	public ConcurrentHashMap<Integer, Player> _player;
+	public ConcurrentHashMap<Integer, Monster> _monster; // Only For Test
+	public ConcurrentHashMap<Integer, Projector> _projector; // Only For Test
+	public ConcurrentHashMap<Integer, Item> _item;
 	
 	private PEM() {
-		_tmp_monster = new HashMap<>();
-		_tmp_projector = new HashMap<>();
+		_tmp_monster = new ConcurrentHashMap<>();
+		_tmp_projector = new ConcurrentHashMap<>();
 		
 		_delete_monster = new HashSet<>();
 		_delete_projector = new HashSet<>();
@@ -69,7 +69,7 @@ public class PEM {
 		_item = CDC.getInstance().getItem();
 		
 		nextPosition();
-		checkCollision();
+		//checkCollision();
 		attacking();
 		
 		updateData();
@@ -130,26 +130,35 @@ public class PEM {
 	}
 	
 	public void attacking() {
+		/*
 		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
 			e.getValue().attack();
 		}
-        /*
+		*/
+        
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
 			e.getValue().attack();
 		}
-        */
+        
 	}
 	
 	private void updateData() {
-        /*
-		for ( Map.Entry<Integer, Projector> e : _tmp_projector.entrySet() ) {
-			TCPServer.getServer().createObject(e.getKey(), codes.PROJECTOR);
+        
+		for ( ConcurrentHashMap.Entry<Integer, Projector> e : _tmp_projector.entrySet() ) {
+			String str = "Projector ";
+			str += String.valueOf( e.getKey() );
+			str += " ";
+			str += e.getValue().toString();
+			System.out.println(str);
+			_projector.put(e.getKey(), e.getValue());
 		}
+		//_projector.
+		/*
 		for ( Map.Entry<Integer, Monster> e : _tmp_monster.entrySet() ) {
 			TCPServer.getServer().createObject(e.getKey(), codes.MONSTER);
 		}*/
-		_monster.putAll(_tmp_monster);
-		_projector.putAll(_tmp_projector);
+		//_monster.putAll(_tmp_monster);
+		//_projector.putAll(_tmp_projector);
 		
 		/*
 		for ( Integer index : _delete_monster ) {
@@ -173,7 +182,7 @@ public class PEM {
 		int ID = CDC.getInstance().getProjectorId();
 		_tmp_projector.put(ID, p);
 		// TODO call TCP add() function
-		TCPServer.getServer().createObject(ID, codes.PROJECTOR);
+		//TCPServer.getServer().createObject(ID, codes.PROJECTOR);
 	}
 	
 	private void deleteMonster(Integer ID) {
