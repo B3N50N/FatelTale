@@ -2,8 +2,10 @@ package entity;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Vector;
 
+import adm.ADM;
 import sdm.SDM;
 import tcp.codes;
 import logger.Logger;
@@ -20,7 +22,7 @@ public class Player
 	private Collider _collider;
 	private Point _dir = new Point();
 	
-	private Long _last_move_time;
+	private Long _last_move_time, _last_revive_time;
 	
 	static final Point[] DIRECTION = new Point[] {
 		new Point(-10, 0  ), 
@@ -43,6 +45,7 @@ public class Player
 		//active=true;
 		
 		_last_move_time = System.currentTimeMillis();
+		_last_revive_time = 0L;
 	}
 	
     @SuppressWarnings("rawtypes")
@@ -61,6 +64,7 @@ public class Player
 		//active=true;
 		
 		_last_move_time = System.currentTimeMillis();
+		_last_revive_time = 0L;
 		_emitter = emitter;
 		_collider = collider;
 	}
@@ -75,10 +79,7 @@ public class Player
 	
 	public boolean isDead()
 	{
-		if(health<=0)
-			return true;
-		else
-			return false;
+		return health <= 0;
 	}
 	
 	public void changeHealth(int dif)
@@ -153,6 +154,7 @@ public class Player
 	}
 	
 	public void beAttacked(int damage) {
+		if ( System.currentTimeMillis() - _last_revive_time < 3000L ) return;
 		int _damage = damage - defense;
 		if ( _damage < 0 ) _damage = 0;
 		changeHealth(-_damage);
@@ -183,14 +185,13 @@ public class Player
 	}
 	
 	public void attack() {
-		if ( attacking ) {
-			// TODO attack...
+		if ( attacking && !isDead() ) {
 			_emitter.attack(attack);
 		}
 	}
 	
 	public void move() {
-		if ( moving && canMove()) {
+		if ( moving && !isDead() && canMove()) {
 			if ( SDM.getInstance().isWalkable(location.x + DIRECTION[ direction ].x, location.y + DIRECTION[ direction ].y) ){
 				location.x += DIRECTION[ direction ].x;
 				location.y += DIRECTION[ direction ].y;
@@ -199,6 +200,11 @@ public class Player
 				_collider.setPosition(location);
 			}
 		}
+	}
+	
+	public void revive() {
+		health = maxhealth;
+		_last_revive_time = System.currentTimeMillis();
 	}
 	
 	public Point getPosition() {
@@ -235,9 +241,4 @@ public class Player
         str+=" ";
         return str;
     }
-	/*public boolean isActive()
-	{
-		return active;
-	}*/
-	// useless comment
 }

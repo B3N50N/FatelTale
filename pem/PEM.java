@@ -99,12 +99,16 @@ public class PEM {
 	public void checkCollision() {
 
 		for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
+			if ( player.getValue().isDead() ) {
+				continue;
+			}
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( projector.getValue().getAttackerID() >= 4 ) {
 					if ( projector.getValue().getCollider().isCollide( player.getValue().getColiider() ) ) {
 						player.getValue().beAttacked( projector.getValue().getDamage() );
 						// TODO remove projector
 						deleteProjector( projector.getKey() );
+						System.out.println("HURT!");
 					}
 				}
 			}
@@ -113,6 +117,11 @@ public class PEM {
 				if ( monster.getValue().getCollider().isCollide( player.getValue().getColiider() ) ) {
 					player.getValue().beAttacked( monster.getValue().getAttack() );
 				}
+			}
+			if ( player.getValue().isDead() ) {
+				ReviveThread rt = new ReviveThread(player.getKey(), player.getValue());
+				_player.remove( player.getKey() );
+				rt.run();
 			}
 		}
 		
@@ -141,7 +150,7 @@ public class PEM {
 			}
 		}
 		
-
+		
 	}
 	
 	public void attacking() {
@@ -202,6 +211,10 @@ public class PEM {
 		TCPServer.getServer().deleteObject(ID, codes.PROJECTOR);
 	}
 	
+	private void addPlayer(Integer ID, Player p) {
+		_player.put(ID, p);
+	}
+	
 	public void PrintState() {
 		
 		for ( Map.Entry<Integer, Player> p : _player.entrySet() ) {
@@ -229,4 +242,33 @@ public class PEM {
 	public void putProjector_Test(Projector p) {
 		_projector.put(CDC.getInstance().getProjectorId(), p);
 	}
+	
+	class ReviveThread implements Runnable {
+		
+		private Thread _thread;
+		private Player _p;
+		private int P_ID;
+		
+		public ReviveThread (int ID, Player p) {
+			_thread = new Thread();
+			_p = p;
+			P_ID = ID;
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				_thread.sleep(10000);
+				_p.revive();
+				_player.put(P_ID, _p);
+				System.out.println("Revive");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }
+
+

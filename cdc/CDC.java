@@ -76,7 +76,8 @@ public class CDC
 	public ConcurrentHashMap<Integer,Projector> getProjector(){return projector;}
 	public void keyDown(int clientno,int action)
 	{
-		assert player.get(clientno)!=null:"The clientno is invalid";
+		//assert player.get(clientno)!=null:"The clientno is invalid";
+		if ( player.get(clientno) == null ) return;
 		if(action==codes.ATTACK)
 			player.get(clientno).playerAttack();
 		else
@@ -84,7 +85,8 @@ public class CDC
 	}
 	public void keyRelease(int clientno,int action)
 	{
-		assert player.get(clientno)!=null:"The clientno is invalid";
+		//assert player.get(clientno)!=null:"The clientno is invalid";
+		if ( player.get(clientno) == null ) return;
 		if(action==codes.ATTACK)
 			player.get(clientno).attackingEnd();
 		else
