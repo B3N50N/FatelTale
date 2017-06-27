@@ -45,8 +45,8 @@ public class CDC
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
 		
-		monsterid++;
-		monster.put(0, MonsterInfo.getInstance().getRandomMonster() );
+		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+		monster.put(getMonsterNewId(), MonsterInfo.getInstance().getRandomMonster() );
 		TCPServer.getServer().createObject(0, codes.MONSTER);
 	}
 	public static synchronized CDC getInstance()
@@ -79,21 +79,15 @@ public class CDC
 	}
 	public int getMonsterNewId()
 	{
-		int tmp=monsterid;
-		monsterid+=1;
-		return tmp;
+		return monsterid++;
 	}
 	public int getItemNewId()
 	{
-		int tmp=itemid;
-		itemid+=1;
-		return tmp;
+		return itemid++;
 	}
 	public int getProjectorId()
 	{
-		int tmp=projectorid;
-		projectorid+=1;
-		return tmp;
+		return projectorid++;
 	}
 	public void addPlayer(int clientno,int type)
 	{
@@ -120,7 +114,7 @@ public class CDC
 			str=entry.getValue().toString();
 			v.add(str);
 		}
-		/*
+		
 		for(Map.Entry<Integer,Monster> entry:monster.entrySet())
 		{
 			String str = "Monster ";
@@ -129,15 +123,14 @@ public class CDC
 			str += entry.getValue().toString();
 			v.add(str);
 		}
-		*/
-		/*
+		
 		for (Map.Entry<Integer, Projector> entry : projector.entrySet() ) {
 			String str = "Projector ";
 			str += String.valueOf( entry.getKey() );
 			str += " ";
 			str += entry.getValue().toString();
 			v.add(str);
-		}
+		}/*
 		for(Map.Entry<Integer,Item> entry:item.entrySet())
 		{
 			String str;

@@ -7,6 +7,7 @@ import java.util.Vector;
 import java.lang.Thread;
 
 import logger.Logger;
+import java.util.concurrent.CyclicBarrier;
 
 public class TCPServer {
     // default number of threads(clients)
@@ -16,12 +17,16 @@ public class TCPServer {
     private static HashMap<Integer, ConnectionHandler> clients = null;
     private static TCPServer server = null;
     private static ServerSocket srv = null;
+    private static CyclicBarrier ready_barrier = null;;
     private TCPServer() {}
     // Get the server instance
     public static synchronized TCPServer getServer() {
         if(server == null)
             server = new TCPServer();
         return server;
+    }
+    public CyclicBarrier getBarrier() {
+        return ready_barrier;
     }
     // remove the client from table
     public synchronized void removeConnection(int id) {
@@ -48,8 +53,10 @@ public class TCPServer {
         } catch(IOException e) {
             Logger.log("An error occur while creating a socket listen on port "
                         + port);
-            return;
+            System.exit(-1);
         }
+
+        ready_barrier = new CyclicBarrier(THREAD_NUM + 1);
 
         Logger.log("Waiting for connections...");
 
@@ -72,6 +79,12 @@ public class TCPServer {
             thrds[i] = new ConnectionHandler(conn[i], i);
             clients.put(i, thrds[i]);
             thrds[i].start();
+        }
+        try {
+            ready_barrier.await();
+        } catch(Exception e) {
+            Logger.log("Failed on waiting barrier");
+            System.exit(-1);
         }
     }
     // get a vector of client addresses
