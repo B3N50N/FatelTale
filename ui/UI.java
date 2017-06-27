@@ -218,7 +218,14 @@ public class UI
 	}
 	public void endGameScreen()
 	{
-		int[] number=new int[Maxplayerno];
+		frame.remove(canvas);
+                frame.remove(lifebar);
+                for(int i=0;i<Maxplayerno;i+=1)
+                {
+                   frame.remove(lbl[i]);
+                }
+                frame.repaint();
+                int[] number=new int[Maxplayerno];
 		int[] finalscore=new int[Maxplayerno];
 		JLabel[] finalscorelabel=new JLabel[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
