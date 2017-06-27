@@ -44,10 +44,10 @@ public class CDC
 		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() - 100);
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
-		/*
+		
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
 		monster.put(getMonsterNewId(), MonsterInfo.getInstance().getRandomMonster() );
-		TCPServer.getServer().createObject(0, codes.MONSTER);*/
+		TCPServer.getServer().createObject(0, codes.MONSTER);
 	}
 	public static synchronized CDC getInstance()
 	{
@@ -101,9 +101,9 @@ public class CDC
 	}
 	public void addItem(Point point,int type)
 	{
-		//Item tmp=new Item(point,type,ItemInfo.getInstance().getTypeInfo(type));
-		//item.putIfAbsent(itemid,tmp);
-		//itemid+=1;
+		Item tmp=new Item(point,type,ItemInfo.getInstance().getTypeInfo(type), ItemInfo.getInstance().getCollider(type).clone());
+		item.putIfAbsent(itemid,tmp);
+		itemid+=1;
 	}
 	
 	public void addProjector(Projector p) {

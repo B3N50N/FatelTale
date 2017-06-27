@@ -19,8 +19,8 @@ public class DirectlyEmitter extends Emitter {
 			newInstance.setAttacker(_ori_projector.getAttackerID());
 			newInstance.setDamaage(damage);
 			// TODO PEM's function to add new projector
-			//PEM.getInstance().addTempProjector(newInstance);
-			CDC.getInstance().addProjector(newInstance);
+			PEM.getInstance().addTempProjector(newInstance);
+			//CDC.getInstance().addProjector(newInstance);
 		}
 	}
 

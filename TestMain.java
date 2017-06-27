@@ -27,6 +27,8 @@ public class TestMain {
 		PThread t = new PThread();
 		t.start();
 		
+		P1Thread t1 = new P1Thread();
+		t1.start();
 		//while ( state );
 		
 		/*
@@ -93,7 +95,7 @@ class PThread implements Runnable {
 				//PEM.getInstance().PrintState();
 				Thread.sleep(SleepTime);
 				Now += SleepTime;
-				TestMain.Finish();
+				//TestMain.Finish();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				
@@ -102,7 +104,7 @@ class PThread implements Runnable {
 		PEM.getInstance().PrintState();
 	}
 	
-	public synchronized void start() {
+	public void start() {
 		if ( isRunning ) 
 			return;
 		
@@ -111,7 +113,70 @@ class PThread implements Runnable {
 		_thread.start();
 	}
 	
-	public synchronized void stop() {
+	public void stop() {
+		if ( !isRunning ) 
+			return;
+		
+		isRunning = false;
+		try {
+			_thread.join();
+		} catch (InterruptedException event) {
+			// TODO Auto-generated catch block
+			event.printStackTrace();
+		}
+	}
+}
+
+class P1Thread implements Runnable {
+
+	private Thread _thread;
+	private boolean isRunning = false;
+
+	public P1Thread () {
+		init();
+	}
+	
+	private void init() {
+		
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		init();
+		int SleepTime = 1000/500;
+		int Total = 3000;
+		int Now = 0;
+		
+		int x = 0, y = 0;
+		
+		while (Now <= Total) {
+			try {
+				Thread.sleep(SleepTime);
+				Now += SleepTime;
+				Vector<String> v = CDC.getInstance().getUpdateInfo();
+				for ( String str : v ) {
+					System.out.println(str);
+				}
+				System.out.println("=================");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				
+			}
+		}
+		PEM.getInstance().PrintState();
+	}
+	
+	public void start() {
+		if ( isRunning ) 
+			return;
+		
+		isRunning = true;
+		_thread = new Thread(this);
+		_thread.start();
+	}
+	
+	public void stop() {
 		if ( !isRunning ) 
 			return;
 		
