@@ -65,7 +65,7 @@ public class PEM {
 		checkCollision();
 		attacking();
 		
-		//monsterGeneration();
+		monsterGeneration();
 		
 		updateData();
 	}
@@ -137,15 +137,6 @@ public class PEM {
 				}
 			}
 		}
-		
-		for ( Map.Entry<Integer, Item> item : _item.entrySet() ) {
-			Vector<Integer> v = new Vector<>();
-			for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
-				//if ( player.getValue().getColiider().isCollide( item.getValue().geC))
-			}
-		}
-		
-		
 	}
 	
 	public void attacking() {
@@ -162,25 +153,10 @@ public class PEM {
 	private void updateData() {
 		_monster.putAll(_tmp_monster);
 		_projector.putAll(_tmp_projector);
-		
-        /*
-		for ( ConcurrentHashMap.Entry<Integer, Projector> e : _tmp_projector.entrySet() ) {
-			String str = "Projector ";
-			str += String.valueOf( e.getKey() );
-			str += " ";
-			str += e.getValue().toString();
-			System.out.println(str);
-			_projector.put(e.getKey(), e.getValue());
-		}*/
-		//_projector.
-		/*
-		for ( Map.Entry<Integer, Monster> e : _tmp_monster.entrySet() ) {
-			TCPServer.getServer().createObject(e.getKey(), codes.MONSTER);
-		}*/
 	}
 	
 	private void monsterGeneration() {
-		if ( System.currentTimeMillis() - _last_monster_generation >= 5000 ) {
+		if ( System.currentTimeMillis() - _last_monster_generation >= 15000 ) {
 			_last_monster_generation = System.currentTimeMillis();
 			
 			Monster m = MonsterInfo.getInstance().getRandomMonster();
