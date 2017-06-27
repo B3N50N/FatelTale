@@ -33,7 +33,6 @@ public class ConnectionHandler extends Thread {
     }
     public void modifyObject(int action, int objid, int type) {
         try {
-            Logger.log("[" + id + "] Sending modify object " + action + " " + objid + " " + type);
             os.write(action);
             os.write(objid);
             os.write(type);
@@ -46,7 +45,6 @@ public class ConnectionHandler extends Thread {
     }
     public void run() {
         Logger.log("[" + id + "] Thread starts");
-        // TODO: set player type here
         try {
             os.write(codes.SYN);
             Logger.log("[" + id + "] Sending synchronize message");
@@ -64,6 +62,7 @@ public class ConnectionHandler extends Thread {
         } catch(Exception e) {
             Logger.log("Failed to wait on barrier");
         }
+        // TODO: set player type here
         CDC.getInstance().addPlayer(id, 0);
         for(;;) {
             try {
