@@ -2,7 +2,7 @@ package tcp;
 
 import java.io.*;
 import java.net.*;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Vector;
 import java.lang.Thread;
 
@@ -14,7 +14,7 @@ public class TCPServer {
     public static final int THREAD_NUM = 1;
     // default port that server listening on
     public static final int DEFAULT_PORT = 8888;
-    private static HashMap<Integer, ConnectionHandler> clients = null;
+    private static ConcurrentHashMap<Integer, ConnectionHandler> clients = null;
     private static TCPServer server = null;
     private static ServerSocket srv = null;
     private static CyclicBarrier ready_barrier = null;;
@@ -33,16 +33,19 @@ public class TCPServer {
         clients.remove(id);
     }
     public void createObject(int objid, int type) {
-        if(type == codes.PROJECTOR)
-            Logger.log("Creating projector " + objid);
-        for(ConnectionHandler conn : clients.values())
+        for(ConnectionHandler conn : clients.values()) {
             conn.modifyObject(codes.CREATEOBJ, objid, type);
+        }
     }
     public void deleteObject(int objid, int type) {
-        if(type == codes.PROJECTOR)
-            Logger.log("Removing projector " + objid);
-        for(ConnectionHandler conn : clients.values())
+        for(ConnectionHandler conn : clients.values()) {
             conn.modifyObject(codes.REMOVEOBJ, objid, type);
+        }
+    }
+    public void endGame() {
+        for(ConnectionHandler conn : clients.values()) {
+            conn.endGame();
+        }
     }
     public void readMap(String path) {
         for(ConnectionHandler conn : clients.values())
@@ -79,7 +82,7 @@ public class TCPServer {
             Logger.log("Receive a connection : " + conn[i]);
         }
 
-        clients = new HashMap<Integer, ConnectionHandler>();
+        clients = new ConcurrentHashMap<Integer, ConnectionHandler>();
         ConnectionHandler[] thrds = new ConnectionHandler[THREAD_NUM];
         // Spawn thread for each connection
         for(int i = 0; i < THREAD_NUM; ++i) {

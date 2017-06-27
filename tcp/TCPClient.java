@@ -8,6 +8,7 @@ import java.util.concurrent.CyclicBarrier;
 import dom.DOM;
 import sdm.SDM;
 import java.nio.ByteBuffer;
+import ui.UI;
 
 import logger.Logger;
 
@@ -174,6 +175,9 @@ public class TCPClient extends Thread{
                     byte[] buf = new byte[len];
                     is.read(buf, 0, len);
                     SDM.getInstance().readMap((new String(buf)));
+                    break;
+                case codes.END:
+                    UI.getInstance().endGameScreen();
                     break;
                 case -1:
                     throw new IOException();

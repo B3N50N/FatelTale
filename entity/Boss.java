@@ -12,8 +12,8 @@ public class Boss extends Monster {
 	
 	public boolean isDead() {
 		if ( _health <= 0 ) {
-			TCPServer.getServer().removeConnection(0);
-			TCPServer.getServer().removeConnection(1);
+//			TCPServer.getServer().removeConnection(0);
+//			TCPServer.getServer().removeConnection(1);
 			return true;
 		}
 		return false;

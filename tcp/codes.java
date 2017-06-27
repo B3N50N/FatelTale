@@ -4,6 +4,7 @@ package tcp;
 public class codes {
     public static final int SYN = 0xFF;
     public static final int READMAP = 0xFE;
+    public static final int END = 0xFD;
     // subactions
     public static final int MOVELEFT = 0x0;
     public static final int MOVERIGHT = 0x1;
