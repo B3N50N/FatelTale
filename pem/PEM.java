@@ -4,10 +4,12 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
+import adm.ADM;
 import cdc.CDC;
 import entity.*;
 import tcp.TCPServer;
@@ -22,34 +24,25 @@ public class PEM {
 	private Map<Integer, Monster> _tmp_monster;
 	private Map<Integer, Projector> _tmp_projector;
 	
-	private Set<Integer> _delete_monster;
-	private Set<Integer> _delete_projector;
-	
 	public ConcurrentHashMap<Integer, Player> _player;
 	public ConcurrentHashMap<Integer, Monster> _monster; // Only For Test
 	public ConcurrentHashMap<Integer, Projector> _projector; // Only For Test
 	public ConcurrentHashMap<Integer, Item> _item;
 	
+	private Random _rand;
+	private Long _last_monster_generation;
+	
 	private PEM() {
 		_tmp_monster = new ConcurrentHashMap<>();
 		_tmp_projector = new ConcurrentHashMap<>();
-		
-		_delete_monster = new HashSet<>();
-		_delete_projector = new HashSet<>();
 		
 		_player = CDC.getInstance().getPlayer();
 		_monster = CDC.getInstance().getMonster();
 		_projector = CDC.getInstance().getProjector();
 		_item = CDC.getInstance().getItem();
-		/*
-		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
-		Monster m = MonsterInfo.getInstance().getRandomMonster();
 		
-		m.setPosition(new Point(50, 50));
-		m.setDirection(new Point(10, 0));
-		m.Print();
-		_monster.put(CDC.getInstance().getMonsterNewId(), m);
-		*/
+		_rand = new Random();
+		_last_monster_generation = System.currentTimeMillis();
 	}
 	
 	public static synchronized PEM getInstance() {
@@ -63,9 +56,6 @@ public class PEM {
 		_tmp_monster.clear();
 		_tmp_projector.clear();
 		
-		_delete_monster.clear();
-		_delete_projector.clear();
-		
 		_player = CDC.getInstance().getPlayer();
 		_monster = CDC.getInstance().getMonster();
 		_projector = CDC.getInstance().getProjector();
@@ -74,6 +64,8 @@ public class PEM {
 		nextPosition();
 		checkCollision();
 		attacking();
+		
+		monsterGeneration();
 		
 		updateData();
 	}
@@ -108,7 +100,6 @@ public class PEM {
 						player.getValue().beAttacked( projector.getValue().getDamage() );
 						// TODO remove projector
 						deleteProjector( projector.getKey() );
-						System.out.println("HURT!");
 					}
 				}
 			}
@@ -131,6 +122,9 @@ public class PEM {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
 				    Logger.log("Collision!");
 					// TODO Notice PEM to Delete Projector and change Monster's Health
+				    if ( _player.get( projector.getValue().getAttackerID() ) == null ) {
+				    	continue;
+				    }
 					monster.getValue().beAttacked( projector.getValue().getDamage() );
 					_player.get( projector.getValue().getAttackerID() ).changeScore( projector.getValue().getDamage() );
 					deleteProjector( projector.getKey() );
@@ -143,15 +137,6 @@ public class PEM {
 				}
 			}
 		}
-		
-		for ( Map.Entry<Integer, Item> item : _item.entrySet() ) {
-			Vector<Integer> v = new Vector<>();
-			for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
-				//if ( player.getValue().getColiider().isCollide( item.getValue().geC))
-			}
-		}
-		
-		
 	}
 	
 	public void attacking() {
@@ -168,24 +153,21 @@ public class PEM {
 	private void updateData() {
 		_monster.putAll(_tmp_monster);
 		_projector.putAll(_tmp_projector);
-		
-        /*
-		for ( ConcurrentHashMap.Entry<Integer, Projector> e : _tmp_projector.entrySet() ) {
-			String str = "Projector ";
-			str += String.valueOf( e.getKey() );
-			str += " ";
-			str += e.getValue().toString();
-			System.out.println(str);
-			_projector.put(e.getKey(), e.getValue());
-		}*/
-		//_projector.
-		/*
-		for ( Map.Entry<Integer, Monster> e : _tmp_monster.entrySet() ) {
-			TCPServer.getServer().createObject(e.getKey(), codes.MONSTER);
-		}*/
-		_monster.putAll(_tmp_monster);
-		_projector.putAll(_tmp_projector);
-
+	}
+	
+	private void monsterGeneration() {
+		if ( System.currentTimeMillis() - _last_monster_generation >= 15000 ) {
+			_last_monster_generation = System.currentTimeMillis();
+			
+			Monster m = MonsterInfo.getInstance().getRandomMonster();
+			int mapWidth = ADM.getInstance().getMapWidth() * SDM.getInstance().getWidth(), 
+				mapHeight = ADM.getInstance().getMapHeight() * SDM.getInstance().getHeight();
+			
+			m.setDirection(new Point(0, 0));
+			m.setPosition(new Point(_rand.nextInt(mapWidth), _rand.nextInt(mapHeight)));
+			
+			addTempMonster(m);
+		}
 	}
 	
 	public void addTempMonster(Monster m) {
@@ -226,13 +208,6 @@ public class PEM {
 			Logger.log(m.getKey() + " : " + m.getValue().toString() );
 			//m.getValue().Print();
 		}
-		/*
-		Logger.log("Projector : ");
-		for ( Map.Entry<Integer, Projector> p : _projector.entrySet() ) {
-			Logger.log("ID : " + p.getKey() );
-			p.getValue().Print();
-		}
-		*/
 	}
 	
 	public void putMonster_Test(Monster m) {

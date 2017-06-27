@@ -8,18 +8,19 @@ import logger.Logger;
 
 public class Monster {
 	
-	private int _max_health;
-	private int _health;
-	private int _attack;
-	private int _defense;
-	private Point _pos, _dir;
-	private Collider _collider;
+	protected int _max_health;
+	protected int _health;
+	protected int _attack;
+	protected int _defense;
+	protected Point _pos, _dir;
+	protected Collider _collider;
 	
-	private int _asset_index;
+	protected int _asset_index;
 	
-	private Emitter[] _emitter;
-	private Long _last_move_time, _speed, _last_direction_change;
+	protected Emitter[] _emitter;
+	protected Long _last_move_time, _speed, _last_direction_change;
 	private boolean _walkable;
+	
 	public Monster(int health, int attack, int defense, Point pos, Point dir, int index, Emitter[] emitter, Long speed, Collider collider) {
 		Init(health, attack, defense, pos, dir, index, emitter, speed, collider);
 	}

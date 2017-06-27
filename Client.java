@@ -52,6 +52,7 @@ class RenderThread implements Runnable {
 		Graphics g = UI.getInstance().getGraphics();
 		g.clearRect(0, 0, UI.getInstance().getCanvasWidth(), UI.getInstance().getCanvasHeight());
 		if ( bs != null && g != null ) {
+			UI.getInstance().showScore();
 			SCENERE.getInstance().render(g);
 			SPRITERE.getInstance().render(g);
 			bs.show();

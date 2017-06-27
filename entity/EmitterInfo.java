@@ -26,6 +26,7 @@ public class EmitterInfo {
 		Input = br.readLine();
 		
 		if ( Input.equals("DirectlyEmitter") ) {
+			
 			Input = br.readLine();
 			st = new StringTokenizer(Input);
 			
@@ -39,6 +40,36 @@ public class EmitterInfo {
 			Projector p = ProjectorInfo.getInstance().getProjector(br);
 			
 			return new DirectlyEmitter(attack_speed, p.getDirection(), p.getPosition(), p);
+		}
+		if ( Input.equals("AngleEmitter") ) {
+			System.out.println("HI");
+			Input = br.readLine();
+			st = new StringTokenizer(Input);
+			
+			Long attack_speed;
+			assert st.countTokens() == 1 : "Wrong Format.";
+			
+			Input = st.nextToken();
+			assert Input.matches("\\d+") : "Wrong Format.";
+			attack_speed = Long.parseLong(Input);
+			
+			Input = br.readLine();
+			st = new StringTokenizer(Input);
+			int sa, ea, t;
+			assert st.countTokens() == 3 : "Wrong Format.";
+	
+			Input = st.nextToken();
+			sa = Integer.parseInt(Input);
+			
+			Input = st.nextToken();
+			ea = Integer.parseInt(Input);
+			
+			Input = st.nextToken();
+			t = Integer.parseInt(Input);
+			
+			Projector p = ProjectorInfo.getInstance().getProjector(br);
+			
+			return new AngleEmitter(attack_speed, p.getDirection(), p.getPosition(), p, sa, ea, t);
 		}
 		
 		assert false : "Invalid Format.";
