@@ -59,7 +59,7 @@ public class DynamicObject {
 		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > playerY + canvasHeight/2)
 			return;
 		g.drawImage(img, x-playerX -img.getWidth()/2 +canvasWidth/2 , y-playerY -img.getHeight()/2 +canvasHeight/2, null);
-		logger.Logger.log("Drawing with frame : "+frame);
+		//logger.Logger.log("Drawing with frame : "+frame);
 	}
 	
 	public void update(int nextX, int nextY, int nextDirection, int assetIndex){
