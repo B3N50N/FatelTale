@@ -12,9 +12,13 @@ import entity.ItemInfo;
 import entity.Player;
 import entity.PlayerInfo;
 import entity.Monster;
+import entity.MonsterInfo;
 import entity.Projector;
 import sdm.SDM;
+import tcp.TCPServer;
 import tcp.codes;
+import logger.Logger;
+import pem.PEM;
 public class CDC
 {
 	final static int MaxPlayerno=4;
@@ -35,14 +39,16 @@ public class CDC
 		projector=new ConcurrentHashMap<>();
 		playerinitlocation=new Point[MaxPlayerno];
 		playerinitlocation[0]=new Point(100,100);
-		/*
+		
 		playerinitlocation[1]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 100);
 		playerinitlocation[2]=new Point(0,SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() - 100);
 		playerinitlocation[3]=new Point(SDM.getInstance().getWidth() * ADM.getInstance().getMapWidth() - 100, 
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
-		*/
 		
-		addPlayer(0, 0);
+		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+		monsterid++;
+		monster.put(0, MonsterInfo.getInstance().getRandomMonster() );
+		TCPServer.getServer().createObject(0, codes.MONSTER);
 	}
 	public static synchronized CDC getInstance()
 	{
@@ -59,22 +65,18 @@ public class CDC
 	public void keyDown(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
-		/*
 		if(action==codes.ATTACK)
 			player.get(clientno).playerAttack();
 		else
 			player.get(clientno).playerMove(action);
-		*/
 	}
 	public void keyRelease(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
-		/*
 		if(action==codes.ATTACK)
 			player.get(clientno).attackingEnd();
 		else
 			player.get(clientno).movingEnd();
-		*/
 	}
 	public int getMonsterNewId()
 	{
@@ -98,11 +100,11 @@ public class CDC
 	{
 		assert clientno>=0&&clientno<4:"The clientno is invalid";
 		Player p = new Player(clientno, type,playerinitlocation[clientno],PlayerInfo.getInstance().getTypeInfo(type),
-				   PlayerInfo.getInstance().getEmitter(type), PlayerInfo.getInstance().getCollider(type) );
+				   PlayerInfo.getInstance().getEmitter(type).clone(), PlayerInfo.getInstance().getCollider(type).clone() );
 		player.put(clientno, p);
 		
 		p.setPosition(new Point(playerinitlocation[clientno].x, playerinitlocation[clientno].y) );
-		System.out.println(p.toString());
+		Logger.log(p.toString());
 	}
 	public void addItem(Point point,int type)
 	{
@@ -110,7 +112,7 @@ public class CDC
 		item.putIfAbsent(itemid,tmp);
 		itemid+=1;
 	}
-	public Vector getUpdatInfo()
+	public Vector<String> getUpdateInfo()
 	{
 		Vector<String> v=new Vector<String>();
 		for(Map.Entry<Integer,Player> entry:player.entrySet())
@@ -152,7 +154,7 @@ public class CDC
 		cdc=CDC.getInstance();
 		CDC.getInstance().addPlayer(1,0);
 		CDC.getInstance().addPlayer(2,1);
-		System.out.println(CDC.getInstance().getPlayer().get(1).toString());
-		System.out.println(CDC.getInstance().getPlayer().get(2).toString());
+		Logger.log(CDC.getInstance().getPlayer().get(1).toString());
+		Logger.log(CDC.getInstance().getPlayer().get(2).toString());
 	}
 }

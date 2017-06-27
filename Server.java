@@ -1,9 +1,12 @@
 import pem.PEM;
 import tcp.TCPServer;
 import udp.UDPBC;
+import sdm.SDM;
+import cdc.CDC;
 
 public class Server {
 	public static void main(String[] args) {
+        SDM.getInstance().readMap("./resource/Map/Map001.txt");
 
         TCPServer.getServer().initTCPServer();
         UDPBC.getInstance().startUDPBroadCast();

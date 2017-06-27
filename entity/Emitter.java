@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Point;
+import logger.Logger;
 
 public abstract class Emitter {
 	
@@ -51,7 +52,7 @@ public abstract class Emitter {
 	protected boolean canAttack() {
 		if ( System.currentTimeMillis() - _last_attack_time >= _attack_speed ) {
 			_last_attack_time = System.currentTimeMillis();
-			System.out.println("Can Attack.");
+			Logger.log("Can Attack.");
 			return true;
 		}
 		return false;
@@ -62,11 +63,11 @@ public abstract class Emitter {
 	public abstract Emitter clone();
 	
 	public void Print() {
-		System.out.println("Emitter :");
-		System.out.println("Position : " + _pos);
-		System.out.println("Direction : " + _dir);
-		System.out.println("AS : " + _attack_speed);
+		Logger.log("Emitter :");
+		Logger.log("Position : " + _pos);
+		Logger.log("Direction : " + _dir);
+		Logger.log("AS : " + _attack_speed);
 		_ori_projector.Print();
-		System.out.println("============");
+		Logger.log("============");
 	}
 }

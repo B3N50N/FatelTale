@@ -37,8 +37,8 @@ public class SCENERE {
 				int nextX = ix + dx, nextY = iy + dy;
 				if ( SDM.getInstance().isLegal(nextX, nextY) ) {
 					g.drawImage(ADM.getInstance().getMapAsset(SDM.getInstance().getAssetIndex(nextX, nextY)), 
-							    nextX * ADM.getInstance().getMapWidth() - (int)x + UI.getInstance().getCanvasWidth() / 2 ,
-							    nextY * ADM.getInstance().getMapHeight() - (int)y + UI.getInstance().getCanvasHeight() / 2, null);
+							    nextX * ADM.getInstance().getMapWidth() - x + UI.getInstance().getCanvasWidth() / 2 ,
+							    nextY * ADM.getInstance().getMapHeight() - y + UI.getInstance().getCanvasHeight() / 2, null);
 				}
 			}
 		}

@@ -5,6 +5,7 @@ public class Item
 {
 	private int attack,attackspeed,defense,movespeed,health;
 	private int asset_index;
+
 	private Point _pos;
 	private Collider _collider;
 	
@@ -19,6 +20,7 @@ public class Item
 		_pos = c.getPosition();
 	}
 	
+    @SuppressWarnings("rawtypes")
 	public Item(Point point,int type,Vector attribute, Collider c)
 	{
 		_pos=point;

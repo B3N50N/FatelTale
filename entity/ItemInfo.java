@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
+import logger.Logger;
 public class ItemInfo 
 {
 	private static ItemInfo uniqueinstance;
@@ -57,7 +58,7 @@ public class ItemInfo
 		}
 		catch(IOException e)
 		{
-			System.out.println("Cannot find the file");
+			Logger.log("Cannot find the file");
 		}
 	}
 	public static synchronized ItemInfo getInstance()
@@ -66,7 +67,7 @@ public class ItemInfo
 			uniqueinstance=new ItemInfo();
 		return uniqueinstance;
 	}
-	public Vector getTypeInfo(int type)
+	public Vector<Integer> getTypeInfo(int type)
 	{
 		assert type>=0&&type<totaltype:"The type number is invalid!!";
 		Vector<Integer> v=new Vector<Integer>();

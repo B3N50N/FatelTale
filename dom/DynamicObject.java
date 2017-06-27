@@ -48,12 +48,14 @@ public class DynamicObject {
 		if(!drawable)
 			return;
 		BufferedImage img = getImage();
-		if( x+img.getWidth()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0 
-		    || x-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getInstance().getCanvasWidth()
-		    || y+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0
-		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getInstance().getCanvasWidth())
+		int playerX = DOM.getInstance().getPlayerX(), playerY = DOM.getInstance().getPlayerY();
+		int canvasWidth = UI.getInstance().getCanvasWidth(), canvasHeight = UI.getInstance().getCanvasHeight();
+		if( x+img.getWidth()/2+DynamicObject.DRAWING_EXTRA_RANGE < playerX - canvasWidth/2
+		    || x-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > playerX + canvasWidth/2
+		    || y+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < playerY - canvasHeight/2
+		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > playerY + canvasHeight/2)
 			return;
-		g.drawImage(img, x-img.getWidth()/2, y-img.getHeight()/2, null);
+		g.drawImage(img, x-playerX -img.getWidth()/2 +canvasWidth/2 , y-playerY -img.getHeight()/2 +canvasHeight/2, null);
 	}
 	
 	public void update(int nextX, int nextY, int nextDirection, int assetIndex){

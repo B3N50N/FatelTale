@@ -25,7 +25,7 @@ public class Client {
         TCPClient.getClient().waitForReady();
         TCPClient.getClient().start();
 
-        Logger.log("Game start");
+        Logger.log("Game starts");
 		UI.getInstance().startGame();
         UDPUS.getInstance().initUDPServer();
 		RenderThread _render_thread = new RenderThread();

@@ -8,12 +8,12 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Timer;
 import logger.Logger;
+import tcp.TCPClient;
 
 import dom.*;
 
 public class UDPUS {
 	
-	static int clientno =0;
     static Player player;
     static int x =0;
     static int y =0;
@@ -32,7 +32,9 @@ public class UDPUS {
     static char temp2;
     static String temp3;
     
-    static int port =8890;
+    static int port_start =8890;
+    static int clientno =0;
+    static int myclientno =0;
     
     
     MyThread my = new MyThread();
@@ -43,6 +45,7 @@ public class UDPUS {
 		 if(meow==null)
 		 {
 			 meow=new UDPUS();
+             myclientno = TCPClient.getClient().getClientNo();
 		 }
 		 return meow;
 	 }
@@ -50,6 +53,21 @@ public class UDPUS {
 	 public  void initUDPServer()
 	 {
 		 t.start();
+	 }
+	 @SuppressWarnings("deprecation")
+	public  void pauseUDPServer()
+	 {
+		 t.suspend();
+	 }
+	 @SuppressWarnings("deprecation")
+	public  void stopUDPServer()
+	 {
+		 t.stop();
+	 }
+	 @SuppressWarnings("deprecation")
+	public  void resumeUDPServer()
+	 {
+		 t.resume();
 	 }
 	 
 	 class MyThread extends Thread 
@@ -71,16 +89,13 @@ public class UDPUS {
 	private static void transfer() throws Exception {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
-
-        DatagramSocket ds = new DatagramSocket(port); // Set Server Port
-        System.out.println("server start at : "
-                + InetAddress.getLocalHost().getHostAddress() + ":" + ds.getLocalPort());
+        DatagramSocket ds = new DatagramSocket(port_start + myclientno); // Set Server Port
+        Logger.log("UDPUS starts on port " + (port_start + myclientno));
         String msg = "No Message...";
         while (true) {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
-            System.out.println("msg recive : " + msg);
-
+            //Logger.log("msg recive : " + msg);
             decode(msg);
         }
     }
@@ -110,6 +125,7 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
+				//System.out.println(temp3);
 				
 				if(type ==0)
 				{
@@ -314,8 +330,8 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
-				//clientno = Integer.parseInt(temp3);/
-				//id = Integer.parseInt(temp3);//
+				//clientno = Integer.parseInt(temp3);
+				//id = Integer.parseInt(temp3);
 				temp3 ="";
 				numofelement =0;
 				numofword =0;
@@ -358,15 +374,15 @@ public class UDPUS {
 				CDC_value2 = Integer.parseInt(CRC_value);
 				if(CDC_value2 == sample.hashCode())
 				{
-					Logger.log("CRC_value: "+CRC_value);
-					Logger.log("sample.hashCode(): "+sample.hashCode());
+					//Logger.log("CRC_value: "+CRC_value);
+					//Logger.log("sample.hashCode(): "+sample.hashCode());
 					CRCcheck=1;
 				}
 				else
 				{
-					Logger.log("CRC_value: "+CRC_value);
-					Logger.log("sample.hashCode(): "+sample.hashCode());
-					Logger.log("package error!!!! ");
+					//Logger.log("CRC_value: "+CRC_value);
+					//Logger.log("sample.hashCode(): "+sample.hashCode());
+					//Logger.log("package error!!!! ");
 					break;
 				}
 				
@@ -384,33 +400,33 @@ public class UDPUS {
 	{
 		if(type ==1)
 		{
-			System.out.println("call_updatePlayer : " + " clientno : "+ clientno +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex );
+			//Logger.log("call_updatePlayer : " + " clientno : "+ clientno +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex );
 			DOM.getInstance().updatePlayer(clientno, x, y, direction, assetIndex);
-			System.out.println("updatePlayer_SUCCESS");
-			System.out.println("call_updatePlayerInfo : " + " clientno : "+ clientno +" health : "+ health +" maxHealth : "+ maxHealth +" score : " + score);
+			//Logger.log("updatePlayer_SUCCESS");
+			//Logger.log("call_updatePlayerInfo : " + " clientno : "+ clientno +" health : "+ health +" maxHealth : "+ maxHealth +" score : " + score);
 			DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);
-			System.out.println("updatePlayerInfo_SUCCESS");
-		}
+			//Logger.log("updatePlayerInfo_SUCCESS");
+        }
 		else if(type ==2)
 		{
 			//analyzedirection();
-			System.out.println("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
+			//Logger.log("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
 			//DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
 			DOM.getInstance().updateMonster( id,x,y,direction,assetIndex);
-			System.out.println("updateMonster_SUCCESS");
+		    Logger.log("updateMonster_SUCCESS");
 		}
 		else if(type ==3)
 		{
 			//analyzedirection();
-			System.out.println("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" directionX : "+ direction2.x+" directionY : "+ direction2.y +" assertIndex : "+ assetIndex);
+			//Logger.log("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" directionX : "+ direction2.x+" directionY : "+ direction2.y +" assertIndex : "+ assetIndex);
 			DOM.getInstance().updateProjector(id, x, y, direction2.x,  direction2.y, assetIndex);
-			System.out.println("updateProjector_SUCCESS");
+			//Logger.log("updateProjector_SUCCESS");
 		}
 		else if(type ==4)
 		{
-			System.out.println("call_updateItem : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : " + assetIndex);
+			//Logger.log("call_updateItem : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : " + assetIndex);
 			DOM.getInstance().updateItem(id, x, y, assetIndex);
-			System.out.println("updateItem_SUCCESS");
+			//Logger.log("updateItem_SUCCESS");
 		}
 		/*else if(type ==5)
 		{

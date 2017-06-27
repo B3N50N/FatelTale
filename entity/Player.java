@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import sdm.SDM;
 import tcp.codes;
+import logger.Logger;
 public class Player 
 {
 	private int health,attack,direction,defense, maxhealth;
@@ -17,20 +18,18 @@ public class Player
 	private int score,id;
 	private Emitter _emitter;
 	private Collider _collider;
-	private Point _dir;
+	private Point _dir = new Point();
 	
 	private Long _last_move_time;
 	
-	static final int west=0,north=1,east=2,south=3;
 	static final Point[] DIRECTION = new Point[] {
 		new Point(-10, 0  ), 
-		new Point(0  , 10 ),
 		new Point(10 , 0  ),
-		new Point(0  , -10)
+		new Point(0  , -10),
+		new Point(0  , 10 )
 	};
 	
-	private static Map<Integer,Point> dirtovector;
-	
+    @SuppressWarnings("rawtypes")
 	public Player(int type,Point point,Vector attribute)
 	{
 		//active=true;
@@ -46,6 +45,7 @@ public class Player
 		_last_move_time = System.currentTimeMillis();
 	}
 	
+    @SuppressWarnings("rawtypes")
 	public Player(int clientno, int type,Point point,Vector attribute, Emitter emitter, Collider collider)
 	{
 		//active=true;
@@ -63,22 +63,13 @@ public class Player
 		_last_move_time = System.currentTimeMillis();
 		_emitter = emitter;
 		_collider = collider;
-		
-		if(dirtovector==null)
-		{
-			dirtovector=new HashMap<>();
-			dirtovector.put(codes.MOVELEFT,new Point(-10,0));
-			dirtovector.put(codes.MOVEUP,new Point(0,-10));
-			dirtovector.put(codes.MOVERIGHT,new Point(10,0));
-			dirtovector.put(codes.MOVEDOWN,new Point(0,10));
-		}
 	}
 	
 	public String dirvaluetoString(int dir)
 	{
-		if(dir==west) return "west";
-		else if(dir==north) return "north";
-		else if(dir==south) return "east";
+		if(dir==codes.MOVELEFT) return "west";
+		else if(dir==codes.MOVEUP) return "north";
+		else if(dir==codes.MOVERIGHT) return "east";
 		else return "south";
 	}
 	
@@ -102,11 +93,15 @@ public class Player
 	public void playerAttack(){attacking=true;}
 	public void playerMove(int newdir)
 	{
-		assert newdir!=codes.MOVEDOWN&&newdir!=codes.MOVELEFT&&newdir!=codes.MOVERIGHT&&newdir!=codes.MOVEUP:"The new direction is invalid";
-		moving=true;
-		direction=newdir;
-		_dir.x = dirtovector.get( direction ).x;
-		_dir.y = dirtovector.get( direction ).y;
+		assert newdir == codes.MOVEDOWN
+               || newdir == codes.MOVELEFT
+               || newdir == codes.MOVERIGHT
+               || newdir == codes.MOVEUP : "The new direction is invalid";
+        assert _dir != null : "_dir is null";
+        direction = newdir;
+        moving=true;
+		_dir.x = DIRECTION[direction].x;
+        _dir.y = DIRECTION[direction].y;
 	}
 	
 	public void movingEnd(){moving=false;}

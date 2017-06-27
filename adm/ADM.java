@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
+import logger.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -106,7 +107,7 @@ public class ADM {
 		int hei = Image.getHeight() / height, wid = Image.getWidth() / width;
 		int size = hei * wid;
 		BufferedImage[] assets = new BufferedImage[size];
-		System.out.println(size);
+		Logger.log(size);
 		for (int i=0;i<hei;i++) {
 			for (int j=0;j<wid;j++) {
 				assets[i*wid+j] = Image.getSubimage(j*width, i*height, width, height);

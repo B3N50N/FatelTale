@@ -30,16 +30,6 @@ public class SPRITERE {
 		
 		for(DynamicObject ob : objects)
 		{
-			/*
-			if(!ob.getDrawable()) continue;
-			BufferedImage img = ob.getImage();
-			if( ob.getX()+img.getWidth()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0 
-			    || ob.getX()-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getInstance().getCanvasWidth()
-			    || ob.getY()+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0
-			    || ob.getY()+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getInstance().getCanvasWidth())
-				continue;
-			g.drawImage(img, ob.getX()-img.getWidth()/2, ob.getY()-img.getHeight()/2, null);
-			*/
 			ob.drawImage(g);
 		}
 	}

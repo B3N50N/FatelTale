@@ -17,10 +17,10 @@ public class UDPBC extends Thread {
 	
 	
 	private static int blocknum =0, nowblocknum =0;
-	private static Vector v;
+	private static Vector<String> v;
 	private static int msg_crc;
 	private static int stage_max =500,delay =10;
-	private static int port =8890;
+	private static int port_start =8890;
 	
 	 MyThread my = new MyThread();
 	 Thread t = new Thread(my,"_");
@@ -38,7 +38,21 @@ public class UDPBC extends Thread {
 	 {
 		 t.start();
 	 }
-	 
+	 @SuppressWarnings("deprecation")
+	 public  void pauseUDPServer()
+	 {
+		 t.stop();
+	 }
+	 @SuppressWarnings("deprecation")
+	 public  void stopUDPServer()
+	 {
+		 t.suspend();
+	 }
+	 @SuppressWarnings("deprecation")
+	 public  void resumeUDPServer()
+	 {
+		 t.resume();;
+	 }
 	 class MyThread extends Thread 
 	 {
 		 public void run()
@@ -58,11 +72,10 @@ public class UDPBC extends Thread {
 	 private static void transfer() throws Exception {
 	        DatagramPacket dp;
 	        Scanner s = new Scanner(System.in);
-	        Logger.log("UDPBC start: ");
+	        Logger.log("UDPBC starts");
 	        String msg = "Key in";
 	        
 	        Vector<InetAddress> IPtable = TCPServer.getServer().getClientIPTable();
-	        //Vector<InetSocketAddress> IPtable = TCPServer.getClientIPTable();
 	        while (true) {
 	        	TimeUnit.MILLISECONDS.sleep(delay);
 	            //msg = s.next();//debug only
@@ -70,15 +83,13 @@ public class UDPBC extends Thread {
 	            //msg ="&Monster 0 4 -54 0 -9 2 &";
 	            msg_crc = msg.hashCode();
 	            msg ="$"+ msg_crc +"$" + msg;
-
-	            System.out.println(msg);
-	            System.out.println(msg_crc);
+	            //Logger.log(msg);
+	            //Logger.log(msg_crc);
 	            for(int i=0;i<IPtable.size();i++)
 	    		{
 	            	//msg = "$-592448706$&Monster 0 4 -54 0 -9 2&";
 	            	//msg  = msg + " " + IPtable.get(i).getAddress().toString();
-	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length, IPtable.get(i), port);
-	            	//dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length,IPtable.get(i).getAddress(), port);
+	            	dp = new DatagramPacket(msg.getBytes(), msg.getBytes().length, IPtable.get(i), port_start + i);
 	            	DatagramSocket socket = new DatagramSocket();
 	 				socket.send(dp);
 	 				socket.close();
@@ -100,7 +111,7 @@ public class UDPBC extends Thread {
 		 
 		 if(blocknum == 0)
 		 {
-			 v =  CDC.getInstance().getUpdatInfo();
+			 v =  CDC.getInstance().getUpdateInfo();
 			 //System.out.println(v.size());
 			 blocknum = v.size();
 			 nowblocknum =0;

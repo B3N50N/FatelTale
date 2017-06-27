@@ -14,10 +14,12 @@ public class TCPClient extends Thread{
     private OutputStream os = null;
     private Socket sock = null;
     private Integer clientid = null;
+    private int player_num = 0;
     private CyclicBarrier ready_barrier = new CyclicBarrier(2);
     private static TCPClient client = null;
     public static final int DEFAULT_PORT = 8888;
     private TCPClient() {}
+    public Integer getClientNo() { return clientid; }
     public static TCPClient getClient() {
         if(client == null)
             client = new TCPClient();
@@ -74,8 +76,16 @@ public class TCPClient extends Thread{
             return false;
         }
         Logger.log("Delivered client ID " + clientid);
-        DOM.getInstance().addPlayer(clientid);
-        DOM.getInstance().addPlayerInfo(clientid);
+        try {
+            player_num = is.read();
+        } catch(IOException e) {
+            Logger.log("An error occure while reading from socket : " + sock);
+            return false;
+        }
+        for(int i = 0; i < player_num; ++i) {
+            DOM.getInstance().addPlayer(i);
+            DOM.getInstance().addPlayerInfo(i);
+        }
         DOM.getInstance().setClientno(clientid);
         try {
             ready_barrier.await();
@@ -86,20 +96,20 @@ public class TCPClient extends Thread{
         Logger.log("All clients connected.");
         return true;
     }
-    public void keyDown(int Code) {
+    public void keyDown(int code) {
         try {
             if(os == null) return;
             os.write(codes.KEYDOWN);
-            os.write(Code);
+            os.write(code);
         } catch(IOException e) {
             Logger.log("An error occur while sending to server : " + e);
         }
     }
-    public void keyRelease(int Code) {
+    public void keyRelease(int code) {
         try {
             if(os == null) return;
             os.write(codes.KEYRELEASE);
-            os.write(Code);
+            os.write(code);
         } catch(IOException e) {
             Logger.log("An error occur while sending to server : " + e);
         }
