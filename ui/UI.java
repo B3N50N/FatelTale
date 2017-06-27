@@ -132,7 +132,7 @@ public class UI
 	}
 	public void showScore()
 	{
-		Maxplayerno=TCPServer.THREAD_NUM;
+		Maxplayerno=DOM.getInstance().getPlayerNumber();
 		if(lbl==null)
 		{
 			lbl=new JLabel[Maxplayerno];
@@ -221,7 +221,7 @@ public class UI
 	public void endGameScreen()
 	{
         RenderThread.stop();
-		Maxplayerno=TCPServer.THREAD_NUM;
+		Maxplayerno=DOM.getInstance().getPlayerNumber();
         int[] number=new int[Maxplayerno];
 		int[] finalscore=new int[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
