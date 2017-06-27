@@ -9,7 +9,6 @@ import dom.DOM;
 import tcp.*;
 import logger.Logger;
 
-
 class KeyBoardListener implements KeyListener
 {
 	final static int upcode=38,downcode=40,rightcode=39,leftcode=37;
@@ -220,16 +219,9 @@ public class UI
 	}
 	public void endGameScreen()
 	{
-		frame.remove(canvas);
-        frame.remove(lifebar);
-        for(int i=0;i<Maxplayerno;i+=1)
-        {
-           frame.remove(lbl[i]);
-        }
-        frame.repaint();
+		Maxplayerno=TCPServer.THREAD_NUM;
         int[] number=new int[Maxplayerno];
 		int[] finalscore=new int[Maxplayerno];
-		JLabel[] finalscorelabel=new JLabel[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
 			number[i]=i;
 		for(int i=0;i<Maxplayerno;i+=1)
@@ -248,11 +240,20 @@ public class UI
 				}
 			}
 		}
+		frame.remove(canvas);
+        frame.remove(lifebar);
+        for(int i=0;i<Maxplayerno;i+=1)
+        {
+           frame.remove(lbl[i]);
+        }
+        frame.repaint();
+		JLabel[] finalscorelabel=new JLabel[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
 			String tmpstr = "Player " + i + " score :  " + finalscore[i];
+            finalscorelabel[i] = new JLabel();
 			finalscorelabel[i].setText(tmpstr);
-			finalscorelabel[i].setBounds(100,100+i*100,100,200);
+			finalscorelabel[i].setBounds(100, 100 + i * 150, 150, 300);
 			frame.add(finalscorelabel[i]);
 		}
 		frame.setVisible(true);
