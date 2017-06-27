@@ -24,10 +24,10 @@ public class CDC
 {
 	final static int MaxPlayerno=4;
 	private static Point playerinitlocation[];
-	private Map<Integer,Player> player;
-	private Map<Integer,Item> item;
-	private Map<Integer,Monster> monster;
-	private Map<Integer,Projector> projector;
+	private ConcurrentHashMap<Integer,Player> player;
+	private ConcurrentHashMap<Integer,Item> item;
+	private ConcurrentHashMap<Integer,Monster> monster;
+	private ConcurrentHashMap<Integer,Projector> projector;
 	private int itemid=0;
 	private int monsterid=0;
 	private int projectorid=0;
@@ -54,6 +54,10 @@ public class CDC
 		m.setDirection(new Point(10,0));
 		monster.put(0, m );
 		
+		Monster m = MonsterInfo.getInstance().getRandomMonster();
+		monster.put(getMonsterNewId(), m );
+		m.setDirection(new Point(0, 10));
+		m.setPosition(new Point(0, 0));
 		TCPServer.getServer().createObject(0, codes.MONSTER);
 		*/
 	}
@@ -65,10 +69,10 @@ public class CDC
 		}
 		return uniqueinstance;
 	}
-	public Map<Integer,Player> getPlayer(){return player;}
-	public Map<Integer,Item> getItem(){return item;}
-	public Map<Integer,Monster> getMonster(){return monster;}
-	public Map<Integer,Projector> getProjector(){return projector;}
+	public ConcurrentHashMap<Integer,Player> getPlayer(){return player;}
+	public ConcurrentHashMap<Integer,Item> getItem(){return item;}
+	public ConcurrentHashMap<Integer,Monster> getMonster(){return monster;}
+	public ConcurrentHashMap<Integer,Projector> getProjector(){return projector;}
 	public void keyDown(int clientno,int action)
 	{
 		assert player.get(clientno)!=null:"The clientno is invalid";
@@ -109,12 +113,17 @@ public class CDC
 	}
 	public void addItem(Point point,int type)
 	{
+		/*
 		Item tmp=new Item(point,type,ItemInfo.getInstance().getTypeInfo(type), ItemInfo.getInstance().getCollider(type).clone());
-		tmp.setPosition(point);
-		
 		item.putIfAbsent(itemid,tmp);
 		itemid+=1;
+		*/
 	}
+	
+	public void addProjector(Projector p) {
+		projector.put(getProjectorId(), p);
+	}
+	
 	public Vector<String> getUpdateInfo()
 	{
 		Vector<String> v=new Vector<String>();
@@ -141,7 +150,7 @@ public class CDC
 			str += entry.getValue().toString();
 			v.add(str);
 		}
-		
+		/*
 		for(Map.Entry<Integer,Item> entry:item.entrySet())
 		{
 			String str = "Item ";
@@ -150,7 +159,7 @@ public class CDC
 			str += entry.toString();
 			v.add(str);
 		}
-		
+		*/
 		return v;
 	}
 	public static void main(String[] args)

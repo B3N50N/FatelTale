@@ -20,14 +20,14 @@ public class ConnectionHandler extends Thread {
         try {
             sock.setKeepAlive(true);
         } catch(SocketException e) {
-            Logger.log("An error occur while setting keepalive on socket : " + e);
+            Logger.log("[" + id + "] An error occur while setting keepalive on socket : " + e);
             System.exit(1);
         }
         try {
             is = sock.getInputStream();
             os = sock.getOutputStream();
         } catch(IOException e) {
-            Logger.log("An error occur whlie getting IO stream" + e);
+            Logger.log("[" + id + "] An error occur whlie getting IO stream" + e);
             System.exit(1);
         }
     }
@@ -37,7 +37,19 @@ public class ConnectionHandler extends Thread {
             os.write(objid);
             os.write(type);
         } catch(IOException e) {
-            Logger.log("Connection closed : " + sock);
+            Logger.log("[" + id + "] Connection closed : " + sock);
+            try {
+                TCPServer.getServer().removeConnection(id);
+            } catch(NullPointerException ee){};
+        }
+    }
+    public void readMap(String path) {
+        try {
+            os.write(codes.READMAP);
+            os.write(path.getBytes().length);
+            os.write(path.getBytes());
+        } catch(IOException e) {
+            Logger.log("[" + id + "] Connection closed : " + sock);
             try {
                 TCPServer.getServer().removeConnection(id);
             } catch(NullPointerException ee){};
@@ -45,7 +57,6 @@ public class ConnectionHandler extends Thread {
     }
     public void run() {
         Logger.log("[" + id + "] Thread starts");
-        // TODO: set player type here
         try {
             os.write(codes.SYN);
             Logger.log("[" + id + "] Sending synchronize message");
@@ -63,6 +74,7 @@ public class ConnectionHandler extends Thread {
         } catch(Exception e) {
             Logger.log("Failed to wait on barrier");
         }
+        // TODO: set player type here
         CDC.getInstance().addPlayer(id, 0);
         for(;;) {
             try {

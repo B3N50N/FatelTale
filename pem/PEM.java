@@ -24,14 +24,14 @@ public class PEM {
 	private Set<Integer> _delete_monster;
 	private Set<Integer> _delete_projector;
 	
-	public Map<Integer, Player> _player;
-	public Map<Integer, Monster> _monster; // Only For Test
-	public Map<Integer, Projector> _projector; // Only For Test
-	public Map<Integer, Item> _item;
+	public ConcurrentHashMap<Integer, Player> _player;
+	public ConcurrentHashMap<Integer, Monster> _monster; // Only For Test
+	public ConcurrentHashMap<Integer, Projector> _projector; // Only For Test
+	public ConcurrentHashMap<Integer, Item> _item;
 	
 	private PEM() {
-		_tmp_monster = new HashMap<>();
-		_tmp_projector = new HashMap<>();
+		_tmp_monster = new ConcurrentHashMap<>();
+		_tmp_projector = new ConcurrentHashMap<>();
 		
 		_delete_monster = new HashSet<>();
 		_delete_projector = new HashSet<>();
@@ -72,7 +72,7 @@ public class PEM {
 		
 		nextPosition();
 		checkCollision();
-		//attacking();
+		attacking();
 		
 		updateData();
 	}
@@ -96,11 +96,12 @@ public class PEM {
 
 		for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
-				if ( projector.getValue().getAttackerID() < 4 ) {
+				if ( true || projector.getValue().getAttackerID() >= 4 ) {
 					if ( projector.getValue().getCollider().isCollide( player.getValue().getColiider() ) ) {
 						player.getValue().beAttacked( projector.getValue().getDamage() );
 						// TODO remove projector
 						deleteProjector( projector.getKey() );
+						System.out.println("HIIIIIIIIIIIIIIII");
 					}
 				}
 			}
@@ -111,7 +112,7 @@ public class PEM {
 				}
 			}
 		}
-		
+		/*
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
@@ -136,21 +137,42 @@ public class PEM {
 				//if ( player.getValue().getColiider().isCollide( item.getValue().geC))
 			}
 		}
+		*/
+
 	}
 	
 	public void attacking() {
 		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
 			e.getValue().attack();
 		}
+        
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
 			e.getValue().attack();
 		}
+        
 	}
 	
 	private void updateData() {
 		_monster.putAll(_tmp_monster);
 		_projector.putAll(_tmp_projector);
 		
+        /*
+		for ( ConcurrentHashMap.Entry<Integer, Projector> e : _tmp_projector.entrySet() ) {
+			String str = "Projector ";
+			str += String.valueOf( e.getKey() );
+			str += " ";
+			str += e.getValue().toString();
+			System.out.println(str);
+			_projector.put(e.getKey(), e.getValue());
+		}*/
+		//_projector.
+		/*
+		for ( Map.Entry<Integer, Monster> e : _tmp_monster.entrySet() ) {
+			TCPServer.getServer().createObject(e.getKey(), codes.MONSTER);
+		}*/
+		_monster.putAll(_tmp_monster);
+		_projector.putAll(_tmp_projector);
+
 	}
 	
 	public void addTempMonster(Monster m) {

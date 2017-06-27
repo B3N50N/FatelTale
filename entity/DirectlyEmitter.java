@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Point;
 
+import cdc.CDC;
 import pem.PEM;
 
 public class DirectlyEmitter extends Emitter {
@@ -19,6 +20,7 @@ public class DirectlyEmitter extends Emitter {
 			newInstance.setDamaage(damage);
 			// TODO PEM's function to add new projector
 			PEM.getInstance().addTempProjector(newInstance);
+			//CDC.getInstance().addProjector(newInstance);
 		}
 	}
 
