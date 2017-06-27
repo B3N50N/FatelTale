@@ -8,8 +8,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Timer;
 import logger.Logger;
-
 import dom.*;
+import tcp.*;
 
 public class UDPUS {
 	
@@ -32,7 +32,9 @@ public class UDPUS {
     static char temp2;
     static String temp3;
     
-    static int port =8890;
+    static int port =8890+ TCPClient.getClient().getClientNo();
+    static int myclientno =0;
+    
     
     
     MyThread my = new MyThread();
@@ -43,6 +45,7 @@ public class UDPUS {
 		 if(meow==null)
 		 {
 			 meow=new UDPUS();
+			 myclientno = TCPClient.getClient().getClientNo();
 		 }
 		 return meow;
 	 }
@@ -86,14 +89,13 @@ public class UDPUS {
 	private static void transfer() throws Exception {
         byte[] buffer = new byte[65507];
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
-        DatagramSocket ds = new DatagramSocket(port); // Set Server Port
-        System.out.println("server start at : "
-                + InetAddress.getLocalHost().getHostAddress() + ":" + ds.getLocalPort());
+        DatagramSocket ds = new DatagramSocket(port + myclientno); // Set Server Port
+        Logger.log("UDP server start");
         String msg = "No Message...";
         while (true) {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
-            System.out.println("msg recive : " + msg);
+            Logger.log("msg recive : " + msg);
             decode(msg);
         }
     }
@@ -116,7 +118,7 @@ public class UDPUS {
 				break;
 			}
 			
-			temp2 = msg.charAt(i);
+			temp2 = msg.charAt(i);//get string word by word
 			if(temp2 == ' ')
 			{
 				for(int j= 0;j<numofword;j++)
@@ -153,25 +155,25 @@ public class UDPUS {
 					if(numofelement ==0)
 					{
 						clientno = Integer.parseInt(temp3);
-						//System.out.println("clientno = "+clientno);
+						//Logger.log("clientno = "+clientno);
 						numofelement++;
 					}
 					else if(numofelement ==1)
 					{
 						assetIndex = Integer.parseInt(temp3);
-						//System.out.println("assetIndex = "+assetIndex);
+						//Logger.log("assetIndex = "+assetIndex);
 						numofelement++;
 					}
 					else if(numofelement ==2)
 					{
 						health = Integer.parseInt(temp3);
-						//System.out.println("health = "+health);
+						//Logger.log("health = "+health);
 						numofelement++;
 					}
 					else if(numofelement ==3)
 					{
 						maxHealth = Integer.parseInt(temp3);
-						//System.out.println("maxHealth = "+maxHealth);
+						//Logger.log("maxHealth = "+maxHealth);
 						numofelement++;
 					}
 					else if(numofelement ==4)
@@ -193,25 +195,25 @@ public class UDPUS {
 							direction =DynamicObject.DIRECTION.DOWN;
 						}
 						  
-						//System.out.println("direction = "+ direction);
+						//Logger.log("direction = "+ direction);
 						numofelement++;
 					}
 					else if(numofelement ==5)
 					{
 						score = Integer.parseInt(temp3);
-						//System.out.println("score = "+score);
+						//Logger.log("score = "+score);
 						numofelement++;
 					}
 					else if(numofelement ==6)
 					{
 						x = (int)Float.parseFloat(temp3);
-						//System.out.println("location_X = "+x);
+						//Logger.log("location_X = "+x);
 						numofelement++;
 					}
 					else if(numofelement ==7)
 					{
 						y = (int)Float.parseFloat(temp3);
-						//System.out.println("location_X = "+y);
+						//Logger.log("location_X = "+y);
 						numofelement++;
 					}
 					  
@@ -221,19 +223,19 @@ public class UDPUS {
 					  if(numofelement ==0)
 					  {
 						  id = Integer.parseInt(temp3);
-						  //System.out.println("clientno = "+clientno);
+						  //Logger.log("clientno = "+clientno);
 						  numofelement++;
 					  }
 					  else if(numofelement ==1)
 					  {
 						  x = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+x);
+						  //Logger.log("location_X = "+x);
 						  numofelement++;
 					  }
 					  else if(numofelement ==2)
 					  {
 						  y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+y);
+						  //Logger.log("location_X = "+y);
 						  numofelement++;
 					  }
 					  else if(numofelement ==3)
@@ -255,13 +257,13 @@ public class UDPUS {
 								direction =DynamicObject.DIRECTION.DOWN;
 							}
 							  
-							//System.out.println("direction = "+ direction);
+							//Logger.log("direction = "+ direction);
 							numofelement++;
 					  }
 					  else if(numofelement ==5)
 					  {
 						  assetIndex = Integer.parseInt(temp3);
-						  //System.out.println("assetIndex = "+assetIndex);
+						  //Logger.log("assetIndex = "+assetIndex);
 						  numofelement++;
 					  }
 				  }
@@ -270,43 +272,66 @@ public class UDPUS {
 					  if(numofelement ==0)
 					  {
 						  id = Integer.parseInt(temp3);
-						  //System.out.println("clientno = "+clientno);
+						  //Logger.log("id = "+id);
 						  numofelement++;
 					  }
 					  else if(numofelement ==1)
 					  {
 						  x = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+x);
+						  //Logger.log("location_X = "+x);
 						  numofelement++;
 					  }
 					  else if(numofelement ==2)
 					  {
 						  y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+y);
+						  //Logger.log("location_X = "+y);
 						  numofelement++;
 					  }
 					  else if(numofelement ==3)
 					  {
 						  direction2.x= (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+x);
+						  //Logger.log("direction2.x= "+direction2.x);
 						  numofelement++;
 					  }
 					  else if(numofelement ==4)
 					  {
 						  direction2.y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+y);
+						  //Logger.log("direction2.y = "+direction2.y);
 						  numofelement++;
 					  }
 					  else if(numofelement ==5)
 					  {
 						  assetIndex = Integer.parseInt(temp3);
-						  //System.out.println("assetIndex = "+assetIndex);
+						  //Logger.log("assetIndex = "+assetIndex);
 						  numofelement++;
 					  }
 				  }
 				  else if(type ==4)
 				  {
-					  
+					  if(numofelement ==0)
+						{
+						    assetIndex = Integer.parseInt(temp3);
+							//Logger.log("assetIndex = "+assetIndex);
+							numofelement++;
+						}
+					  else if(numofelement ==1)
+					  {
+						  id= (int)Float.parseFloat(temp3);
+						  //Logger.log("id= "+id);
+						  numofelement++;
+					  }
+					  else if(numofelement ==2)
+					  {
+						  x= (int)Float.parseFloat(temp3);
+						  //Logger.log("x= "+x);
+						  numofelement++;
+					  }
+					  else if(numofelement ==3)
+					  {
+						  y = (int)Float.parseFloat(temp3);
+						  //Logger.log("y = "+y);
+						  numofelement++;
+					  }
 				  }
 				  /*else if(type ==5)
 				  {
@@ -328,8 +353,7 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
-				//clientno = Integer.parseInt(temp3);
-				//id = Integer.parseInt(temp3);
+				
 				temp3 ="";
 				numofelement =0;
 				numofword =0;
@@ -372,14 +396,14 @@ public class UDPUS {
 				CDC_value2 = Integer.parseInt(CRC_value);
 				if(CDC_value2 == sample.hashCode())
 				{
-					Logger.log("CRC_value: "+CRC_value);
-					Logger.log("sample.hashCode(): "+sample.hashCode());
+					//Logger.log("CRC_value: "+CRC_value);
+					//Logger.log("sample.hashCode(): "+sample.hashCode());
 					CRCcheck=1;
 				}
 				else
 				{
-					Logger.log("CRC_value: "+CRC_value);
-					Logger.log("sample.hashCode(): "+sample.hashCode());
+					//Logger.log("CRC_value: "+CRC_value);
+					//Logger.log("sample.hashCode(): "+sample.hashCode());
 					Logger.log("package error!!!! ");
 					break;
 				}
@@ -398,47 +422,35 @@ public class UDPUS {
 	{
 		if(type ==1)
 		{
-			System.out.println("call_updatePlayer : " + " clientno : "+ clientno +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex );
+			Logger.log("call_updatePlayer : " + " clientno : "+ clientno +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+ assetIndex );
 			DOM.getInstance().updatePlayer(clientno, x, y, direction, assetIndex);
-			System.out.println("updatePlayer_SUCCESS");
-			System.out.println("call_updatePlayerInfo : " + " clientno : "+ clientno +" health : "+ health +" maxHealth : "+ maxHealth +" score : " + score);
+			Logger.log("updatePlayer_SUCCESS");
+			Logger.log("call_updatePlayerInfo : " + " clientno : "+ clientno +" health : "+ health +" maxHealth : "+ maxHealth +" score : " + score);
 			DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);
-			System.out.println("updatePlayerInfo_SUCCESS");
+			Logger.log("updatePlayerInfo_SUCCESS");
 		}
 		else if(type ==2)
 		{
 			//analyzedirection();
-			System.out.println("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
+			Logger.log("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
 			//DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
 			DOM.getInstance().updateMonster( id,x,y,direction,assetIndex);
-			System.out.println("updateMonster_SUCCESS");
+			Logger.log("updateMonster_SUCCESS");
 		}
 		else if(type ==3)
 		{
 			//analyzedirection();
-			System.out.println("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" directionX : "+ direction2.x+" directionY : "+ direction2.y +" assertIndex : "+ assetIndex);
+			Logger.log("call_updateProjector : " + " id : "+ id +" x : "+ x +" y : "+ y +" directionX : "+ direction2.x+" directionY : "+ direction2.y +" assertIndex : "+ assetIndex);
 			DOM.getInstance().updateProjector(id, x, y, direction2.x,  direction2.y, assetIndex);
-			System.out.println("updateProjector_SUCCESS");
+			Logger.log("updateProjector_SUCCESS");
 		}
 		else if(type ==4)
 		{
-			System.out.println("call_updateItem : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : " + assetIndex);
+			Logger.log("call_updateItem : " + " id : "+ id +" x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : " + assetIndex);
 			DOM.getInstance().updateItem(id, x, y, assetIndex);
-			System.out.println("updateItem_SUCCESS");
+			Logger.log("updateItem_SUCCESS");
 		}
-		/*else if(type ==5)
-		{
-			DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);
-		}*/
-		/*DOM.getInstance().updatePlayer(clientno, player);
-		DOM.getInstance().updatePlayer(clientno, x, y, direction, assetIndex);
-		DOM.getInstance().updateMonster(id, monster);
-		DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
-		DOM.getInstance().updateProjector( id, projector);
-		DOM.getInstance().updateProjector(id, x, y, direction, assetIndex);
-		DOM.getInstance().updateItem( id, item);
-		DOM.getInstance().updateItem(id, x, y, direction, assetIndex);
-		DOM.getInstance().updatePlayerInfo( clientno, health, maxHealth, score);*/
+		
 	}
 	private static void analyzedirection()
 	{
