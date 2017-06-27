@@ -19,7 +19,7 @@ public class UDPBC extends Thread {
 	private static int blocknum =0, nowblocknum =0;
 	private static Vector<String> v;
 	private static int msg_crc;
-	private static int stage_max =500,delay =30;
+	private static int stage_max =500,delay=100;
 	private static int port_start =8890;
 	
 	 MyThread my = new MyThread();
