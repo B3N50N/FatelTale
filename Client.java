@@ -27,6 +27,7 @@ public class Client {
 
         Logger.log("Game starts");
 		UI.getInstance().startGame();
+		UI.getInstance().showScore();
         UDPUS.getInstance().initUDPServer();
 		RenderThread _render_thread = new RenderThread();
 		_render_thread.start();

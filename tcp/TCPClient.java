@@ -7,6 +7,7 @@ import java.lang.Thread;
 import java.util.concurrent.CyclicBarrier;
 import dom.DOM;
 import sdm.SDM;
+import java.nio.ByteBuffer;
 
 import logger.Logger;
 
@@ -126,9 +127,11 @@ public class TCPClient extends Thread{
             try {
                 int code = is.read();
                 int objid = 0, type = 0;;
+                byte[] bytes = new byte[4];
                 switch(code) {
                 case codes.CREATEOBJ:
-                    objid = is.read();
+                    is.read(bytes, 0, 4);
+                    objid = ByteBuffer.wrap(bytes).getInt();
                     type = is.read();
                     switch(type) {
                         case codes.PLAYER:
@@ -146,7 +149,8 @@ public class TCPClient extends Thread{
                     }
                     break;
                 case codes.REMOVEOBJ:
-                    objid = is.read();
+                    is.read(bytes, 0, 4);
+                    objid = ByteBuffer.wrap(bytes).getInt();
                     type = is.read();
                     switch(type) {
                         case codes.PLAYER:
