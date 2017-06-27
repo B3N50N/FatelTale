@@ -161,11 +161,32 @@ public class UI
 				lbl[i].setFont(new Font("Serif", Font.PLAIN, 30));   
 			}
 		}
+		int[] playerscore=new int[Maxplayerno];
+		int[] playerid=new int[Maxplayerno];
+		for(int i=0;i<Maxplayerno;i+=1)
+		{
+			playerscore[i]=i;
+			playerid[i]=DOM.getInstance().getPlayerScore(i);
+		}
+		for(int i=Maxplayerno;i>=0;i-=1)
+		{
+			for(int j=0;j<i;j+=1)
+			{
+				if(playerscore[j]<playerscore[j+1])
+				{
+					int tmpscore=playerscore[j],tmpid=playerid[j];
+					playerscore[j]=playerscore[j+1];
+					playerid[j]=playerid[j+1];
+					playerscore[j+1]=tmpscore;
+					playerid[j+1]=tmpid;
+				}
+			}
+		}
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
 			int score=DOM.getInstance().getPlayerScore(i);
-			String tmp="Player "+String.valueOf(i)+" : ";
-			tmp+=String.valueOf(score);
+			String tmp="Player "+String.valueOf(playerid[i])+" : ";
+			tmp+=String.valueOf(playerscore[i]);
 			lbl[i].setText(tmp);
 			frame.add(lbl[i]);
 			frame.repaint();
@@ -219,13 +240,13 @@ public class UI
 	public void endGameScreen()
 	{
 		frame.remove(canvas);
-                frame.remove(lifebar);
-                for(int i=0;i<Maxplayerno;i+=1)
-                {
-                   frame.remove(lbl[i]);
-                }
-                frame.repaint();
-                int[] number=new int[Maxplayerno];
+        frame.remove(lifebar);
+        for(int i=0;i<Maxplayerno;i+=1)
+        {
+           frame.remove(lbl[i]);
+        }
+        frame.repaint();
+        int[] number=new int[Maxplayerno];
 		int[] finalscore=new int[Maxplayerno];
 		JLabel[] finalscorelabel=new JLabel[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
