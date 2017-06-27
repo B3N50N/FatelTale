@@ -5,6 +5,7 @@ import java.net.*;
 import java.lang.Thread;
 import cdc.CDC;
 import logger.Logger;
+import java.nio.ByteBuffer;
 
 public class ConnectionHandler extends Thread {
     private Socket sock;
@@ -34,7 +35,8 @@ public class ConnectionHandler extends Thread {
     public void modifyObject(int action, int objid, int type) {
         try {
             os.write(action);
-            os.write(objid);
+            byte[] bytes = ByteBuffer.allocate(4).putInt(objid).array();
+            os.write(bytes);
             os.write(type);
         } catch(IOException e) {
             Logger.log("[" + id + "] Connection closed : " + sock);
