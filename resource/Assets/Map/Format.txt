@@ -1,5 +1,5 @@
 1
-MapAssets.png
+background.png
 100 100
 
 
