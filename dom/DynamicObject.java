@@ -18,7 +18,7 @@ public class DynamicObject {
 
 	protected boolean drawable;
 	
-	protected int x,y; //position
+	protected int x, y; //position
 	protected int direction; //face direction   pictureID
 	protected int assetIndex;
 	protected int frame;
