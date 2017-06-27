@@ -1,13 +1,8 @@
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
-
-import scenere.SCENERE;
-import sdm.SDM;
-import spritere.SPRITERE;
 import ui.UI;
 import tcp.TCPClient;
 import udp.UDPUS;
 import logger.Logger;
+import render.RenderThread;
 
 public class Client {
 	public static void main(String[] args) {
@@ -30,80 +25,5 @@ public class Client {
         UDPUS.getInstance().initUDPServer();
 		RenderThread _render_thread = new RenderThread();
 		_render_thread.start();
-	}
-}
-
-
-class RenderThread implements Runnable {
-
-	private Thread _thread;
-	private boolean isRunning = false;
-
-	public RenderThread() {
-		init();
-	}
-	
-	private void init() {
-		//SDM.getInstance().readMap("resource/Map/Map001.txt"); 
-	}
-	
-	private void render() {
-		BufferStrategy bs = UI.getInstance().getBufferStrategy();
-		Graphics g = UI.getInstance().getGraphics();
-		g.clearRect(0, 0, UI.getInstance().getCanvasWidth(), UI.getInstance().getCanvasHeight());
-		if ( bs != null && g != null ) {
-			UI.getInstance().showScore();
-			SCENERE.getInstance().render(g);
-			SPRITERE.getInstance().render(g);
-			bs.show();
-			g.dispose();
-            UI.getInstance().showScore();
-		}
-		
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		init();
-		
-		int fps = 30;
-		double TimePerTick = 1000000000 / fps;
-		double delta = 0;
-		long nowTime;
-		long preTime = System.nanoTime();
-		
-		while (isRunning) {
-			nowTime = System.nanoTime();
-			delta += ( nowTime - preTime ) / TimePerTick;
-			preTime = nowTime;
-			
-			while ( delta >= 1 ) {
-				render();
-				delta -= 1;
-			}
-		}
-	}
-	
-	public synchronized void start() {
-		if ( isRunning ) 
-			return;
-		
-		isRunning = true;
-		_thread = new Thread(this);
-		_thread.start();
-	}
-	
-	public synchronized void stop() {
-		if ( !isRunning ) 
-			return;
-		
-		isRunning = false;
-		try {
-			_thread.join();
-		} catch (InterruptedException event) {
-			// TODO Auto-generated catch block
-			event.printStackTrace();
-		}
 	}
 }

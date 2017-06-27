@@ -8,6 +8,7 @@ import javax.swing.border.*;
 import dom.DOM;
 import tcp.*;
 import logger.Logger;
+import render.RenderThread;
 
 class KeyBoardListener implements KeyListener
 {
@@ -219,6 +220,7 @@ public class UI
 	}
 	public void endGameScreen()
 	{
+        RenderThread.stop();
 		Maxplayerno=TCPServer.THREAD_NUM;
         int[] number=new int[Maxplayerno];
 		int[] finalscore=new int[Maxplayerno];
