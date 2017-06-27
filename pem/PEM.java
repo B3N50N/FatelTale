@@ -70,7 +70,7 @@ public class PEM {
 		
 		nextPosition();
 		checkCollision();
-		//attacking();
+		attacking();
 		
 		updateData();
 	}
@@ -133,19 +133,21 @@ public class PEM {
 		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
 			e.getValue().attack();
 		}
+        /*
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
 			e.getValue().attack();
 		}
+        */
 	}
 	
 	private void updateData() {
-		
+        /*
 		for ( Map.Entry<Integer, Projector> e : _tmp_projector.entrySet() ) {
 			TCPServer.getServer().createObject(e.getKey(), codes.PROJECTOR);
 		}
 		for ( Map.Entry<Integer, Monster> e : _tmp_monster.entrySet() ) {
 			TCPServer.getServer().createObject(e.getKey(), codes.MONSTER);
-		}
+		}*/
 		_monster.putAll(_tmp_monster);
 		_projector.putAll(_tmp_projector);
 		

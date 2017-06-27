@@ -124,14 +124,13 @@ public class CDC
 			v.add(str);
 		}
 		
-		/*
 		for (Map.Entry<Integer, Projector> entry : projector.entrySet() ) {
 			String str = "Projector ";
 			str += String.valueOf( entry.getKey() );
 			str += " ";
 			str += entry.getValue().toString();
 			v.add(str);
-		}
+		}/*
 		for(Map.Entry<Integer,Item> entry:item.entrySet())
 		{
 			String str;

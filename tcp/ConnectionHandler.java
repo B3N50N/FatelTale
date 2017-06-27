@@ -20,24 +20,25 @@ public class ConnectionHandler extends Thread {
         try {
             sock.setKeepAlive(true);
         } catch(SocketException e) {
-            Logger.log("An error occur while setting keepalive on socket : " + e);
+            Logger.log("[" + id + "] An error occur while setting keepalive on socket : " + e);
             System.exit(1);
         }
         try {
             is = sock.getInputStream();
             os = sock.getOutputStream();
         } catch(IOException e) {
-            Logger.log("An error occur whlie getting IO stream" + e);
+            Logger.log("[" + id + "] An error occur whlie getting IO stream" + e);
             System.exit(1);
         }
     }
     public void modifyObject(int action, int objid, int type) {
         try {
+            Logger.log("[" + id + "] Sending modify object " + action + " " + objid + " " + type);
             os.write(action);
             os.write(objid);
             os.write(type);
         } catch(IOException e) {
-            Logger.log("Connection closed : " + sock);
+            Logger.log("[" + id + "] Connection closed : " + sock);
             try {
                 TCPServer.getServer().removeConnection(id);
             } catch(NullPointerException ee){};
