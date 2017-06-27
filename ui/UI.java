@@ -238,18 +238,19 @@ public class UI
 			{
 				if(finalscore[j]>finalscore[j+1])
 				{
-					int tmpscore=finalscore[j],tmpnum=num[j];
+					int tmpscore=finalscore[j],tmpnum=number[j];
 					finalscore[j]=finalscore[j+1];
 					finalscore[j+1]=tmpscore;
-					num[j]=num[j+1];
-					num[j+1]=tmpnum;
+					number[j]=number[j+1];
+					number[j+1]=tmpnum;
 				}
 			}
 		}
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
-			finalscorelabel[i]="Player "+String.valueOf(i)+" : ";
-			finalscorelabel[i]=String.valueOf(finalscore[i]);
+			String tmpstr="";
+			tmpstr="Player "+String.valueOf(i)+" : "+String.valueOf(finalscore[i]);
+			finalscorelabel[i].setText(tmpstr);
 			finalscorelabel[i].setBounds(100,100+i*100,100,200);
 			frame.add(finalscorelabel[i]);
 		}
