@@ -35,6 +35,7 @@ public class CDC
 	private CDC()
 	{
 		TCPServer.getServer().readMap("resource/Map/Map001.txt");
+		//SDM.getInstance().readMap("resource/Map/Map001.txt");
 		player=new ConcurrentHashMap<>();
 		item=new ConcurrentHashMap<>();
 		monster=new ConcurrentHashMap<>();
