@@ -144,7 +144,10 @@ public class Projector extends DynamicObject {
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
 		// Drawing the rotated image at the required drawing locations
-		g2d.drawImage(op.filter(img, null), x-img.getWidth()/2, y-img.getHeight()/2, null);
+		g2d.drawImage(op.filter(img, null),
+				      x - DOM.getInstance().getPlayerX() - img.getWidth()/2 + UI.getInstance().getCanvasWidth()/2, 
+			          y - DOM.getInstance().getPlayerY() - img.getHeight()/2 + UI.getInstance().getCanvasHeight()/2, 
+				      null);
 	}
 	
 	public BufferedImage getImage(){
