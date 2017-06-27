@@ -101,9 +101,11 @@ public class CDC
 	}
 	public void addItem(Point point,int type)
 	{
+		/*
 		Item tmp=new Item(point,type,ItemInfo.getInstance().getTypeInfo(type), ItemInfo.getInstance().getCollider(type).clone());
 		item.putIfAbsent(itemid,tmp);
 		itemid+=1;
+		*/
 	}
 	
 	public void addProjector(Projector p) {
