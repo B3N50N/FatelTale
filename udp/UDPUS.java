@@ -308,7 +308,30 @@ public class UDPUS {
 				  }
 				  else if(type ==4)
 				  {
-					  
+					  if(numofelement ==0)
+						{
+						    assetIndex = Integer.parseInt(temp3);
+							//Logger.log("assetIndex = "+assetIndex);
+							numofelement++;
+						}
+					  else if(numofelement ==1)
+					  {
+						  id= (int)Float.parseFloat(temp3);
+						  //Logger.log("id= "+id);
+						  numofelement++;
+					  }
+					  else if(numofelement ==2)
+					  {
+						  x= (int)Float.parseFloat(temp3);
+						  //Logger.log("x= "+x);
+						  numofelement++;
+					  }
+					  else if(numofelement ==3)
+					  {
+						  y = (int)Float.parseFloat(temp3);
+						  //Logger.log("y = "+y);
+						  numofelement++;
+					  }
 				  }
 				  /*else if(type ==5)
 				  {
