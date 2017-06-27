@@ -3,6 +3,7 @@ package tcp;
 // Encode format : action + keystatus
 public class codes {
     public static final int SYN = 0xFF;
+    public static final int READMAP = 0xFE;
     // subactions
     public static final int MOVELEFT = 0x0;
     public static final int MOVERIGHT = 0x1;

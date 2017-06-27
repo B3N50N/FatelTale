@@ -5,7 +5,8 @@ import java.net.*;
 import java.util.HashMap;
 import java.lang.Thread;
 import java.util.concurrent.CyclicBarrier;
-import dom.*;
+import dom.DOM;
+import sdm.SDM;
 
 import logger.Logger;
 
@@ -161,6 +162,12 @@ public class TCPClient extends Thread{
                             DOM.getInstance().removeItem(objid);
                             break;
                     }
+                    break;
+                case codes.READMAP:
+                    int len = is.read();
+                    byte[] buf = new byte[len];
+                    is.read(buf, 0, len);
+                    SDM.getInstance().readMap((new String(buf)));
                     break;
                 case -1:
                     throw new IOException();

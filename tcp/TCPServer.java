@@ -39,7 +39,10 @@ public class TCPServer {
     public void deleteObject(int objid, int type) {
         for(ConnectionHandler conn : clients.values())
             conn.modifyObject(codes.REMOVEOBJ, objid, type);
-        
+    }
+    public void readMap(String path) {
+        for(ConnectionHandler conn : clients.values())
+            conn.readMap(path);
     }
     // initialize server with default port
     public void initTCPServer() {
