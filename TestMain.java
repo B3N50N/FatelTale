@@ -2,10 +2,7 @@ import java.awt.Point;
 import java.io.IOException;
 import java.util.Vector;
 
-<<<<<<< HEAD
-=======
 import adm.ADM;
->>>>>>> master
 import cdc.CDC;
 import entity.*;
 import pem.PEM;
@@ -22,7 +19,8 @@ public class TestMain {
 		if ( PlayerInfo.getInstance().getCollider(0) == null ) {
 			System.out.println("HHHH");
 		}
-		System.out.println(PlayerInfo.getInstance().getCollider(0).getType());
+		
+		PlayerInfo.getInstance().getEmitter(0).Print();
 		//PEM.getInstance().PrintState();
 		/*
 		PThread t = new PThread();
@@ -54,45 +52,10 @@ public class TestMain {
 		for ( String str : v ) {
 			System.out.println(str);
 		}
-		*/
-<<<<<<< HEAD
-		/*
-		Item item = new Item(new Point(0, 0), 0, ItemInfo.getInstance().getTypeInfo(0), ItemInfo.getInstance().getCollider(0).clone());
-		
-		item.setPosition(new Point(100, 100));
-		item.Print();
-		
-		Item newItem = item.clone();
-		newItem.setPosition(new Point(200, 100));
-		
-		item.Print();
-		newItem.Print();
-		*/
-		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
-		
-		Monster m = MonsterInfo.getInstance().getRandomMonster();
-		m.setDirection(new Point(10, 10));
-		m.setPosition(new Point(19, 0));
-		PEM.getInstance().putMonster_Test(m);
-		PEM.getInstance().PrintState();
-		
-		Monster m1 = m.clone();
-		m1.setPosition(new Point(8, 8));
-		PEM.getInstance().putMonster_Test(m1);
-		
-		
-		Projector p = new StrikeProjector(new Point(0, 0), new Point(1, 2), m1.getCollider().clone(), 1L, 1, 1);
-		PEM.getInstance().putProjector_Test(p);
-		CDC.getInstance().getProjector().put(1, p);
-		Vector<String> v = CDC.getInstance().getUpdateInfo();
-		for ( String str : v ) {
-			System.out.println(str);
-		}
-		
-		
-=======
->>>>>>> master
+
 		//PEM.getInstance().PrintState();
+		 * */
+		 
 	}
 	
 	static public void Finish() {
@@ -105,20 +68,12 @@ public class TestMain {
 	}
 }
 
-<<<<<<< HEAD
-class PPPThread implements Runnable {
-=======
 class PThread implements Runnable {
->>>>>>> master
 
 	private Thread _thread;
 	private boolean isRunning = false;
 
-<<<<<<< HEAD
-	public PPPThread() {
-=======
 	public PThread() {
->>>>>>> master
 		init();
 	}
 	

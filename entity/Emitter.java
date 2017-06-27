@@ -50,7 +50,7 @@ public abstract class Emitter {
 	}
 	
 	protected boolean canAttack() {
-		if ( System.currentTimeMillis() - _last_attack_time >= _attack_speed ) {
+		if ( System.currentTimeMillis() - _last_attack_time >= 1000 ) {
 			_last_attack_time = System.currentTimeMillis();
 			Logger.log("Can Attack.");
 			return true;

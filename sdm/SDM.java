@@ -100,7 +100,7 @@ public class SDM {
 	}
 	
 	public boolean isOutofBound(int x, int y) {
-		return ( x >= 0 && x < ( _width * ADM.getInstance().getMapWidth() ) && y >= 0 && y < ( _height * ADM.getInstance().getMapHeight() ) );
+		return !( x >= 0 && x < ( _width * ADM.getInstance().getMapWidth() ) && y >= 0 && y < ( _height * ADM.getInstance().getMapHeight() ) );
 	}
 	
 	public boolean isWalkable(int x, int y) {

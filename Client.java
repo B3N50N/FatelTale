@@ -44,7 +44,7 @@ class RenderThread implements Runnable {
 	}
 	
 	private void init() {
-		SDM.getInstance().readMap("resource/Map/Map001.txt"); 
+		//SDM.getInstance().readMap("resource/Map/Map001.txt"); 
 	}
 	
 	private void render() {

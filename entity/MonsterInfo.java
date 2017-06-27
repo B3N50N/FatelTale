@@ -77,6 +77,7 @@ public class MonsterInfo {
 		Emitter[] e = new Emitter[ emitter_size ];
 		for (int i=0;i<emitter_size;i++) {
 			e[i] = EmitterInfo.getInstance().getEmitter(br);
+			e[i].setAttacker(4);
 		}
 		
 		Input = br.readLine();

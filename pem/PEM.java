@@ -13,6 +13,7 @@ import entity.*;
 import tcp.TCPServer;
 import tcp.codes;
 import logger.Logger;
+import sdm.SDM;
 
 public class PEM {
 	
@@ -89,6 +90,9 @@ public class PEM {
 		
 		for ( Map.Entry<Integer, Projector> e : _projector.entrySet() ) {
 			e.getValue().move();
+			if ( SDM.getInstance().isOutofBound(e.getValue().getPosition().x, e.getValue().getPosition().y) ) {
+				deleteProjector(e.getKey());
+			}
 		}
 	}
 	
@@ -96,12 +100,11 @@ public class PEM {
 
 		for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
-				if ( true || projector.getValue().getAttackerID() >= 4 ) {
+				if ( projector.getValue().getAttackerID() >= 4 ) {
 					if ( projector.getValue().getCollider().isCollide( player.getValue().getColiider() ) ) {
 						player.getValue().beAttacked( projector.getValue().getDamage() );
 						// TODO remove projector
 						deleteProjector( projector.getKey() );
-						System.out.println("HIIIIIIIIIIIIIIII");
 					}
 				}
 			}
@@ -112,7 +115,7 @@ public class PEM {
 				}
 			}
 		}
-		/*
+		
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
@@ -137,7 +140,7 @@ public class PEM {
 				//if ( player.getValue().getColiider().isCollide( item.getValue().geC))
 			}
 		}
-		*/
+		
 
 	}
 	

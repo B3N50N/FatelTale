@@ -209,6 +209,10 @@ public class Player
 		return _collider;
 	}
 	
+	public Emitter getEmitter() {
+		return _emitter;
+	}
+	
 	public String toString()
     {
         String str="";

@@ -34,6 +34,7 @@ public class CDC
 	public static CDC uniqueinstance;
 	private CDC()
 	{
+		TCPServer.getServer().readMap("resource/Map/Map001.txt");
 		player=new ConcurrentHashMap<>();
 		item=new ConcurrentHashMap<>();
 		monster=new ConcurrentHashMap<>();
@@ -53,13 +54,13 @@ public class CDC
 		m.setPosition(new Point(50, 50));
 		m.setDirection(new Point(10,0));
 		monster.put(0, m );
-		
+		*/
 		Monster m = MonsterInfo.getInstance().getRandomMonster();
 		monster.put(getMonsterNewId(), m );
 		m.setDirection(new Point(0, 10));
 		m.setPosition(new Point(0, 0));
 		TCPServer.getServer().createObject(0, codes.MONSTER);
-		*/
+		
 	}
 	public static synchronized CDC getInstance()
 	{
@@ -109,6 +110,7 @@ public class CDC
 		player.put(clientno, p);
 		
 		p.setPosition(new Point(playerinitlocation[clientno].x, playerinitlocation[clientno].y) );
+		p.getEmitter().Print();
 		Logger.log(p.toString());
 	}
 	public void addItem(Point point,int type)

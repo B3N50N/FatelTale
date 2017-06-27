@@ -59,6 +59,7 @@ public class PlayerInfo
 				
 				_collider[i] = ColliderInfo.getInstance().getCollider(buff);
 				_emitter[i] = EmitterInfo.getInstance().getEmitter(buff);
+				_emitter[i].setAttacker(i);
 				
 				fin.close();
 				buff.close();
