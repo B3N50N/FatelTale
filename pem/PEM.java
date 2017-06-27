@@ -125,7 +125,7 @@ public class PEM {
 					_player.get( projector.getValue().getAttackerID() ).changeScore( projector.getValue().getDamage() );
 					deleteProjector( projector.getKey() );
 					
-					if ( !monster.getValue().isDead() ) {
+					if ( monster.getValue().isDead() ) {
 						_player.get( projector.getValue().getAttackerID() ).changeScore( 30 );
 						deleteMonster( monster.getKey() );
 						break;

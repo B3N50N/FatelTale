@@ -103,10 +103,10 @@ public class SDM {
 		return !( x >= 0 && x < ( _width * ADM.getInstance().getMapWidth() ) && y >= 0 && y < ( _height * ADM.getInstance().getMapHeight() ) );
 	}
 	
-	public boolean isWalkable(int x, int y) {
-		x /= ADM.getInstance().getMapWidth();
-		y /= ADM.getInstance().getMapHeight();
-		return ( x >= 0 && x < _width && y >= 0 && y < _height ) ? _map[y][x].isWalkable() : false;
+	public boolean isWalkable(int _x, int _y) {
+		int x = _x / ADM.getInstance().getMapWidth();
+		int y = _y / ADM.getInstance().getMapHeight();
+		return ( _x >= 0 && _y >= 0 && x >= 0 && x < _width && y >= 0 && y < _height ) ? _map[y][x].isWalkable() : false;
 	}
 	
 	public boolean isLegal(int x, int y) {
