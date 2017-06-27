@@ -16,45 +16,9 @@ public class TestMain {
 		// TODO Auto-generated method stub
 		SDM.getInstance().readMap("./resource/Map/Map001.txt");
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
-		if ( PlayerInfo.getInstance().getCollider(0) == null ) {
-			System.out.println("HHHH");
-		}
 		
-		PlayerInfo.getInstance().getEmitter(0).Print();
-		//PEM.getInstance().PrintState();
-		/*
-		PThread t = new PThread();
-		t.start();
-		
-		P1Thread t1 = new P1Thread();
-		t1.start();
-		*/
-		//while ( state );
-		
-		/*
-		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
-		
-		Monster m = MonsterInfo.getInstance().getRandomMonster();
-		m.setDirection(new Point(10, 10));
-		m.setPosition(new Point(19, 0));
-		PEM.getInstance().putMonster_Test(m);
-		PEM.getInstance().PrintState();
-		
-		Monster m1 = m.clone();
-		m1.setPosition(new Point(8, 8));
-		PEM.getInstance().putMonster_Test(m1);
-		
-		
-		Projector p = new StrikeProjector(new Point(0, 0), new Point(1, 2), m1.getCollider().clone(), 1L, 1, 1);
-		PEM.getInstance().putProjector_Test(p);
-		CDC.getInstance().getProjector().put(1, p);
-		Vector<String> v = CDC.getInstance().getUpdateInfo();
-		for ( String str : v ) {
-			System.out.println(str);
-		}
-
-		//PEM.getInstance().PrintState();
-		 * */
+		Monster m = MonsterInfo.getInstance().getBossMonster();
+		m.isDead();
 		 
 	}
 	
