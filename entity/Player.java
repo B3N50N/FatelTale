@@ -157,8 +157,9 @@ public class Player
 		if ( System.currentTimeMillis() - _last_revive_time < 3000L ) return;
 		int _damage = damage - defense;
 		if ( _damage < 0 ) _damage = 0;
+		//System.out.println(_damage);
 		changeHealth(-_damage);
-		changeScore(-damage);
+		changeScore(-_damage);
 	}
 	
 	public void setPosition(Point p) {

@@ -121,7 +121,8 @@ public class PEM {
 			if ( player.getValue().isDead() ) {
 				ReviveThread rt = new ReviveThread(player.getKey(), player.getValue());
 				_player.remove( player.getKey() );
-				rt.run();
+				rt.start();
+				System.out.println("Keep Going");
 			}
 		}
 		
@@ -248,11 +249,13 @@ public class PEM {
 		private Thread _thread;
 		private Player _p;
 		private int P_ID;
+		private boolean isRunning = false;
 		
 		public ReviveThread (int ID, Player p) {
 			_thread = new Thread();
 			_p = p;
 			P_ID = ID;
+			isRunning = false;
 		}
 		
 		@Override
@@ -266,6 +269,28 @@ public class PEM {
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}
+		
+		public void start() {
+			if ( isRunning ) 
+				return;
+			
+			isRunning = true;
+			_thread = new Thread(this);
+			_thread.start();
+		}
+		
+		public void stop() {
+			if ( !isRunning ) 
+				return;
+			
+			isRunning = false;
+			try {
+				_thread.join();
+			} catch (InterruptedException event) {
+				// TODO Auto-generated catch block
+				event.printStackTrace();
 			}
 		}
 	}
