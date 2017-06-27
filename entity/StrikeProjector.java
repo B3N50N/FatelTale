@@ -42,7 +42,6 @@ public class StrikeProjector extends Projector {
 		Projector newInstance = new StrikeProjector(c._pos, new Point(_dir), c, _speed, _attacker_ID, _asset_index);
 		newInstance.setDirection(new Point(_dir));
 		newInstance.setPosition(new Point(_pos));
-		System.out.println("Born In " + newInstance.getPosition().x + " + " +  newInstance.getPosition().y + " " + _dir);
 		return newInstance;
 	}
 

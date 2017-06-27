@@ -9,7 +9,7 @@ import logger.Logger;
 public class Monster {
 	
 	private int _max_health;
-	private int _health;
+	protected int _health;
 	private int _attack;
 	private int _defense;
 	private Point _pos, _dir;

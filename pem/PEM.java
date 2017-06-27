@@ -65,7 +65,7 @@ public class PEM {
 		checkCollision();
 		attacking();
 		
-		monsterGeneration();
+		//monsterGeneration();
 		
 		updateData();
 	}
@@ -100,7 +100,6 @@ public class PEM {
 						player.getValue().beAttacked( projector.getValue().getDamage() );
 						// TODO remove projector
 						deleteProjector( projector.getKey() );
-						System.out.println("HURT!");
 					}
 				}
 			}

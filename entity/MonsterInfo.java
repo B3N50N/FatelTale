@@ -46,10 +46,12 @@ public class MonsterInfo {
 			
 			_monster = new Monster[ size ];
 			
-			for (int i=0;i<size;i++) {
+			for (int i=0;i<size-1;i++) {
 				Input = br.readLine();
-				_monster[i] = readMonsterFile(path+Input);
+				_monster[i] = readMonsterFile(path+Input, false);
 			}
+			Input = br.readLine();
+			_monster[size-1] = readMonsterFile(path+Input, true);
 			
 		} catch (FileNotFoundException e) {
 			assert false : "No such File.";
@@ -58,7 +60,7 @@ public class MonsterInfo {
 		}
 	}
 	
-	private Monster readMonsterFile(String path) throws IOException, FileNotFoundException {
+	private Monster readMonsterFile(String path, boolean isBoss) throws IOException, FileNotFoundException {
 		FileReader fr;
 		fr = new FileReader(path);
 		BufferedReader br=new BufferedReader(fr);	
@@ -106,6 +108,9 @@ public class MonsterInfo {
 		assert Input.matches("\\d+") : "Wrong Format.";
 		speed = Long.parseLong(Input);
 		
+		if ( isBoss ) {
+			return new Boss(health, attack, defense, index, e, speed, c);
+		}
 		return new Monster(health, attack, defense, index, e, speed, c);
 	}
 	
@@ -113,9 +118,14 @@ public class MonsterInfo {
 		assert _monster != null : "Null Object.";
 		
 		Random rand = new Random();
-		int size = _monster.length;
+		int size = _monster.length-1;
 		
 		return _monster[ rand.nextInt(size) ].clone();
+	}
+	
+	public Monster getBossMonster() {
+		assert _monster != null : "Null Object.";
+		return _monster[ _monster.length-1 ].clone();
 	}
 	
 	private Collider getCollider(BufferedReader br) throws IOException {

@@ -95,7 +95,7 @@ public class UDPUS {
         while (true) {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
-            Logger.log("msg recive : " + msg);
+            //Logger.log("msg recive : " + msg);
             decode(msg);
         }
     }
