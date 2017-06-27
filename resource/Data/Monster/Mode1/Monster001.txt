@@ -2,7 +2,7 @@ Sphere
 20
 1
 DirectlyEmitter
-200
+1000
 StrikeProjector
 Sphere
 5

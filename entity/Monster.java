@@ -58,7 +58,7 @@ public class Monster {
 		return false;
 	}
 	public void move(Map<Integer, Player> player) {
-		if ( canMove() ) {
+		if ( canMove() ) {		
 			if ( canChangeDirection() ) {
 				Point tmpPoint = null;
 				for ( Map.Entry<Integer, Player> p : player.entrySet() ) {
@@ -72,6 +72,7 @@ public class Monster {
 				
 				if ( tmpPoint != null ) {
 					if ( tmpPoint.distance(_dir) > 30.0 ) {
+						//Logger.log("Moving");
 						changePosition(new Point(_pos.x + _dir.x, _pos.y + _dir.y));
 					}
 					Point nextDirection = new Point(tmpPoint.x - _pos.x, tmpPoint.y - _pos.y);
@@ -80,6 +81,7 @@ public class Monster {
 					_dir.y = (int) (( nextDirection.getY() / dis ) * 10.0);
 				}
 			}
+			
 		}
 	}
 	
@@ -126,7 +128,12 @@ public class Monster {
 		for (int i=0;i<_emitter.length;i++) {
 			_emitter[i].setDirection(d);
 		}
-		_collider.setPosition(d);
+		_collider.setDirection(d);
+	}
+	
+	public void changeDirection(int x, int y) {
+		_dir.x = x;
+		_dir.y = y;
 	}
 	
 	public Collider getCollider() {
@@ -151,7 +158,25 @@ public class Monster {
 	}
 	
 	public String toString() {
-		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y) + " " + String.valueOf(_asset_index);
+		int X = Math.abs(_dir.x), Y = Math.abs(_dir.y);
+		String direction;
+		if ( X > Y ) {
+			if ( _dir.x < 0 ) {
+				direction = "west";
+			}
+			else {
+				direction = "east";
+			}
+		}
+		else {
+			if ( _dir.y > 0 ) {
+				direction = "south";
+			}
+			else {
+				direction = "north";
+			}
+		}
+		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + direction + " " + String.valueOf(_asset_index) + " ";
 	}
 	
 	public Monster clone() {

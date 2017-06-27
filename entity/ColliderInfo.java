@@ -24,7 +24,7 @@ public class ColliderInfo {
 			
 			Input = br.readLine();
 			st = new StringTokenizer(Input);
-			
+			System.out.println(Input);
 			assert st.countTokens() == 2 : "Wrong Format.";
 			
 			Input = st.nextToken();

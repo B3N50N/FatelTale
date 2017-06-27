@@ -95,7 +95,7 @@ public class UDPUS {
         while (true) {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
-            //Logger.log("msg recive : " + msg);
+            Logger.log("msg recive : " + msg);
             decode(msg);
         }
     }
@@ -125,7 +125,7 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
-				//System.out.println(temp3);
+				System.out.println(temp3);
 				
 				if(type ==0)
 				{
@@ -149,6 +149,7 @@ public class UDPUS {
 					{
 						type = 5;
 					}
+					System.out.println("type = "+type);
 				}
 			    else if(type ==1)
 				{
@@ -308,7 +309,30 @@ public class UDPUS {
 				  }
 				  else if(type ==4)
 				  {
-					  
+					  if(numofelement ==0)
+						{
+						    assetIndex = Integer.parseInt(temp3);
+							//Logger.log("assetIndex = "+assetIndex);
+							numofelement++;
+						}
+					  else if(numofelement ==1)
+					  {
+						  id= (int)Float.parseFloat(temp3);
+						  //Logger.log("id= "+id);
+						  numofelement++;
+					  }
+					  else if(numofelement ==2)
+					  {
+						  x= (int)Float.parseFloat(temp3);
+						  //Logger.log("x= "+x);
+						  numofelement++;
+					  }
+					  else if(numofelement ==3)
+					  {
+						  y = (int)Float.parseFloat(temp3);
+						  //Logger.log("y = "+y);
+						  numofelement++;
+					  }
 				  }
 				  /*else if(type ==5)
 				  {

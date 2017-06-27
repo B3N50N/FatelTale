@@ -148,6 +148,8 @@ public class Player
 	{
 		assert newx>=0&&newy>=0:"The position is invalid";
 		location.setLocation(newx,newy);
+		_collider.getPosition().setLocation(newx, newy);
+		_emitter.getPosition().setLocation(newx, newy);
 	}
 	
 	public void beAttacked(int damage) {
@@ -193,6 +195,7 @@ public class Player
 				location.y += DIRECTION[ direction ].y;
 				_dir.x = DIRECTION[ direction ].x;
 				_dir.y = DIRECTION[ direction ].y;
+				_collider.setPosition(location);
 			}
 		}
 	}
