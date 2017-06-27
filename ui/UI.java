@@ -1,30 +1,13 @@
 package ui;
-import java.awt.Canvas;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferStrategy;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
 import java.util.HashMap;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.border.Border;
+import javax.swing.*;
+import javax.swing.border.*;
 import dom.DOM;
-
-import tcp.codes;
-import tcp.TCPClient;
+import tcp.*;
 import logger.Logger;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 
 
 class KeyBoardListener implements KeyListener
@@ -149,7 +132,7 @@ public class UI
 	}
 	public void showScore()
 	{
-		Maxplayerno=dom.DOM.getInstance().getPlayerNumber();
+		Maxplayerno=TCPServer.THREAD_NUM;
 		if(lbl==null)
 		{
 			lbl=new JLabel[Maxplayerno];
@@ -165,12 +148,12 @@ public class UI
 		int[] playerid=new int[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
-			playerscore[i]=i;
-			playerid[i]=DOM.getInstance().getPlayerScore(i);
+			playerid[i]=i;
+			playerscore[i]=DOM.getInstance().getPlayerScore(i);
 		}
 		for(int i=Maxplayerno;i>=0;i-=1)
 		{
-			for(int j=0;j<i;j+=1)
+			for(int j=0;j<i - 1;j+=1)
 			{
 				if(playerscore[j]<playerscore[j+1])
 				{
@@ -184,9 +167,7 @@ public class UI
 		}
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
-			int score=DOM.getInstance().getPlayerScore(i);
-			String tmp="Player "+String.valueOf(playerid[i])+" : ";
-			tmp+=String.valueOf(playerscore[i]);
+			String tmp = "Player " + playerid[i] +" : " + playerscore[i];
 			lbl[i].setText(tmp);
 			frame.add(lbl[i]);
 			frame.repaint();
@@ -255,7 +236,7 @@ public class UI
 			finalscore[i]=DOM.getInstance().getPlayerScore(i);
 		for(int i=Maxplayerno;i>=0;i-=1)
 		{
-			for(int j=0;j<i;j+=1)
+			for(int j=0;j<i - 1;j+=1)
 			{
 				if(finalscore[j]>finalscore[j+1])
 				{

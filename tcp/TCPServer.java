@@ -11,7 +11,7 @@ import java.util.concurrent.CyclicBarrier;
 
 public class TCPServer {
     // default number of threads(clients)
-    public static final int THREAD_NUM = 1;
+    public static final int THREAD_NUM = 2;
     // default port that server listening on
     public static final int DEFAULT_PORT = 8888;
     private static HashMap<Integer, ConnectionHandler> clients = null;
