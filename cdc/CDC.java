@@ -47,6 +47,7 @@ public class CDC
 				                        SDM.getInstance().getHeight() * ADM.getInstance().getMapHeight() );
 		
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+		
 		monsterid++;
 		Monster m = MonsterInfo.getInstance().getRandomMonster();
 		m.setPosition(new Point(50, 50));
@@ -85,21 +86,15 @@ public class CDC
 	}
 	public int getMonsterNewId()
 	{
-		int tmp=monsterid;
-		monsterid+=1;
-		return tmp;
+		return monsterid++;
 	}
 	public int getItemNewId()
 	{
-		int tmp=itemid;
-		itemid+=1;
-		return tmp;
+		return itemid++;
 	}
 	public int getProjectorId()
 	{
-		int tmp=projectorid;
-		projectorid+=1;
-		return tmp;
+		return projectorid++;
 	}
 	public void addPlayer(int clientno,int type)
 	{

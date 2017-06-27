@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Point;
+import logger.Logger;
 
 public class BoxCollider extends Collider{
 	
@@ -143,10 +144,10 @@ public class BoxCollider extends Collider{
 	@Override
 	public void Print() {
 		// TODO Auto-generated method stub
-		System.out.println("Box Collider : ");
-		System.out.println("Position : " + _pos);
-		System.out.println("Size : " + _width + " " + _height);
-		System.out.println("Direction : " + _dir);
-		System.out.println("==========");
+		Logger.log("Box Collider : ");
+	    Logger.log("Position : " + _pos);
+		Logger.log("Size : " + _width + " " + _height);
+	    Logger.log("Direction : " + _dir);
+		Logger.log("==========");
 	}
 }

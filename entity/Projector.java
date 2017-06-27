@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Point;
+import logger.Logger;
 
 public abstract class Projector {
 	
@@ -88,13 +89,13 @@ public abstract class Projector {
 	}
 	
 	public void Print() {
-		System.out.println("Projector : ");
-		System.out.println("Position : " + _pos.x + " " + _pos.y);
-		System.out.println("======================");
+		Logger.log("Projector : ");
+		Logger.log("Position : " + _pos.x + " " + _pos.y);
+		Logger.log("======================");
 	}
 	
 	public String toString() {
 		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y) + " " +
-			   String.valueOf(_asset_index);
+			   String.valueOf(_asset_index) + " ";
 	}
 }

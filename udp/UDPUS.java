@@ -413,7 +413,7 @@ public class UDPUS {
 			//Logger.log("call_updateMonster : " + " id : " + id + " x : "+ x +" y : "+ y +" direction : "+ direction +" assertIndex : "+assetIndex);
 			//DOM.getInstance().updateMonster(id, x, y, direction, assetIndex);
 			DOM.getInstance().updateMonster( id,x,y,direction,assetIndex);
-		    Logger.log("updateMonster_SUCCESS");
+		    //Logger.log("updateMonster_SUCCESS");
 		}
 		else if(type ==3)
 		{

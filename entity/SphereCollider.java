@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Point;
+import logger.Logger;
 
 public class SphereCollider extends Collider{
 	
@@ -52,9 +53,9 @@ public class SphereCollider extends Collider{
 	@Override
 	public void Print() {
 		// TODO Auto-generated method stub
-		System.out.println("Sphere Collider : ");
-		System.out.println("Position : " + _pos);
-		System.out.println("Size : " + _radius);
-		System.out.println("==========");
+		Logger.log("Sphere Collider : ");
+		Logger.log("Position : " + _pos);
+		Logger.log("Size : " + _radius);
+		Logger.log("==========");
 	}
 }

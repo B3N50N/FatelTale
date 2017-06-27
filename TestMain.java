@@ -10,11 +10,11 @@ public class TestMain {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		SDM.getInstance().readMap("./resource/Map/Map001.txt");
-		/*
+		
 		PEMThread t = new PEMThread();
 		t.start();
-		*/
 		
+		/*
 		Item item = new Item(new Point(0, 0), 0, ItemInfo.getInstance().getTypeInfo(0), ItemInfo.getInstance().getCollider(0).clone());
 		
 		item.setPosition(new Point(100, 100));
@@ -25,6 +25,7 @@ public class TestMain {
 		
 		item.Print();
 		newItem.Print();
+		*/
 		//PEM.getInstance().PrintState();
 	}
 
