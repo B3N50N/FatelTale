@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 import cdc.CDC;
 import entity.*;
 import tcp.TCPServer;
 import tcp.codes;
+import logger.Logger;
 
 public class PEM {
 	
@@ -40,13 +40,13 @@ public class PEM {
 		_projector = CDC.getInstance().getProjector();
 		_item = CDC.getInstance().getItem();
 		
-		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
-		Monster m = MonsterInfo.getInstance().getRandomMonster();
+//		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
+//		Monster m = MonsterInfo.getInstance().getRandomMonster();
 		
-		m.setPosition(new Point(50, 50));
-		m.setDirection(new Point(10, 0));
-		m.Print();
-		_monster.put(CDC.getInstance().getMonsterNewId(), m);
+//		m.setPosition(new Point(50, 50));
+//		m.setDirection(new Point(10, 0));
+//		m.Print();
+//		_monster.put(CDC.getInstance().getMonsterNewId(), m);
 	}
 	
 	public static synchronized PEM getInstance() {
@@ -70,7 +70,7 @@ public class PEM {
 		
 		nextPosition();
 		checkCollision();
-		//attacking();
+		attacking();
 		
 		updateData();
 	}
@@ -113,7 +113,7 @@ public class PEM {
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
-					System.out.println("Collision!");
+				    Logger.log("Collision!");
 					// TODO Notice PEM to Delete Projector and change Monster's Health
 					monster.getValue().beAttacked( projector.getValue().getDamage() );
 					_player.get( projector.getValue().getAttackerID() ).changeScore( projector.getValue().getDamage() );
@@ -133,19 +133,21 @@ public class PEM {
 		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
 			e.getValue().attack();
 		}
+        /*
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
 			e.getValue().attack();
 		}
+        */
 	}
 	
 	private void updateData() {
-		
+        /*
 		for ( Map.Entry<Integer, Projector> e : _tmp_projector.entrySet() ) {
 			TCPServer.getServer().createObject(e.getKey(), codes.PROJECTOR);
 		}
 		for ( Map.Entry<Integer, Monster> e : _tmp_monster.entrySet() ) {
 			TCPServer.getServer().createObject(e.getKey(), codes.MONSTER);
-		}
+		}*/
 		_monster.putAll(_tmp_monster);
 		_projector.putAll(_tmp_projector);
 		
@@ -189,17 +191,17 @@ public class PEM {
 	public void PrintState() {
 		
 		for ( Map.Entry<Integer, Player> p : _player.entrySet() ) {
-			System.out.println(p.getValue().toString());
+			Logger.log(p.getValue().toString());
 		}
-		System.out.println("Monster : ");
+		Logger.log("Monster : ");
 		for ( Map.Entry<Integer, Monster> m : _monster.entrySet() ) {
-			System.out.println(m.getKey() + " : " + m.getValue().toString() );
+			Logger.log(m.getKey() + " : " + m.getValue().toString() );
 			//m.getValue().Print();
 		}
 		/*
-		System.out.println("Projector : ");
+		Logger.log("Projector : ");
 		for ( Map.Entry<Integer, Projector> p : _projector.entrySet() ) {
-			System.out.println("ID : " + p.getKey() );
+			Logger.log("ID : " + p.getKey() );
 			p.getValue().Print();
 		}
 		*/
