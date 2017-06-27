@@ -9,7 +9,7 @@ import tcp.codes;
 import logger.Logger;
 public class Player 
 {
-	private int health,attack,direction,defense, maxhealth;
+	private int health,attack,direction = 0,defense, maxhealth;
 	private Long attackspeed,movespeed;
 	private Point location;
 	//private boolean active;
@@ -162,13 +162,14 @@ public class Player
 		location = p;
 		_emitter.setPosition(p);
 		_collider.setPosition(p);
+		
+		setDirection();
 	}
 	
-	public void setDirection(Point d) {
-		assert d != null : "Null Object.";
-		_dir = d;
+	public void setDirection( ) {
+		_dir = new Point( DIRECTION[ direction ].x, DIRECTION[ direction ].y);
 		_emitter.setDirection(_dir);
-		_collider.setDirection(d);
+		_collider.setDirection(_dir);
 	}
 	
 	private boolean canMove() {

@@ -1,10 +1,6 @@
 import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
-import adm.ADM;
 import entity.*;
 import pem.PEM;
 import sdm.SDM;
@@ -18,7 +14,8 @@ public class TestMain {
 		PEMThread t = new PEMThread();
 		t.start();
 		*/
-		Item item = new Item(new Point(0, 0), 0, ItemInfo.getInstance().getTypeInfo(0), ItemInfo.getInstance().getCollider(0));
+		
+		Item item = new Item(new Point(0, 0), 0, ItemInfo.getInstance().getTypeInfo(0), ItemInfo.getInstance().getCollider(0).clone());
 		
 		item.setPosition(new Point(100, 100));
 		item.Print();
@@ -33,12 +30,12 @@ public class TestMain {
 
 }
 
-class PEMThread implements Runnable {
+class PPPThread implements Runnable {
 
 	private Thread _thread;
 	private boolean isRunning = false;
 
-	public PEMThread() {
+	public PPPThread() {
 		init();
 	}
 	

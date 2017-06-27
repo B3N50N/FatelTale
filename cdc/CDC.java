@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import adm.ADM;
+import entity.Collider;
 import entity.Item;
 import entity.ItemInfo;
 import entity.Player;
@@ -47,7 +48,11 @@ public class CDC
 		
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
 		monsterid++;
-		monster.put(0, MonsterInfo.getInstance().getRandomMonster() );
+		Monster m = MonsterInfo.getInstance().getRandomMonster();
+		m.setPosition(new Point(50, 50));
+		m.setDirection(new Point(10,0));
+		monster.put(0, m );
+		
 		TCPServer.getServer().createObject(0, codes.MONSTER);
 	}
 	public static synchronized CDC getInstance()
@@ -108,7 +113,9 @@ public class CDC
 	}
 	public void addItem(Point point,int type)
 	{
-		Item tmp=new Item(point,type,ItemInfo.getInstance().getTypeInfo(type));
+		Item tmp=new Item(point,type,ItemInfo.getInstance().getTypeInfo(type), ItemInfo.getInstance().getCollider(type).clone());
+		tmp.setPosition(point);
+		
 		item.putIfAbsent(itemid,tmp);
 		itemid+=1;
 	}
@@ -121,7 +128,7 @@ public class CDC
 			str=entry.getValue().toString();
 			v.add(str);
 		}
-		/*
+		
 		for(Map.Entry<Integer,Monster> entry:monster.entrySet())
 		{
 			String str = "Monster ";
@@ -130,8 +137,7 @@ public class CDC
 			str += entry.getValue().toString();
 			v.add(str);
 		}
-		*/
-		/*
+		
 		for (Map.Entry<Integer, Projector> entry : projector.entrySet() ) {
 			String str = "Projector ";
 			str += String.valueOf( entry.getKey() );
@@ -139,13 +145,16 @@ public class CDC
 			str += entry.getValue().toString();
 			v.add(str);
 		}
+		
 		for(Map.Entry<Integer,Item> entry:item.entrySet())
 		{
-			String str;
-			str=entry.toString();
+			String str = "Item ";
+			str += String.valueOf(entry.getKey());
+			str += " ";
+			str += entry.toString();
 			v.add(str);
 		}
-		*/
+		
 		return v;
 	}
 	public static void main(String[] args)
