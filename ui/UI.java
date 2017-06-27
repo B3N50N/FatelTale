@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,13 @@ import javax.swing.JPanel;
 import tcp.codes;
 import tcp.TCPClient;
 import logger.Logger;
+import dom.DOM;
+import javax.swing.JProgressBar;
+import javax.swing.border.Border;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 
 class KeyBoardListener implements KeyListener
 {
@@ -54,11 +62,16 @@ public class UI
 	private static UI uniqueinstance; 
 	private JFrame frame;
 	private Canvas canvas;
+	private final int canvaswidth=500,canvasheight=500;
 	private final int framewidth=500,frameheight=500;
 	private BufferStrategy bs;
 	private JPanel startmenupanel,waitingpanel;
 	private JPanel endgamepanel,gamepanel;
     private String srvaddr;
+    private int Maxplayerno;
+    private JLabel[] lbl;
+    private JProgressBar progressbar;
+    JProgressBar lifebar;
 	private UI()
 	{
 		frame=new JFrame();
@@ -140,6 +153,39 @@ public class UI
 		frame.remove(frame.getContentPane());
 		assert startmenupanel!=null:"startmenupanel is null";
 		frame.add(startmenupanel);
+		frame.setVisible(true);
+	}
+	public void showScore()
+	{
+		Maxplayerno=dom.DOM.getInstance().getPlayerNumber();
+		if(lbl==null)
+		{
+			lbl=new JLabel[Maxplayerno];
+			for(int i=0;i<Maxplayerno;i+=1)
+			{
+				String tmp="";
+				lbl[i]=new JLabel(tmp);
+				lbl[i].setBounds(50,i*50+10,50,50);
+				lbl[i].setFont(new Font("Serif", Font.PLAIN, 30));   
+			}
+		}
+		for(int i=0;i<Maxplayerno;i+=1)
+		{
+			int score=DOM.getInstance().getPlayerScore(i);
+			String tmp=String.valueOf(score);
+			lbl[i].setText(tmp);
+		}
+		if(lifebar==null)
+			lifebar=new JProgressBar();
+		int health,maxhealth;
+		health=DOM.getInstance().getPlayerHealth();
+		maxhealth=DOM.getInstance().getPlayerMaxHealth();
+		lifebar.setValue(health*100/maxhealth); 
+		Border border = BorderFactory.createMatteBorder(6,6,6,6,Color.BLUE);  
+		lifebar.setStringPainted(true);
+		lifebar.setBorder(border);
+		lifebar.setBounds(200, 200,300,100);   
+		frame.setVisible(true);
 	}
 	public void startGame()
 	{
@@ -147,7 +193,7 @@ public class UI
 		frame.getContentPane().removeAll();
 		frame.add(new JPanel());
 		canvas=new Canvas();
-		canvas.setBounds(0,0,framewidth,frameheight);		
+		canvas.setBounds(300,300,canvaswidth,canvasheight);		
 		canvas.addKeyListener(new KeyBoardListener());
 		frame.add(canvas);
 		frame.addKeyListener(new KeyBoardListener());
