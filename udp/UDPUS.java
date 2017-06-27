@@ -95,7 +95,7 @@ public class UDPUS {
         while (true) {
             ds.receive(dp);
             msg = new String(dp.getData(), 0, dp.getLength());
-            Logger.log("msg recive : " + msg);
+            //Logger.log("msg recive : " + msg);
             decode(msg);
         }
     }
@@ -125,8 +125,6 @@ public class UDPUS {
 				{
 					temp3 = temp3 + Character.toString(temp[j]);
 				}
-				System.out.println(temp3);
-				
 				if(type ==0)
 				{
 					if(temp3.equals("Player"))
@@ -149,32 +147,27 @@ public class UDPUS {
 					{
 						type = 5;
 					}
-					System.out.println("type = "+type);
 				}
 			    else if(type ==1)
 				{
 					if(numofelement ==0)
 					{
 						clientno = Integer.parseInt(temp3);
-						//System.out.println("clientno = "+clientno);
 						numofelement++;
 					}
 					else if(numofelement ==1)
 					{
 						assetIndex = Integer.parseInt(temp3);
-						//System.out.println("assetIndex = "+assetIndex);
 						numofelement++;
 					}
 					else if(numofelement ==2)
 					{
 						health = Integer.parseInt(temp3);
-						//System.out.println("health = "+health);
 						numofelement++;
 					}
 					else if(numofelement ==3)
 					{
 						maxHealth = Integer.parseInt(temp3);
-						//System.out.println("maxHealth = "+maxHealth);
 						numofelement++;
 					}
 					else if(numofelement ==4)
@@ -196,25 +189,21 @@ public class UDPUS {
 							direction =DynamicObject.DIRECTION.DOWN;
 						}
 						  
-						//System.out.println("direction = "+ direction);
 						numofelement++;
 					}
 					else if(numofelement ==5)
 					{
 						score = Integer.parseInt(temp3);
-						//System.out.println("score = "+score);
 						numofelement++;
 					}
 					else if(numofelement ==6)
 					{
 						x = (int)Float.parseFloat(temp3);
-						//System.out.println("location_X = "+x);
 						numofelement++;
 					}
 					else if(numofelement ==7)
 					{
 						y = (int)Float.parseFloat(temp3);
-						//System.out.println("location_X = "+y);
 						numofelement++;
 					}
 					  
@@ -224,19 +213,16 @@ public class UDPUS {
 					  if(numofelement ==0)
 					  {
 						  id = Integer.parseInt(temp3);
-						  //System.out.println("clientno = "+clientno);
 						  numofelement++;
 					  }
 					  else if(numofelement ==1)
 					  {
 						  x = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+x);
 						  numofelement++;
 					  }
 					  else if(numofelement ==2)
 					  {
 						  y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+y);
 						  numofelement++;
 					  }
 					  else if(numofelement ==3)
@@ -258,13 +244,11 @@ public class UDPUS {
 								direction =DynamicObject.DIRECTION.DOWN;
 							}
 							  
-							//System.out.println("direction = "+ direction);
 							numofelement++;
 					  }
 					  else if(numofelement ==5)
 					  {
 						  assetIndex = Integer.parseInt(temp3);
-						  //System.out.println("assetIndex = "+assetIndex);
 						  numofelement++;
 					  }
 				  }
@@ -273,37 +257,31 @@ public class UDPUS {
 					  if(numofelement ==0)
 					  {
 						  id = Integer.parseInt(temp3);
-						  //System.out.println("clientno = "+clientno);
 						  numofelement++;
 					  }
 					  else if(numofelement ==1)
 					  {
 						  x = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+x);
 						  numofelement++;
 					  }
 					  else if(numofelement ==2)
 					  {
 						  y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+y);
 						  numofelement++;
 					  }
 					  else if(numofelement ==3)
 					  {
 						  direction2.x= (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+x);
 						  numofelement++;
 					  }
 					  else if(numofelement ==4)
 					  {
 						  direction2.y = (int)Float.parseFloat(temp3);
-						  //System.out.println("location_X = "+y);
 						  numofelement++;
 					  }
 					  else if(numofelement ==5)
 					  {
 						  assetIndex = Integer.parseInt(temp3);
-						  //System.out.println("assetIndex = "+assetIndex);
 						  numofelement++;
 					  }
 				  }
@@ -394,7 +372,6 @@ public class UDPUS {
 						sample =sample + msg.charAt(k);
 					}
 				}
-				//System.out.println(CRC_value.equals(sample.hashCode()));
 				CDC_value2 = Integer.parseInt(CRC_value);
 				if(CDC_value2 == sample.hashCode())
 				{

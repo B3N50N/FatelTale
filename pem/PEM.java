@@ -262,7 +262,7 @@ public class PEM {
 		public void run() {
 			// TODO Auto-generated method stub
 			try {
-				_thread.sleep(10000);
+				Thread.sleep(10000);
 				_p.revive();
 				_player.put(P_ID, _p);
 				System.out.println("Revive");
