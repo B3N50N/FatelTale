@@ -132,7 +132,7 @@ public class BoxCollider extends Collider{
 	public Collider clone() {
 		// TODO Auto-generated method stub
 		Collider newInstance = new BoxCollider(new Point(_pos), new Point(_dir), _width, _height);
-		return null;
+		return newInstance;
 	}
 
 	@Override

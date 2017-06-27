@@ -96,6 +96,6 @@ public abstract class Projector {
 	
 	public String toString() {
 		return String.valueOf(_pos.x) + " " + String.valueOf(_pos.y) + " " + String.valueOf(_dir.x) + " " + String.valueOf(_dir.y) + " " +
-			   String.valueOf(_asset_index);
+			   String.valueOf(_asset_index) + " ";
 	}
 }

@@ -19,16 +19,18 @@ public class TestMain {
 		// TODO Auto-generated method stub
 		SDM.getInstance().readMap("./resource/Map/Map001.txt");
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
-		
-		Monster m = MonsterInfo.getInstance().getRandomMonster();
-		m.setDirection(new Point(10, 10));
-		m.setPosition(new Point(19, 0));
-		PEM.getInstance().putMonster_Test(m);
+		if ( PlayerInfo.getInstance().getCollider(0) == null ) {
+			System.out.println("HHHH");
+		}
+		System.out.println(PlayerInfo.getInstance().getCollider(0).getType());
+		//PEM.getInstance().PrintState();
+		/*
 		PThread t = new PThread();
 		t.start();
 		
 		P1Thread t1 = new P1Thread();
 		t1.start();
+		*/
 		//while ( state );
 		
 		/*

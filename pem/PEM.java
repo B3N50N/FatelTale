@@ -69,7 +69,7 @@ public class PEM {
 		_item = CDC.getInstance().getItem();
 		
 		nextPosition();
-		//checkCollision();
+		checkCollision();
 		attacking();
 		
 		updateData();
@@ -94,11 +94,12 @@ public class PEM {
 
 		for ( Map.Entry<Integer, Player> player : _player.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
-				if ( projector.getValue().getAttackerID() < 4 ) {
+				if ( true || projector.getValue().getAttackerID() >= 4 ) {
 					if ( projector.getValue().getCollider().isCollide( player.getValue().getColiider() ) ) {
 						player.getValue().beAttacked( projector.getValue().getDamage() );
 						// TODO remove projector
 						deleteProjector( projector.getKey() );
+						System.out.println("HIIIIIIIIIIIIIIII");
 					}
 				}
 			}
@@ -109,7 +110,7 @@ public class PEM {
 				}
 			}
 		}
-		
+		/*
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
@@ -127,6 +128,7 @@ public class PEM {
 				}
 			}
 		}
+		*/
 	}
 	
 	public void attacking() {

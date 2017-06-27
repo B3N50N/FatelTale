@@ -3,8 +3,8 @@
 100
 10
 50
-Sphere
-50
+Box
+20 50
 DirectlyEmitter
 50
 StrikeProjector
