@@ -1,3 +1,9 @@
-1
+4
 ProjectorTest2.png
+32 32
+projector3.png
+32 32
+projector4.png
+32 32
+projector5.png
 32 32
