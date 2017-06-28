@@ -23,6 +23,7 @@ public class Player
 	private Point _dir = new Point();
 	
 	private Long _last_move_time, _last_revive_time;
+	private boolean revivingCheck = false;
 	
 	static final Point[] DIRECTION = new Point[] {
 		new Point(-10, 0  ), 
@@ -82,12 +83,20 @@ public class Player
 		return health <= 0;
 	}
 	
+	public boolean isReviving() {
+		return revivingCheck;
+	}
+	
 	public void changeHealth(int dif)
 	{
 		if(health+dif<0)
 			health=0;
 		else
 			health+=dif;
+		if ( health <= 0 ) {
+			_last_revive_time = System.currentTimeMillis();
+			revivingCheck = true;
+		}
 	}
 	
 	public int getAttack() {return attack;}

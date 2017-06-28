@@ -113,7 +113,7 @@ public class PEM {
 				ReviveThread rt = new ReviveThread(player.getKey(), player.getValue());
 				_player.remove( player.getKey() );
 				rt.start();
-				System.out.println("Keep Going");
+				//System.out.println("Keep Going");
 			}
 		}
 		
@@ -141,7 +141,8 @@ public class PEM {
 	
 	public void attacking() {
 		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
-			e.getValue().attack();
+			if ( ! e.getValue().isDead() )
+				e.getValue().attack();
 		}
         
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
@@ -153,6 +154,10 @@ public class PEM {
 	private void updateData() {
 		_monster.putAll(_tmp_monster);
 		_projector.putAll(_tmp_projector);
+		
+		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
+			//e.getValue().
+		}
 	}
 	
 	private void monsterGeneration() {
@@ -193,11 +198,7 @@ public class PEM {
 		_projector.remove(ID);
 		TCPServer.getServer().deleteObject(ID, codes.PROJECTOR);
 	}
-	
-	private void addPlayer(Integer ID, Player p) {
-		_player.put(ID, p);
-	}
-	
+
 	public void PrintState() {
 		
 		for ( Map.Entry<Integer, Player> p : _player.entrySet() ) {
@@ -240,7 +241,7 @@ public class PEM {
 				Thread.sleep(10000);
 				_p.revive();
 				_player.put(P_ID, _p);
-				System.out.println("Revive");
+				//System.out.println("Revive");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

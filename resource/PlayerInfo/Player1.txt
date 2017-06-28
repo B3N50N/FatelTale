@@ -6,8 +6,7 @@
 Sphere
 30
 AngleEmitter
-200
--45 45 3
+150
 StrikeProjector
 Sphere
 5
