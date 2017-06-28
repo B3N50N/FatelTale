@@ -367,7 +367,7 @@ public class UDPUS {
 					{
 						CRC_value = CRC_value + msg.charAt(k);
 					}
-					else if(CRCstate ==2  && msg.charAt(k) !='*')
+					else if(CRCstate ==2 )
 					{
 						sample =sample + msg.charAt(k);
 					}
