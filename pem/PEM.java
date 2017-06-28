@@ -86,7 +86,7 @@ public class PEM {
 		
 		for ( Map.Entry<Integer, Projector> e : _projector.entrySet() ) {
 			e.getValue().move();
-			if ( SDM.getInstance().isOutofBound(e.getValue().getPosition().x, e.getValue().getPosition().y) ) {
+			if ( !e.getValue().isAlive() || SDM.getInstance().isOutofBound(e.getValue().getPosition().x, e.getValue().getPosition().y) ) {
 				deleteProjector(e.getKey());
 			}
 		}
@@ -124,7 +124,12 @@ public class PEM {
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
-				    Logger.log("Collision!");
+				    Logger.log("Collision in " + monster.getValue().getCollider().getPosition() + " and " + projector.getValue().getPosition() );
+				    if ( monster.getValue().getCollider().getPosition().equals(new Point(-1, -1) ) ) {
+				    	Logger.log("Strange Pos");
+				    	monster.getValue().getCollider().Print();
+				    	break;
+				    }
 					// TODO Notice PEM to Delete Projector and change Monster's Health
 				    if ( _player.get( projector.getValue().getAttackerID() ) == null ) {
 				    	continue;
@@ -176,9 +181,14 @@ public class PEM {
 				Monster m = MonsterInfo.getInstance().getRandomMonster();
 				int mapWidth = ADM.getInstance().getMapWidth() * SDM.getInstance().getWidth(), 
 					mapHeight = ADM.getInstance().getMapHeight() * SDM.getInstance().getHeight();
-				
+
+				int nX = -1, nY = -1;
+				while ( !SDM.getInstance().isOutofBound(nX, nY)) {
+					nX = _rand.nextInt(mapWidth);
+					nY = _rand.nextInt(mapHeight);
+				}
 				m.setDirection(new Point(0, 0));
-				m.setPosition(new Point(_rand.nextInt(mapWidth), _rand.nextInt(mapHeight)));
+				m.setPosition(new Point(nX, nY));
 				
 				addTempMonster(m);
 			}

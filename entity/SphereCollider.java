@@ -34,7 +34,7 @@ public class SphereCollider extends Collider{
 	}
 	
 	private boolean isCollide(SphereCollider sc) {
-		return ( sc._pos.distanceSq(_pos) < ( sc._radius * sc._radius + _radius * _radius ) );
+		return ( sc._pos.distanceSq(_pos) < ( ( sc._radius +  _radius ) * ( sc._radius +  _radius ) ) );
 	}
 
 	@Override

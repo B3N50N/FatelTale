@@ -1,7 +1,7 @@
 Sphere
 20
 1
-StrikeProjector
+DirectlyEmitter
 1000
 StrikeProjector
 Sphere
