@@ -30,7 +30,8 @@ public class PEM {
 	public ConcurrentHashMap<Integer, Item> _item;
 	
 	private Random _rand;
-	private Long _last_monster_generation;
+	private Long _last_monster_generation, _last_boss_generation;
+	private Long _max_game_play_time, _start_game_time;
 	
 	private PEM() {
 		_tmp_monster = new ConcurrentHashMap<>();
@@ -42,7 +43,10 @@ public class PEM {
 		_item = CDC.getInstance().getItem();
 		
 		_rand = new Random();
-		_last_monster_generation = System.currentTimeMillis();
+		_last_boss_generation = _last_monster_generation = System.currentTimeMillis();
+		
+		_start_game_time = System.currentTimeMillis();
+		_max_game_play_time = 60000L;
 	}
 	
 	public static synchronized PEM getInstance() {
@@ -164,7 +168,23 @@ public class PEM {
 		if ( System.currentTimeMillis() - _last_monster_generation >= 15000 ) {
 			_last_monster_generation = System.currentTimeMillis();
 			
-			Monster m = MonsterInfo.getInstance().getRandomMonster();
+			int _max_monster_num = (int) (( _last_monster_generation - _start_game_time ) / ( _max_game_play_time / 4 ));
+			_max_monster_num ++;
+			_max_monster_num = _rand.nextInt(_max_monster_num) + 1;
+			
+			for (int i=0;i<_max_monster_num;i++) {
+				Monster m = MonsterInfo.getInstance().getRandomMonster();
+				int mapWidth = ADM.getInstance().getMapWidth() * SDM.getInstance().getWidth(), 
+					mapHeight = ADM.getInstance().getMapHeight() * SDM.getInstance().getHeight();
+				
+				m.setDirection(new Point(0, 0));
+				m.setPosition(new Point(_rand.nextInt(mapWidth), _rand.nextInt(mapHeight)));
+				
+				addTempMonster(m);
+			}
+		}
+		if ( System.currentTimeMillis() - _last_boss_generation >= _max_game_play_time ) {
+			Monster m = MonsterInfo.getInstance().getRandomBossMonster();
 			int mapWidth = ADM.getInstance().getMapWidth() * SDM.getInstance().getWidth(), 
 				mapHeight = ADM.getInstance().getMapHeight() * SDM.getInstance().getHeight();
 			
@@ -172,6 +192,7 @@ public class PEM {
 			m.setPosition(new Point(_rand.nextInt(mapWidth), _rand.nextInt(mapHeight)));
 			
 			addTempMonster(m);
+			_last_boss_generation = System.currentTimeMillis();
 		}
 	}
 	
