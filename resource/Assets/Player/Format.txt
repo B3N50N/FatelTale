@@ -3,3 +3,7 @@ PlayerTest1.png
 70 124
 PlayerTest2.png
 70 124
+PlayerTest1.png
+70 124
+PlayerTest2.png
+70 124

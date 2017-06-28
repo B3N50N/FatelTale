@@ -1,6 +1,8 @@
 1
 MonsterTest1.png
 85 128
+BOSS.png
+200 200
 
 
 
