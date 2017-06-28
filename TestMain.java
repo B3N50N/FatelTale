@@ -17,7 +17,7 @@ public class TestMain {
 		SDM.getInstance().readMap("./resource/Map/Map001.txt");
 		MonsterInfo.getInstance().loadMonsterData("./resource/Data/Monster/Mode1/");
 		
-		MonsterInfo.getInstance().getRandomMonster().Print();
+		MonsterInfo.getInstance().getRandomMonster(5).Print();
 		 
 	}
 	

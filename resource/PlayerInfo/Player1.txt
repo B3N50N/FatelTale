@@ -1,14 +1,14 @@
 60
-1000
+20
 100
 10
 50
 Sphere
 30
-AngleEmitter
-200
--45 45 3
+DirectlyEmitter
+150
 StrikeProjector
 Sphere
 5
-50 0
+50 1
+

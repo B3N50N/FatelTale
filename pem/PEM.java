@@ -30,7 +30,8 @@ public class PEM {
 	public ConcurrentHashMap<Integer, Item> _item;
 	
 	private Random _rand;
-	private Long _last_monster_generation;
+	private Long _last_monster_generation, _last_boss_generation;
+	private Long _max_game_play_time, _start_game_time;
 	
 	private PEM() {
 		_tmp_monster = new ConcurrentHashMap<>();
@@ -42,7 +43,10 @@ public class PEM {
 		_item = CDC.getInstance().getItem();
 		
 		_rand = new Random();
-		_last_monster_generation = System.currentTimeMillis();
+		_last_boss_generation = _last_monster_generation = System.currentTimeMillis();
+		
+		_start_game_time = System.currentTimeMillis();
+		_max_game_play_time = 60000L;
 	}
 	
 	public static synchronized PEM getInstance() {
@@ -82,7 +86,7 @@ public class PEM {
 		
 		for ( Map.Entry<Integer, Projector> e : _projector.entrySet() ) {
 			e.getValue().move();
-			if ( SDM.getInstance().isOutofBound(e.getValue().getPosition().x, e.getValue().getPosition().y) ) {
+			if ( !e.getValue().isAlive() || SDM.getInstance().isOutofBound(e.getValue().getPosition().x, e.getValue().getPosition().y) ) {
 				deleteProjector(e.getKey());
 			}
 		}
@@ -113,14 +117,19 @@ public class PEM {
 				ReviveThread rt = new ReviveThread(player.getKey(), player.getValue());
 				_player.remove( player.getKey() );
 				rt.start();
-				System.out.println("Keep Going");
+				//System.out.println("Keep Going");
 			}
 		}
 		
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
-				    Logger.log("Collision!");
+				    Logger.log("Collision in " + monster.getValue().getCollider().getPosition() + " and " + projector.getValue().getPosition() );
+				    if ( monster.getValue().getCollider().getPosition().equals(new Point(-1, -1) ) ) {
+				    	Logger.log("Strange Pos");
+				    	monster.getValue().getCollider().Print();
+				    	break;
+				    }
 					// TODO Notice PEM to Delete Projector and change Monster's Health
 				    if ( _player.get( projector.getValue().getAttackerID() ) == null ) {
 				    	continue;
@@ -141,7 +150,8 @@ public class PEM {
 	
 	public void attacking() {
 		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
-			e.getValue().attack();
+			if ( ! e.getValue().isDead() )
+				e.getValue().attack();
 		}
         
 		for ( Map.Entry<Integer, Monster> e : _monster.entrySet() ) {
@@ -153,13 +163,38 @@ public class PEM {
 	private void updateData() {
 		_monster.putAll(_tmp_monster);
 		_projector.putAll(_tmp_projector);
+		
+		for ( Map.Entry<Integer, Player> e : _player.entrySet() ) {
+			//e.getValue().
+		}
 	}
 	
 	private void monsterGeneration() {
-		if ( System.currentTimeMillis() - _last_monster_generation >= 15000 ) {
+		if ( System.currentTimeMillis() - _last_monster_generation >= 10000 ) {
 			_last_monster_generation = System.currentTimeMillis();
 			
-			Monster m = MonsterInfo.getInstance().getRandomMonster();
+			int _max_monster_num = (int) (( _last_monster_generation - _start_game_time ) / ( _max_game_play_time / 4 ));
+			_max_monster_num ++;
+			_max_monster_num = _rand.nextInt(_max_monster_num) + 1;
+			Logger.log("Monster Generate : " + _max_monster_num);
+			for (int i=0;i<_max_monster_num;i++) {
+				Monster m = MonsterInfo.getInstance().getRandomMonster();
+				int mapWidth = ADM.getInstance().getMapWidth() * SDM.getInstance().getWidth(), 
+					mapHeight = ADM.getInstance().getMapHeight() * SDM.getInstance().getHeight();
+
+				int nX = -1, nY = -1;
+				while ( SDM.getInstance().isOutofBound(nX, nY)) {
+					nX = _rand.nextInt(mapWidth);
+					nY = _rand.nextInt(mapHeight);
+				}
+				m.setDirection(new Point(0, 0));
+				m.setPosition(new Point(nX, nY));
+				
+				addTempMonster(m);
+			}
+		}
+		if ( System.currentTimeMillis() - _last_boss_generation >= _max_game_play_time ) {
+			Monster m = MonsterInfo.getInstance().getRandomBossMonster();
 			int mapWidth = ADM.getInstance().getMapWidth() * SDM.getInstance().getWidth(), 
 				mapHeight = ADM.getInstance().getMapHeight() * SDM.getInstance().getHeight();
 			
@@ -167,6 +202,7 @@ public class PEM {
 			m.setPosition(new Point(_rand.nextInt(mapWidth), _rand.nextInt(mapHeight)));
 			
 			addTempMonster(m);
+			_last_boss_generation = System.currentTimeMillis();
 		}
 	}
 	
@@ -193,11 +229,7 @@ public class PEM {
 		_projector.remove(ID);
 		TCPServer.getServer().deleteObject(ID, codes.PROJECTOR);
 	}
-	
-	private void addPlayer(Integer ID, Player p) {
-		_player.put(ID, p);
-	}
-	
+
 	public void PrintState() {
 		
 		for ( Map.Entry<Integer, Player> p : _player.entrySet() ) {
@@ -240,7 +272,7 @@ public class PEM {
 				Thread.sleep(10000);
 				_p.revive();
 				_player.put(P_ID, _p);
-				System.out.println("Revive");
+				//System.out.println("Revive");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

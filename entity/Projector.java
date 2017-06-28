@@ -7,7 +7,7 @@ public abstract class Projector {
 	
 	protected Point _pos, _dir;
 	protected Long _speed;
-	protected Long _last_move_time;
+	protected Long _last_move_time, _generation_time, _max_life_time;
 	protected int _attacker_ID;
 	protected int _damage;
 	protected int _asset_index;
@@ -26,6 +26,8 @@ public abstract class Projector {
 		_pos = pos;
 		_dir = dir;
 		_last_move_time = System.currentTimeMillis();
+		_generation_time = System.currentTimeMillis();
+		_max_life_time = 2000L;
 		_collider = collider;
 		_speed = speed;
 		_attacker_ID = aID;
@@ -86,6 +88,10 @@ public abstract class Projector {
 	
 	public int getDamage() {
 		return _damage;
+	}
+	
+	public boolean isAlive() {
+		return ( System.currentTimeMillis() - _generation_time < _max_life_time );
 	}
 	
 	public void Print() {

@@ -124,7 +124,7 @@ public class SDM {
 	
 	public int getHeight() {
 		return _height;
-	}
+	} 
 	
 	public void printMap() {
 		for (int i=0;i<_height;i++) {
