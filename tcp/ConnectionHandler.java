@@ -46,10 +46,9 @@ public class ConnectionHandler extends Thread {
             } catch(NullPointerException ee){};
         }
     }
-    public void setDead(int id) {
+    public void setDead() {
         try {
             os.write(codes.SETDEAD);
-            os.write(id);
         } catch(IOException e) {
             Logger.log("[" + id + "] Connection closed : " + sock);
             try {

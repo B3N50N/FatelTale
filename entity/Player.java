@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import adm.ADM;
 import sdm.SDM;
+import tcp.TCPServer;
 import tcp.codes;
 import logger.Logger;
 public class Player 
@@ -95,6 +96,7 @@ public class Player
 			health+=dif;
 		if ( health <= 0 ) {
 			_last_revive_time = System.currentTimeMillis();
+			TCPServer.getServer().setDead(id);
 			revivingCheck = true;
 		}
 	}

@@ -178,7 +178,12 @@ public class UI
 		health=DOM.getInstance().getPlayerHealth();
 		maxhealth=DOM.getInstance().getPlayerMaxHealth();
 		lifebar.setValue(health*100/maxhealth); 
-		Border border = BorderFactory.createMatteBorder(6, 6, 6, 6, Color.BLUE);  
+		Border border = null;
+        if(health == 0) {
+            BorderFactory.createMatteBorder(6, 6, 6, 6, Color.RED);  
+        } else {
+            BorderFactory.createMatteBorder(6, 6, 6, 6, Color.BLUE);  
+        }
 		lifebar.setStringPainted(true);
 		lifebar.setBorder(border);
 		lifebar.setBounds(10 ,frameheight - canvasheight - 40 - 10, 300, 40);
