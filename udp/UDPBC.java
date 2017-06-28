@@ -83,7 +83,7 @@ public class UDPBC extends Thread {
 	            //msg ="&Monster 0 4 -54 0 -9 2 &";
 	            msg_crc = msg.hashCode();
 	            msg ="$"+ msg_crc +"$" + msg;
-	            Logger.log(msg);
+	            //Logger.log(msg);
 	            //Logger.log(msg_crc);
 	            for(int i=0;i<IPtable.size();i++)
 	    		{
