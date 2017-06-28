@@ -150,6 +150,7 @@ public class Monster {
 		for (int i=0;i<_emitter.length;i++) {
 			_emitter[i].Print();
 		}
+		Logger.log("Monster's " + _asset_index);
 		Logger.log("==============");
 	}
 	

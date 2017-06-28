@@ -38,7 +38,7 @@ public class DOM {
 		this.clientno = clientno;
 	}
 
-	public Vector<DynamicObject> getAllDynamicObjects() {
+	public synchronized Vector<DynamicObject> getAllDynamicObjects() {
 		Vector<DynamicObject> allObjects = new Vector<DynamicObject>();
         try {
 		    allObjects.addAll(Players.values());
