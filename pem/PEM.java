@@ -170,20 +170,20 @@ public class PEM {
 	}
 	
 	private void monsterGeneration() {
-		if ( System.currentTimeMillis() - _last_monster_generation >= 15000 ) {
+		if ( System.currentTimeMillis() - _last_monster_generation >= 10000 ) {
 			_last_monster_generation = System.currentTimeMillis();
 			
 			int _max_monster_num = (int) (( _last_monster_generation - _start_game_time ) / ( _max_game_play_time / 4 ));
 			_max_monster_num ++;
 			_max_monster_num = _rand.nextInt(_max_monster_num) + 1;
-			
+			Logger.log("Monster Generate : " + _max_monster_num);
 			for (int i=0;i<_max_monster_num;i++) {
 				Monster m = MonsterInfo.getInstance().getRandomMonster();
 				int mapWidth = ADM.getInstance().getMapWidth() * SDM.getInstance().getWidth(), 
 					mapHeight = ADM.getInstance().getMapHeight() * SDM.getInstance().getHeight();
 
 				int nX = -1, nY = -1;
-				while ( !SDM.getInstance().isOutofBound(nX, nY)) {
+				while ( SDM.getInstance().isOutofBound(nX, nY)) {
 					nX = _rand.nextInt(mapWidth);
 					nY = _rand.nextInt(mapHeight);
 				}

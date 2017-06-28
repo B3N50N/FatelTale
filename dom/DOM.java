@@ -3,25 +3,27 @@ package dom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
+
 import logger.Logger;
 
 public class DOM {
 	private int clientno;
 
 	private static DOM uniqueInstance;
-	private Map<Integer, Player> Players;
-	private Map<Integer, Monster> Monsters;
-	private Map<Integer, Projector> Projectors;
-	private Map<Integer, Item> Items;
-	private Map<Integer, PlayerInfo> PlayerInfos;
+	private ConcurrentHashMap<Integer, Player> Players;
+	private ConcurrentHashMap<Integer, Monster> Monsters;
+	private ConcurrentHashMap<Integer, Projector> Projectors;
+	private ConcurrentHashMap<Integer, Item> Items;
+	private ConcurrentHashMap<Integer, PlayerInfo> PlayerInfos;
 
 	public DOM() {
 		clientno = 0;
-		Players = new HashMap<Integer, Player>();
-		Monsters = new HashMap<Integer, Monster>();
-		Projectors = new HashMap<Integer, Projector>();
-		Items = new HashMap<Integer, Item>();
-		PlayerInfos = new HashMap<Integer, PlayerInfo>();
+		Players = new ConcurrentHashMap<Integer, Player>();
+		Monsters = new ConcurrentHashMap<Integer, Monster>();
+		Projectors = new ConcurrentHashMap<Integer, Projector>();
+		Items = new ConcurrentHashMap<Integer, Item>();
+		PlayerInfos = new ConcurrentHashMap<Integer, PlayerInfo>();
 	}
 
 	public static synchronized DOM getInstance() {
