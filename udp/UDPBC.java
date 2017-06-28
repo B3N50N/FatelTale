@@ -19,11 +19,13 @@ public class UDPBC extends Thread {
 	private static int blocknum =0, nowblocknum =0;
 	private static Vector<String> v;
 	private static int msg_crc;
-	private static int stage_max =500,delay =30;
+	private static int stage_max =500,delay=100;
 	private static int port_start =8890;
+	private static int packagelengh=0;
+	private static int packagelenghneed=10000;
 	
 	 MyThread my = new MyThread();
-	 Thread t = new Thread(my,"_");
+	 Thread t = new Thread(my,"UDP");
 	 public static UDPBC meow;
 	 public static synchronized UDPBC getInstance()
 	 {
@@ -83,6 +85,18 @@ public class UDPBC extends Thread {
 	            //msg ="&Monster 0 4 -54 0 -9 2 &";
 	            msg_crc = msg.hashCode();
 	            msg ="$"+ msg_crc +"$" + msg;
+			
+	            packagelengh = msg.length();
+	            packagelenghneed = (stage_max*30) - packagelengh;
+	            
+	            if(packagelenghneed>0)
+	            {
+	            	for(int l =0; l<packagelenghneed;l++)
+	            	{
+	            		msg = msg +"*";
+	            	}
+	            }
+	            
 	            //Logger.log(msg);
 	            //Logger.log(msg_crc);
 	            for(int i=0;i<IPtable.size();i++)

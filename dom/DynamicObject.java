@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import adm.ADM;
+import logger.Logger;
 import ui.UI;
 
 
@@ -19,7 +20,9 @@ public class DynamicObject {
 	protected boolean drawable;
 	
 	protected int x, y; //position
+	protected int lastX, lastY; //last drawing position
 	protected int direction; //face direction   pictureID
+	protected int lastDirection; //last drawing position
 	protected int assetIndex;
 	protected int frame;
 	protected long lastUpdateTime;
@@ -56,6 +59,7 @@ public class DynamicObject {
 		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > playerY + canvasHeight/2)
 			return;
 		g.drawImage(img, x-playerX -img.getWidth()/2 +canvasWidth/2 , y-playerY -img.getHeight()/2 +canvasHeight/2, null);
+		//logger.Logger.log("Drawing with frame : "+frame);
 	}
 	
 	public void update(int nextX, int nextY, int nextDirection, int assetIndex){
@@ -64,22 +68,26 @@ public class DynamicObject {
 		if(direction != nextDirection)  // turn
 		{
 			direction = nextDirection;
-			frame = 0;
-			lastUpdateTime = currTime;
+			//frame = 0;
+			//lastUpdateTime = currTime;
 		}
-		else if(nextX!=x || nextY!=y) // move
+		
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
+				lastDirection = nextDirection;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
+			else if(nextDirection == lastDirection) // stay
+			{
+				frame = 0;
+				lastUpdateTime = currTime;
+			}
 		}
 		x = nextX;
 		y = nextY;
@@ -91,22 +99,26 @@ public class DynamicObject {
 		if(direction != nextDirection)  // turn
 		{
 			direction = nextDirection;
-			frame = 0;
-			lastUpdateTime = currTime;
+			//frame = 0;
+			//lastUpdateTime = currTime;
 		}
-		else if(nextX!=x || nextY!=y) // move
+		
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
+				lastDirection = nextDirection;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
+			else if(nextDirection == lastDirection) // stay
+			{
+				frame = 0;
+				lastUpdateTime = currTime;
+			}
 		}
 		x = nextX;
 		y = nextY;
@@ -117,25 +129,29 @@ public class DynamicObject {
 		int nextDirection = setDirection(directionX, directionY);
 		int nextX = x+directionX;
 		int nextY = y+directionY;
-		if(this.direction != nextDirection)  // turn
+		if(direction != nextDirection)  // turn
 		{
 			direction = nextDirection;
-			frame = 0;
-			lastUpdateTime = currTime;
+			//frame = 0;
+			//lastUpdateTime = currTime;
 		}
-		else if(nextX!=x || nextY!=y) // move
+		
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
+				lastDirection = nextDirection;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
+			else if(nextDirection == lastDirection) // stay
+			{
+				frame = 0;
+				lastUpdateTime = currTime;
+			}
 		}
 		x = nextX;
 		y = nextY;
@@ -147,25 +163,29 @@ public class DynamicObject {
 		int nextDirection = setDirection(directionX, directionY);
 		int nextX = x+directionX;
 		int nextY = y+directionY;
-		if(this.direction != nextDirection)  // turn
+		if(direction != nextDirection)  // turn
 		{
 			direction = nextDirection;
-			frame = 0;
-			lastUpdateTime = currTime;
+			//frame = 0;
+			//lastUpdateTime = currTime;
 		}
-		else if(nextX!=x || nextY!=y) // move
+		
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
+				lastDirection = nextDirection;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
+			else if(nextDirection == lastDirection) // stay
+			{
+				frame = 0;
+				lastUpdateTime = currTime;
+			}
 		}
 		x = nextX;
 		y = nextY;
@@ -174,25 +194,29 @@ public class DynamicObject {
 		drawable = true;
 		long currTime = System.currentTimeMillis();
 		int nextDirection = setDirection(directionX, directionY);
-		if(this.direction != nextDirection)  // turn
+		if(direction != nextDirection)  // turn
 		{
 			direction = nextDirection;
-			frame = 0;
-			lastUpdateTime = currTime;
+			//frame = 0;
+			//lastUpdateTime = currTime;
 		}
-		else if(nextX!=x || nextY!=y) // move
+		
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
+				lastDirection = nextDirection;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
+			else if(nextDirection == lastDirection) // stay
+			{
+				frame = 0;
+				lastUpdateTime = currTime;
+			}
 		}
 		x = nextX;
 		y = nextY;
@@ -202,25 +226,29 @@ public class DynamicObject {
 		drawable = true;
 		long currTime = System.currentTimeMillis();
 		int nextDirection = setDirection(directionX, directionY);
-		if(this.direction != nextDirection)  // turn
+		if(direction != nextDirection)  // turn
 		{
 			direction = nextDirection;
-			frame = 0;
-			lastUpdateTime = currTime;
+			//frame = 0;
+			//lastUpdateTime = currTime;
 		}
-		else if(nextX!=x || nextY!=y) // move
+		
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
+				lastDirection = nextDirection;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
+			else if(nextDirection == lastDirection) // stay
+			{
+				frame = 0;
+				lastUpdateTime = currTime;
+			}
 		}
 		x = nextX;
 		y = nextY;

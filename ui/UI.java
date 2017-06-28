@@ -8,7 +8,7 @@ import javax.swing.border.*;
 import dom.DOM;
 import tcp.*;
 import logger.Logger;
-
+import render.RenderThread;
 
 class KeyBoardListener implements KeyListener
 {
@@ -132,7 +132,7 @@ public class UI
 	}
 	public void showScore()
 	{
-		Maxplayerno=TCPServer.THREAD_NUM;
+		Maxplayerno=DOM.getInstance().getPlayerNumber();
 		if(lbl==null)
 		{
 			lbl=new JLabel[Maxplayerno];
@@ -220,16 +220,10 @@ public class UI
 	}
 	public void endGameScreen()
 	{
-		frame.remove(canvas);
-        frame.remove(lifebar);
-        for(int i=0;i<Maxplayerno;i+=1)
-        {
-           frame.remove(lbl[i]);
-        }
-        frame.repaint();
+        RenderThread.stop();
+		Maxplayerno=DOM.getInstance().getPlayerNumber();
         int[] number=new int[Maxplayerno];
 		int[] finalscore=new int[Maxplayerno];
-		JLabel[] finalscorelabel=new JLabel[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
 			number[i]=i;
 		for(int i=0;i<Maxplayerno;i+=1)
@@ -248,11 +242,20 @@ public class UI
 				}
 			}
 		}
+		frame.remove(canvas);
+        frame.remove(lifebar);
+        for(int i=0;i<Maxplayerno;i+=1)
+        {
+           frame.remove(lbl[i]);
+        }
+        frame.repaint();
+		JLabel[] finalscorelabel=new JLabel[Maxplayerno];
 		for(int i=0;i<Maxplayerno;i+=1)
 		{
 			String tmpstr = "Player " + i + " score :  " + finalscore[i];
+            finalscorelabel[i] = new JLabel();
 			finalscorelabel[i].setText(tmpstr);
-			finalscorelabel[i].setBounds(100,100+i*100,100,200);
+			finalscorelabel[i].setBounds(100, 100 + i * 150, 150, 300);
 			frame.add(finalscorelabel[i]);
 		}
 		frame.setVisible(true);

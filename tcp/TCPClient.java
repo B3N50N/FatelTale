@@ -8,6 +8,7 @@ import java.util.concurrent.CyclicBarrier;
 import dom.DOM;
 import sdm.SDM;
 import java.nio.ByteBuffer;
+import ui.UI;
 
 import logger.Logger;
 
@@ -138,6 +139,7 @@ public class TCPClient extends Thread{
                             DOM.getInstance().addPlayer(objid);
                             break;
                         case codes.PROJECTOR:
+                            Logger.log("Create projector " + objid);
                             DOM.getInstance().addProjector(objid);
                             break;
                         case codes.MONSTER:
@@ -157,6 +159,7 @@ public class TCPClient extends Thread{
                             DOM.getInstance().removePlayer(objid);
                             break;
                         case codes.PROJECTOR:
+                            Logger.log("Remove projector " + objid);
                             DOM.getInstance().removeProjector(objid);
                             break;
                         case codes.MONSTER:
@@ -172,6 +175,9 @@ public class TCPClient extends Thread{
                     byte[] buf = new byte[len];
                     is.read(buf, 0, len);
                     SDM.getInstance().readMap((new String(buf)));
+                    break;
+                case codes.END:
+                    UI.getInstance().endGameScreen();
                     break;
                 case -1:
                     throw new IOException();

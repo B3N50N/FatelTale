@@ -10,7 +10,7 @@ import adm.ADM;
 import ui.UI;
 
 public class Projector extends DynamicObject {
-	
+
 	private double rotateRadian;
 	
 	public Projector(){ drawable = false; }
@@ -22,6 +22,7 @@ public class Projector extends DynamicObject {
 		this.direction = direction;
 		this.assetIndex = assetIndex;
 		this.frame = frame;
+		rotateRadian = 0;
 	}
 	public Projector(int x, int y, int direction, int assetIndex){
 		drawable = true;
@@ -31,6 +32,7 @@ public class Projector extends DynamicObject {
 		this.direction = direction;
 		this.assetIndex = assetIndex;
 		this.frame = 0;
+		rotateRadian = 0;
 	}
 	
 	public void updateByDirection(int directionX, int directionY, int assetIndex){
@@ -40,19 +42,16 @@ public class Projector extends DynamicObject {
 		rotateRadian = Math.atan2(directionY, directionX);
 		int nextX = x+directionX;
 		int nextY = y+directionY;
-		if(nextX!=x || nextY!=y) // move
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
 		}
 		x = nextX;
 		y = nextY;
@@ -64,19 +63,16 @@ public class Projector extends DynamicObject {
 		rotateRadian = Math.atan2(directionY, directionX);
 		int nextX = x+directionX;
 		int nextY = y+directionY;
-		if(nextX!=x || nextY!=y) // move
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
 		}
 		x = nextX;
 		y = nextY;
@@ -86,19 +82,16 @@ public class Projector extends DynamicObject {
 		long currTime = System.currentTimeMillis();
 		//int nextDirection = setDirection(directionX, directionY);
 		rotateRadian = Math.atan2(directionY, directionX);
-		if(nextX!=x || nextY!=y) // move
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
 		}
 		x = nextX;
 		y = nextY;
@@ -108,19 +101,16 @@ public class Projector extends DynamicObject {
 		drawable = true;
 		long currTime = System.currentTimeMillis();
 		rotateRadian = Math.atan2(directionY, directionX);
-		if(nextX!=x || nextY!=y) // move
+		if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
 		{
-			if(currTime-lastUpdateTime >= FRAME_UPDATE_TIME)
+			if(nextX!=lastX || nextY!=lastY)  // move
 			{
 				frame += 1;
 				frame %= MAX_FRAME;
 				lastUpdateTime = currTime;
+				lastX = nextX;
+				lastY = nextY;
 			}
-		}
-		else // stay
-		{
-			frame = 0;
-			lastUpdateTime = currTime;
 		}
 		x = nextX;
 		y = nextY;
@@ -130,10 +120,12 @@ public class Projector extends DynamicObject {
 		if(!drawable)
 			return;
 		BufferedImage img = getImage();
-		if( x+img.getWidth()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0 
-		    || x-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getInstance().getCanvasWidth()
-		    || y+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < 0
-		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > UI.getInstance().getCanvasWidth())
+		int playerX = DOM.getInstance().getPlayerX(), playerY = DOM.getInstance().getPlayerY();
+		int canvasWidth = UI.getInstance().getCanvasWidth(), canvasHeight = UI.getInstance().getCanvasHeight();
+		if( x+img.getWidth()/2+DynamicObject.DRAWING_EXTRA_RANGE < playerX - canvasWidth/2
+		    || x-img.getWidth()/2-DynamicObject.DRAWING_EXTRA_RANGE > playerX + canvasWidth/2
+		    || y+img.getHeight()/2+DynamicObject.DRAWING_EXTRA_RANGE < playerY - canvasHeight/2
+		    || y+img.getHeight()/2-DynamicObject.DRAWING_EXTRA_RANGE > playerY + canvasHeight/2)
 			return;
 		
 		Graphics2D g2d = (Graphics2D) g;
@@ -144,13 +136,13 @@ public class Projector extends DynamicObject {
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
 		// Drawing the rotated image at the required drawing locations
-		g2d.drawImage(op.filter(img, null),
-				      x - DOM.getInstance().getPlayerX() - img.getWidth()/2 + UI.getInstance().getCanvasWidth()/2, 
-			          y - DOM.getInstance().getPlayerY() - img.getHeight()/2 + UI.getInstance().getCanvasHeight()/2, 
-				      null);
+		g2d.drawImage(op.filter(img, null), 
+				      x - playerX - img.getWidth()/2 + canvasWidth/2 , 
+				      y - playerY - img.getHeight()/2 + canvasHeight/2, null);
+		//g2d.dispose();
 	}
 	
 	public BufferedImage getImage(){
-		return ADM.getInstance().getProjectorAsset(assetIndex, 0);
+		return ADM.getInstance().getProjectorAsset(assetIndex, frame);
 	}
 }

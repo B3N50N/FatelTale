@@ -38,6 +38,7 @@ public class ConnectionHandler extends Thread {
             byte[] bytes = ByteBuffer.allocate(4).putInt(objid).array();
             os.write(bytes);
             os.write(type);
+            os.flush();
         } catch(IOException e) {
             Logger.log("[" + id + "] Connection closed : " + sock);
             try {
@@ -50,6 +51,18 @@ public class ConnectionHandler extends Thread {
             os.write(codes.READMAP);
             os.write(path.getBytes().length);
             os.write(path.getBytes());
+            os.flush();
+        } catch(IOException e) {
+            Logger.log("[" + id + "] Connection closed : " + sock);
+            try {
+                TCPServer.getServer().removeConnection(id);
+            } catch(NullPointerException ee){};
+        }
+    }
+    public void endGame() {
+        try {
+            os.write(codes.END);
+            os.flush();
         } catch(IOException e) {
             Logger.log("[" + id + "] Connection closed : " + sock);
             try {
