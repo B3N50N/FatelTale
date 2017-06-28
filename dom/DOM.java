@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.ConcurrentModificationException;
 
 import logger.Logger;
 
@@ -39,11 +40,11 @@ public class DOM {
 
 	public Vector<DynamicObject> getAllDynamicObjects() {
 		Vector<DynamicObject> allObjects = new Vector<DynamicObject>();
-
-		allObjects.addAll(Players.values());
-		allObjects.addAll(Monsters.values());
-		allObjects.addAll(Projectors.values());
-		allObjects.addAll(Items.values());
+        try {
+		    allObjects.addAll(Players.values());
+    		allObjects.addAll(Monsters.values());
+	    	allObjects.addAll(Projectors.values());
+        } catch(ConcurrentModificationException e) {}
 
 		return allObjects;
 	}
