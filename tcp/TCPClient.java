@@ -179,6 +179,9 @@ public class TCPClient extends Thread{
                 case codes.END:
                     UI.getInstance().endGameScreen();
                     break;
+                case codes.SETDEAD:
+                    int id = is.read();
+                    DOM.getInstance().setPlaiyerHealth(id, 0);
                 case -1:
                     throw new IOException();
                 default:

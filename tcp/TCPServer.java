@@ -42,6 +42,11 @@ public class TCPServer {
             conn.modifyObject(codes.REMOVEOBJ, objid, type);
         }
     }
+    public void setDead(int id) {
+        for(ConnectionHandler conn : clients.values()) {
+            conn.setDead(id);
+        }
+    }
     public void endGame() {
         for(ConnectionHandler conn : clients.values()) {
             conn.endGame();

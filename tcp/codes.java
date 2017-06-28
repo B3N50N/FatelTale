@@ -5,6 +5,7 @@ public class codes {
     public static final int SYN = 0xFF;
     public static final int READMAP = 0xFE;
     public static final int END = 0xFD;
+    public static final int SETDEAD = 0xFC;
     // subactions
     public static final int MOVELEFT = 0x0;
     public static final int MOVERIGHT = 0x1;
