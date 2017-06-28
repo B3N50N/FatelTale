@@ -46,6 +46,17 @@ public class ConnectionHandler extends Thread {
             } catch(NullPointerException ee){};
         }
     }
+    public void setDead(int id) {
+        try {
+            os.write(codes.SETDEAD);
+            os.write(id);
+        } catch(IOException e) {
+            Logger.log("[" + id + "] Connection closed : " + sock);
+            try {
+                TCPServer.getServer().removeConnection(id);
+            } catch(NullPointerException ee){};
+        }
+    }
     public void readMap(String path) {
         try {
             os.write(codes.READMAP);
