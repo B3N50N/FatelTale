@@ -1,8 +1,13 @@
-1
+6
 MonsterTest1.png
 85 128
+Monster2.png
+84 72
+Monster3.png
+70 64
+Monster4.png
+128 128
+Monster5.png
+64 90
 BOSS.png
 200 200
-
-
-
