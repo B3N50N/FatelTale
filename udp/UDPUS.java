@@ -246,9 +246,10 @@ public class UDPUS {
 							  
 							numofelement++;
 					  }
-					  else if(numofelement ==5)
+					  else if(numofelement ==4)
 					  {
 						  assetIndex = Integer.parseInt(temp3);
+						  //Logger.log(assetIndex + " ---- ");
 						  numofelement++;
 					  }
 				  }

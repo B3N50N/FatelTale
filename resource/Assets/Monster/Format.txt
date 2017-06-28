@@ -1,8 +1,8 @@
 6
-MonsterTest1.png
-85 128
 Monster2.png
 84 72
+MonsterTest1.png
+85 128
 Monster3.png
 70 64
 Monster4.png
