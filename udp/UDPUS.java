@@ -28,7 +28,7 @@ public class UDPUS {
     static int health =0;
     static int maxHealth =0;
     static int score =0;
-    static char[] temp = new char[10000];
+    static char[] temp = new char[50];
     static char temp2;
     static String temp3;
     
