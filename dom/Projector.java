@@ -116,6 +116,7 @@ public class Projector extends DynamicObject {
 		y = nextY;
 	}
 	
+	/*
 	public void drawImage(Graphics g){
 		if(!drawable)
 			return;
@@ -141,6 +142,7 @@ public class Projector extends DynamicObject {
 				      y - playerY - img.getHeight()/2 + canvasHeight/2, null);
 		//g2d.dispose();
 	}
+	*/
 	
 	public BufferedImage getImage(){
 		return ADM.getInstance().getProjectorAsset(assetIndex, frame);
