@@ -99,8 +99,7 @@ public class ConnectionHandler extends Thread {
         } catch(Exception e) {
             Logger.log("Failed to wait on barrier");
         }
-        // TODO: set player type here
-        CDC.getInstance().addPlayer(id, 0);
+        CDC.getInstance().addPlayer(id, id);
         for(;;) {
             try {
                 // prase the request message

@@ -37,6 +37,9 @@ public class DOM {
 	public void setClientno(int clientno) {
 		this.clientno = clientno;
 	}
+	public int getClientno() {
+		return clientno;
+	}
 
 	public synchronized Vector<DynamicObject> getAllDynamicObjects() {
 		Vector<DynamicObject> allObjects = new Vector<DynamicObject>();

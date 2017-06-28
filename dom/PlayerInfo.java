@@ -1,4 +1,5 @@
 package dom;
+import logger.Logger;
 
 public class PlayerInfo {
 	private String name;
