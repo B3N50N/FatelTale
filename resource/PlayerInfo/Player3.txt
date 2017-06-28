@@ -1,4 +1,4 @@
-5
+30
 15
 25
 35
@@ -6,8 +6,8 @@
 Sphere
 40
 DirectlyEmitter
-400
+200
 StrikeProjector
 Sphere
-20
+15
 300 1

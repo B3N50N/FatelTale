@@ -5,8 +5,9 @@
 50
 Sphere
 30
-DirectlyEmitter
+Angle
 300
+-45 45 3
 StrikeProjector
 Sphere
 5
