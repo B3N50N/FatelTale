@@ -8,4 +8,4 @@ StrikeProjector
 Sphere
 5
 80 0
-20 20 0 1 400
+20 20 0 2 400
