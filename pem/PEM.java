@@ -46,7 +46,7 @@ public class PEM {
 		_last_boss_generation = _last_monster_generation = System.currentTimeMillis();
 		
 		_start_game_time = System.currentTimeMillis();
-		_max_game_play_time = 60000L;
+		_max_game_play_time = 180000L;
 	}
 	
 	public static synchronized PEM getInstance() {
@@ -124,9 +124,9 @@ public class PEM {
 		for ( Map.Entry<Integer, Monster> monster : _monster.entrySet() ) {
 			for ( Map.Entry<Integer, Projector> projector : _projector.entrySet() ) {
 				if ( projector.getValue().getAttackerID() < 4 && monster.getValue().getCollider().isCollide( projector.getValue().getCollider() ) ) {
-				    Logger.log("Collision in " + monster.getValue().getCollider().getPosition() + " and " + projector.getValue().getPosition() );
+				    //Logger.log("Collision in " + monster.getValue().getCollider().getPosition() + " and " + projector.getValue().getPosition() );
 				    if ( monster.getValue().getCollider().getPosition().equals(new Point(-1, -1) ) ) {
-				    	Logger.log("Strange Pos");
+				    	//Logger.log("Strange Pos");
 				    	monster.getValue().getCollider().Print();
 				    	break;
 				    }
@@ -194,6 +194,7 @@ public class PEM {
 			}
 		}
 		if ( System.currentTimeMillis() - _last_boss_generation >= _max_game_play_time ) {
+			Logger.log("Boss Generate!!!");
 			Monster m = MonsterInfo.getInstance().getRandomBossMonster();
 			int mapWidth = ADM.getInstance().getMapWidth() * SDM.getInstance().getWidth(), 
 				mapHeight = ADM.getInstance().getMapHeight() * SDM.getInstance().getHeight();
