@@ -54,6 +54,16 @@ public class DOM {
 	 *              PlayerInfo            *
 	 **************************************/
 
+	public void setPlayerHealth(int health) {
+		PlayerInfo pInfo =PlayerInfos.get(clientno);
+		if(pInfo == null)
+		{
+			Logger.log("Get playerInfo failed, no playerInfo with clientno " + clientno);
+			return;
+		}
+		pInfo.updateHealth(health);
+	}
+	
 	public int getPlayerNumber() {
 		return PlayerInfos.size();
 	}
