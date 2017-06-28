@@ -180,7 +180,7 @@ public class TCPClient extends Thread{
                     UI.getInstance().endGameScreen();
                     break;
                 case codes.SETDEAD:
-                    DOM.getInstance().setPlayerHealth(clientid);
+                    DOM.getInstance().setPlayerHealth(0);
                     break;
                 case -1:
                     throw new IOException();
