@@ -43,9 +43,7 @@ public class TCPServer {
         }
     }
     public void setDead(int id) {
-        for(ConnectionHandler conn : clients.values()) {
-            conn.setDead(id);
-        }
+        clients.get(id).setDead();
     }
     public void endGame() {
         for(ConnectionHandler conn : clients.values()) {
