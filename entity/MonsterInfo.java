@@ -13,6 +13,7 @@ public class MonsterInfo {
 	private static MonsterInfo uniqueInstance;
 	
 	private Monster[] _monster;
+	private Monster[] _boss;
 	
 	private MonsterInfo() {
 		_monster = null;
@@ -46,12 +47,25 @@ public class MonsterInfo {
 			
 			_monster = new Monster[ size ];
 			
-			for (int i=0;i<size-1;i++) {
+			for (int i=0;i<size;i++) {
 				Input = br.readLine();
 				_monster[i] = readMonsterFile(path+Input, false);
 			}
+			
 			Input = br.readLine();
-			_monster[size-1] = readMonsterFile(path+Input, true);
+			st = new StringTokenizer(Input);
+			
+			assert st.countTokens() == 1 : "Wrong Format.";
+			Input = st.nextToken();
+			
+			assert Input.matches("\\d+") : "Wrong Format.";
+			size = Integer.parseInt(Input);
+			
+			_boss = new Monster[ size ];
+			for (int i=0;i<size;i++) {
+				Input = br.readLine();
+				_boss[i] = readMonsterFile(path+Input, true);
+			}
 			
 		} catch (FileNotFoundException e) {
 			assert false : "No such File.";
@@ -118,9 +132,27 @@ public class MonsterInfo {
 		assert _monster != null : "Null Object.";
 		
 		Random rand = new Random();
-		int size = _monster.length-1;
+		int size = _monster.length;
 		
 		return _monster[ rand.nextInt(size) ].clone();
+	}
+	
+	public Monster getRandomMonster(int max) {
+		assert _monster != null : "Null Object.";
+		
+		Random rand = new Random();
+		int size = Math.min(max, _monster.length);
+		
+		return _monster[ rand.nextInt(size) ].clone();
+	}
+	
+	public Monster getRandomBossMonster() {
+		assert _boss != null : "Null Object.";
+		
+		Random rand = new Random();
+		int size = _boss.length;
+		
+		return _boss[ rand.nextInt(size) ];
 	}
 	
 	public Monster getBossMonster() {

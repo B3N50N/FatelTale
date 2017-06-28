@@ -1,4 +1,7 @@
-2
+3
 Monster001.txt
+Monster002.txt
+Monster003.txt
+1
 Boss001.txt
 

@@ -10,4 +10,5 @@ DirectlyEmitter
 StrikeProjector
 Sphere
 5
-50 0
+50 1
+
