@@ -263,6 +263,7 @@ public class UI
 			finalscorelabel[i].setBounds(100, 100 + i * 150, 150, 300);
 			frame.add(finalscorelabel[i]);
 		}
+		frame.repaint();
 		frame.setVisible(true);
 	}
 	/*public static void main(String[] args)
